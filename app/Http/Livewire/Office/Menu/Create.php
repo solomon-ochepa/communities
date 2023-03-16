@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Office\Menu;
 
+use App\Http\Requests\StoreMenuRequest;
 use App\Models\Menu;
 use Livewire\Component;
 
@@ -11,16 +12,6 @@ class Create extends Component
     public $edit = true;
 
     protected $listeners = ['refresh' => '$refresh'];
-
-    protected $rules = [
-        'menu.name' => ['required', 'string', 'max:32'],
-        'menu.parent_id' => ['nullable', 'string'],
-        'menu.icon' => ['nullable', 'string'],
-        'menu.url' => ['required', 'string'],
-        'menu.tag' => ['nullable', 'string'],
-        'menu.priority' => ['nullable', 'integer'],
-        'menu.active' => ['nullable', 'boolean'],
-    ];
 
     public function mount()
     {
@@ -35,23 +26,30 @@ class Create extends Component
         return view('livewire.office.menu.create');
     }
 
+    protected function rules()
+    {
+        $request = new StoreMenuRequest();
+        return $request->rules();
+    }
+
     public function submit()
     {
         $this->validate();
 
         if (!$this->menu->priority) {
-            $this->menu->priority = null;
+            $this->menu->priority = 1;
         }
 
         $this->menu->save();
 
         if ($this->edit) {
             session()->flash('status', "Menu updated successfully.");
+
+            $this->emitUp('refresh');
         } else {
             session()->flash('status', "Menu created successfully.");
-            $this->reset();
-        }
 
-        $this->emitUp('refresh');
+            return redirect(route('office.menu.index'));
+        }
     }
 }

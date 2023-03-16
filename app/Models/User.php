@@ -3,18 +3,17 @@
 namespace App\Models;
 
 use App\Models\Employee;
-use Spatie\MediaLibrary\HasMedia;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Shipu\Watchable\Traits\HasModelEvents;
-use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Plank\Mediable\Mediable;
 
-class User extends Authenticatable implements JWTSubject, HasMedia
+class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, InteractsWithMedia, HasModelEvents, HasRoles;
+    use Notifiable, HasModelEvents, HasRoles, Mediable;
 
     /**
      * The attributes that are mass assignable.
@@ -76,9 +75,10 @@ class User extends Authenticatable implements JWTSubject, HasMedia
 
     public function getImagesAttribute()
     {
-        if (!empty($this->getFirstMediaUrl('user'))) {
-            return asset($this->getFirstMediaUrl('user'));
+        if ($this->hasMedia(['image', 'profile'])) {
+            return $this->media(['image', 'profile'])->first()->getUrl();
         }
+
         return asset('assets/img/default/user.png');
     }
 

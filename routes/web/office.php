@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Office\ApartmentController;
 use App\Http\Controllers\Office\RoleController;
 use App\Http\Controllers\Office\AddonController;
+use App\Http\Controllers\Office\ApartmentResidentController;
 use App\Http\Controllers\Office\ProfileController;
 use App\Http\Controllers\Office\SettingController;
 use App\Http\Controllers\Office\VisitorController;
@@ -23,10 +24,23 @@ use App\Http\Controllers\Office\MenuController;
 use App\Http\Controllers\Office\PreRegistersReportController;
 use App\Http\Controllers\Office\RoomController;
 use App\Http\Controllers\Office\ResidentController;
+use App\Http\Controllers\Office\VisitController;
 use App\Http\Controllers\VehicleController;
 
-Route::group(['prefix' => 'office', 'middleware' => ['auth', 'installed', 'backend_permission'], 'as' => 'office.'], function () {
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::group(['prefix' => 'office', 'middleware' => ['auth', 'backend_permission'], 'as' => 'office.'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Visits
+    Route::resource('visit', VisitController::class)->except(['index'])->names('visit');
+    Route::get('visits', [VisitController::class, 'index'])->name('visit.index');
+    Route::get('visit', fn () => redirect(route('office.visit.index')));
+
+    // Residences
+    Route::resource('resident', ResidentController::class)->except(['index'])->names('resident');
+    Route::get('residents', [ResidentController::class, 'index'])->name('resident.index');
+    Route::get('resident', fn () => redirect(route('office.resident.index')));
 
     // Users
     Route::resource('user', UserController::class)->names('user');
@@ -150,8 +164,8 @@ Route::group(['prefix' => 'office', 'middleware' => ['auth', 'installed', 'backe
     });
 
     // Apartment->Residents
-    Route::resource('apartment/{apartment}/resident', ResidentController::class)->except(['index'])->names('apartment.resident');
-    Route::get('apartment/{apartment}/residents', [ResidentController::class, 'index'])->name('apartment.resident.index');
+    Route::resource('apartment/{apartment}/resident', ApartmentResidentController::class)->except(['index'])->names('apartment.resident');
+    Route::get('apartment/{apartment}/residents', [ApartmentResidentController::class, 'index'])->name('apartment.resident.index');
     Route::get('apartment/{apartment}/resident', function () {
         return redirect()->route('office.apartment.resident.index');
     });

@@ -25,14 +25,11 @@ class ResidentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Apartment $apartment)
+    public function index()
     {
-        $this->data['title'] = __('resident.residents') . " - " . $apartment->name;
+        $this->data['title'] = __('resident.residents');
 
-        return view('office.apartment.resident.index', [
-            'data' => $this->data,
-            'apartment' => $apartment,
-        ]);
+        return view('office.resident.index', ['data' => $this->data]);
     }
 
     /**
@@ -40,7 +37,7 @@ class ResidentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Apartment $apartment)
+    public function create()
     {
         $this->data['title'] = __('resident.add') . " - " . $apartment->name;
 

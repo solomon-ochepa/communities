@@ -1,28 +1,26 @@
-<x-app-layout :data="$data">
-    <section class="section">
-        <div class="section-header">
-            <h1>{{ __('apartment.manage') }}</h1>
+<x-office-layout :data="$data">
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            <x-back :url="route('dashboard')" />
+
+            {{ __('apartment.manage') }}
             {{-- {{ Breadcrumbs::render('menus') }} --}}
-        </div>
+        </h2>
+    </x-slot>
 
-        <div class="section-body">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        @can('apartment.create')
-                            <div class="card-header">
-                                <!-- Create modal -->
-                                <a href="{{ route('office.apartment.create') }}" class="btn btn-icon icon-left btn-primary">
-                                    <i class="fas fa-plus"></i>
-                                    {{ __('label.create') }}
-                                </a>
-                            </div>
-                        @endcan
-
-                        <livewire:office.apartment.index />
-                    </div>
+    <div class="layout-top-spacing">
+        <div class="card">
+            @can('apartment.create')
+                <div class="card-header">
+                    <!-- Create modal -->
+                    <a href="{{ route('office.apartment.create') }}" class="btn btn-icon icon-left btn-primary">
+                        <i class="fas fa-plus"></i>
+                        {{ __('label.create') }}
+                    </a>
                 </div>
-            </div>
+            @endcan
+
+            <livewire:office.apartment.index />
         </div>
-    </section>
-</x-app-layout>
+    </div>
+</x-office-layout>

@@ -22,6 +22,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "livewire/livewire": "^2.10",
+        "plank/laravel-mediable": "^5.9",
         "pragmarx/countries-laravel": "^0.7.0",
         "rachidlaasri/laravel-installer": "^4.1",
         "shipu/watchable": "dev-master",

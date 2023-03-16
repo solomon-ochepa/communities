@@ -21,7 +21,7 @@
 
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-hover" id="maintable"
+                                <table class="table table-hover" id="_maintable"
                                     data-url="{{ route('office.visitors.get-visitors') }}"
                                     data-status="{{ \App\Enums\Status::ACTIVE }}"
                                     data-hidecolumn="{{ auth()->user()->can('visitor.show') ||auth()->user()->can('visitor.edit') ||auth()->user()->can('visitor.delete') }}">
@@ -38,6 +38,8 @@
                                             <th class="col-md-3">{{ __('levels.actions') }}</th>
                                         </tr>
                                     </thead>
+
+                                    <tbody></tbody>
                                 </table>
                             </div>
                         </div>
@@ -48,9 +50,7 @@
     </section>
 @endsection
 
-
-
-@section('css')
+{{-- @section('css')
     <link rel="stylesheet" href="{{ asset('assets/modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
 @endsection
@@ -60,4 +60,4 @@
     <script src="{{ asset('assets/modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/modules/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('js/visitor/index.js') }}"></script>
-@endsection
+@endsection --}}

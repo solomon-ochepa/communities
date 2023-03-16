@@ -23,10 +23,12 @@ class VisitorController extends BackendController
     public function __construct(VisitorService $visitorService)
     {
         parent::__construct();
+
         $this->visitorService = $visitorService;
-        $this->middleware('auth');
+
         $this->data['title'] = 'Visitors';
 
+        $this->middleware('auth');
         $this->middleware(['permission:visitor'])->only('index');
         $this->middleware(['permission:visitor.create'])->only('create', 'store');
         $this->middleware(['permission:visitor.edit'])->only('edit', 'update');
@@ -40,105 +42,10 @@ class VisitorController extends BackendController
      */
     public function index(Request $request)
     {
-        return view('office.visitor.index');
-    }
+        $this->data['title'] = 'Manage Visitors';
+        $this->data['visitors'] = collect();
 
-    public function create(Request $request)
-    {
-
-        $this->data['employees'] = Employee::where('status', Status::ACTIVE)->get();
-
-        return view('office.visitor.create', $this->data);
-    }
-
-    public function store(VisitorRequest $request)
-    {
-        $visitingDetail = $this->visitorService->make($request);
-        $imageUrl = 'app/public' . str_replace(asset('storage'), "", $visitingDetail->images);
-        try {
-            $optimizerChain = OptimizerChainFactory::create();
-            $optimizerChain->optimize(storage_path($imageUrl));
-        } catch (\Exception $e) {
-        }
-
-        if (setting('whatsapp_message')) {
-            return redirect()->route('office.visitors.show', $visitingDetail->id);
-        }
-
-        return redirect()->route('office.visitors.index')->withSuccess('The data inserted successfully!');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function show($id)
-    {
-        $this->data['visitingDetails'] = $this->visitorService->find($id);
-        if ($this->data['visitingDetails']) {
-            return view('office.visitor.show', $this->data);
-        } else {
-            return redirect()->route('office.visitors.index');
-        }
-    }
-    public function search(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'visitorID' => 'required|numeric',
-        ], [
-            'visitorID.required' => 'Visitor ID required',
-            'visitorID.numeric' => 'ID must be numeric'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect(route('office.visitors.index'))->withError($validator->errors()->first('visitorID'));
-        };
-
-        $id = $request->visitorID;
-
-        $visitingDetail = VisitingDetails::where('reg_no', $id)->first();
-        if ($visitingDetail && (!$visitingDetail->checkout_at)) {
-            $visitingDetail->checkout_at = date('y-m-d H:i');
-            $visitingDetail->save();
-            return redirect()->route('office.visitors.index')->withSuccess('Successfully Checked-Out!');
-        } elseif (!$visitingDetail) {
-            return redirect()->route('office.visitors.index')->withError('ID not found');
-        } else {
-
-            return redirect()->route('office.visitors.index')->withError('Already Checked-Out!');
-        }
-    }
-
-    public function edit($id)
-    {
-        $this->data['employees'] = Employee::where('status', Status::ACTIVE)->get();
-        $this->data['visitingDetails'] = $this->visitorService->find($id);
-        if ($this->data['visitingDetails']) {
-            return view('office.visitor.edit', $this->data);
-        } else {
-            return redirect()->route('office.visitors.index');
-        }
-    }
-
-    public function update(VisitorRequest $request, VisitingDetails $visitor)
-    {
-        $visitingDetail = $this->visitorService->update($request, $visitor->id);
-        $imageUrl = 'app/public' . str_replace(asset('storage'), "", $visitingDetail->images);
-        try {
-            $optimizerChain = OptimizerChainFactory::create();
-            $optimizerChain->optimize(storage_path($imageUrl));
-        } catch (\Exception $e) {
-        }
-        return redirect()->route('office.visitors.index')->withSuccess('The data updated successfully!');
-    }
-
-    public function destroy($id)
-    {
-        $this->visitorService->delete($id);
-        return redirect()->route('office.visitors.index')->withSuccess('The data delete successfully!');
+        return view('office.visitor.index', $this->data);
     }
 
     public function getVisitor(Request $request)
@@ -146,6 +53,7 @@ class VisitorController extends BackendController
         $visitingDetails = $this->visitorService->all();
         $i            = 1;
         $visitingDetailArray = [];
+
         if (!blank($visitingDetails)) {
             foreach ($visitingDetails as $visitingDetail) {
                 $visitingDetailArray[$i]          = $visitingDetail;
@@ -153,8 +61,8 @@ class VisitorController extends BackendController
                 $i++;
             }
         }
-        return Datatables::of($visitingDetailArray)
 
+        return Datatables::of($visitingDetailArray)
             ->addColumn('action', function ($visitingDetail) {
                 $retAction = '';
 
@@ -247,6 +155,104 @@ class VisitorController extends BackendController
             ->rawColumns(['name', 'action'])
             ->escapeColumns([])
             ->make(true);
+    }
+
+    public function create(Request $request)
+    {
+        $this->data['employees'] = Employee::where('status', Status::ACTIVE)->get();
+
+        return view('office.visitor.create', $this->data);
+    }
+
+    public function store(VisitorRequest $request)
+    {
+        $visitingDetail = $this->visitorService->make($request);
+        $imageUrl = 'app/public' . str_replace(asset('storage'), "", $visitingDetail->images);
+        try {
+            $optimizerChain = OptimizerChainFactory::create();
+            $optimizerChain->optimize(storage_path($imageUrl));
+        } catch (\Exception $e) {
+        }
+
+        if (setting('whatsapp_message')) {
+            return redirect()->route('office.visitors.show', $visitingDetail->id);
+        }
+
+        return redirect()->route('office.visitors.index')->withSuccess('The data inserted successfully!');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show($id)
+    {
+        $this->data['visitingDetails'] = $this->visitorService->find($id);
+        if ($this->data['visitingDetails']) {
+            return view('office.visitor.show', $this->data);
+        } else {
+            return redirect()->route('office.visitors.index');
+        }
+    }
+
+    public function search(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'visitorID' => 'required|numeric',
+        ], [
+            'visitorID.required' => 'Visitor ID required',
+            'visitorID.numeric' => 'ID must be numeric'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect(route('office.visitors.index'))->withError($validator->errors()->first('visitorID'));
+        };
+
+        $id = $request->visitorID;
+
+        $visitingDetail = VisitingDetails::where('reg_no', $id)->first();
+        if ($visitingDetail && (!$visitingDetail->checkout_at)) {
+            $visitingDetail->checkout_at = date('y-m-d H:i');
+            $visitingDetail->save();
+            return redirect()->route('office.visitors.index')->withSuccess('Successfully Checked-Out!');
+        } elseif (!$visitingDetail) {
+            return redirect()->route('office.visitors.index')->withError('ID not found');
+        } else {
+
+            return redirect()->route('office.visitors.index')->withError('Already Checked-Out!');
+        }
+    }
+
+    public function edit($id)
+    {
+        $this->data['employees'] = Employee::where('status', Status::ACTIVE)->get();
+        $this->data['visitingDetails'] = $this->visitorService->find($id);
+        if ($this->data['visitingDetails']) {
+            return view('office.visitor.edit', $this->data);
+        } else {
+            return redirect()->route('office.visitors.index');
+        }
+    }
+
+    public function update(VisitorRequest $request, VisitingDetails $visitor)
+    {
+        $visitingDetail = $this->visitorService->update($request, $visitor->id);
+        $imageUrl = 'app/public' . str_replace(asset('storage'), "", $visitingDetail->images);
+        try {
+            $optimizerChain = OptimizerChainFactory::create();
+            $optimizerChain->optimize(storage_path($imageUrl));
+        } catch (\Exception $e) {
+        }
+        return redirect()->route('office.visitors.index')->withSuccess('The data updated successfully!');
+    }
+
+    public function destroy($id)
+    {
+        $this->visitorService->delete($id);
+        return redirect()->route('office.visitors.index')->withSuccess('The data delete successfully!');
     }
 
     public function checkout(VisitingDetails $visitingDetail)

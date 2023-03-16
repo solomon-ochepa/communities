@@ -13,7 +13,7 @@ class UserController extends BackendController
 {
     public function __construct()
     {
-        $this->data['title'] = 'Administrator';
+        $this->data['title'] = 'Manage Users';
 
         $this->middleware(['permission:user'])->only('index');
         $this->middleware(['permission:user.create'])->only('create', 'store');
@@ -28,7 +28,10 @@ class UserController extends BackendController
      */
     public function index()
     {
-        return view('office.adminuser.index', $this->data);
+        $this->data['title'] = 'Manage Users';
+        $this->data['users']    = User::latest()->get();
+
+        return view('office.user.index', $this->data);
     }
 
     /**
@@ -39,7 +42,8 @@ class UserController extends BackendController
     public function create()
     {
         $this->data['roles'] = Role::whereNotIn('id', [2])->get();
-        return view('office.adminuser.create', $this->data);
+
+        return view('office.user.create', $this->data);
     }
 
     /**
@@ -51,6 +55,7 @@ class UserController extends BackendController
     public function store(AdminUserRequest $request)
     {
         $user             = new User;
+
         $user->first_name = $request->first_name;
         $user->last_name  = $request->last_name;
         $user->email      = $request->email;
@@ -59,6 +64,7 @@ class UserController extends BackendController
         $user->phone      = $request->phone;
         $user->address    = $request->address;
         $user->status     = $request->status;
+
         $user->save();
 
         if (request()->file('image')) {
@@ -81,7 +87,7 @@ class UserController extends BackendController
     {
         $this->data['user'] = User::findOrFail($id);
 
-        return view('office.adminuser.show', $this->data);
+        return view('office.user.show', $this->data);
     }
 
     /**
@@ -95,7 +101,7 @@ class UserController extends BackendController
         $user = User::findOrFail($id);
         $this->data['roles'] = Role::whereNotIn('id', [2])->get();
         $this->data['user'] = $user;
-        return view('office.adminuser.edit', $this->data);
+        return view('office.user.edit', $this->data);
     }
 
     /**
@@ -154,75 +160,6 @@ class UserController extends BackendController
             $user->delete();
             return redirect(route('office.user.index'))->withSuccess('The Data Deleted Successfully');
         }
-    }
-
-    public function getAdminUsers()
-    {
-        $role           = Role::find(1);
-        $roleTow        = Role::find(3);
-        $users     = User::role([$role->name, $roleTow->name])->latest()->get();
-        $userArray = [];
-
-        $i = 1;
-        if (!blank($users)) {
-            foreach ($users as $user) {
-                $userArray[$i]          = $user;
-                $userArray[$i]['setID'] = $i;
-                $i++;
-            }
-        }
-        return Datatables::of($userArray)
-            ->addColumn('action', function ($user) {
-                $retAction = '';
-                if (($user->id == auth()->id()) && (auth()->id() == 1)) {
-                    if (auth()->user()->can('user.show')) {
-                        $retAction .= '<a href="' . route('office.user.show', $user) . '" class="btn btn-sm btn-icon float-left btn-info" data-toggle="tooltip" data-placement="top" title="View"><i class="far fa-eye"></i></a>';
-                    }
-
-                    if (auth()->user()->can('user.edit')) {
-                        $retAction .= '<a href="' . route('office.user.edit', $user) . '" class="btn btn-sm btn-icon float-left btn-primary ml-2" data-toggle="tooltip" data-placement="top" title="Edit"><i class="far fa-edit"></i></a>';
-                    }
-                } else if (auth()->id() == 1) {
-                    if (auth()->user()->can('user.show')) {
-                        $retAction .= '<a href="' . route('office.user.show', $user) . '" class="btn btn-sm btn-icon float-left btn-info" data-toggle="tooltip" data-placement="top" title="View"><i class="far fa-eye"></i></a>';
-                    }
-
-                    if (auth()->user()->can('user.edit')) {
-                        $retAction .= '<a href="' . route('office.user.edit', $user) . '" class="btn btn-sm btn-icon float-left btn-primary ml-2" data-toggle="tooltip" data-placement="top" title="Edit"><i class="far fa-edit"></i></a>';
-                    }
-
-                    if (auth()->user()->can('user.delete')) {
-                        $retAction .= "<form class='float-left pl-2' action='" . route('office.user.destroy', $user) . "' method='POST'>" . method_field('DELETE') . csrf_field() . "<button class='btn btn-sm btn-icon btn-danger' onclick='return confirmDelete()' data-toggle='tooltip' data-placement='top' title='Delete'><i class='fa fa-trash'></i></button></form>";
-                    }
-                } else {
-                    if ($user->id == 1) {
-                        if (auth()->user()->can('user.show')) {
-                            $retAction .= '<a href="' . route('office.user.show', $user) . '" class="btn btn-sm btn-icon float-left btn-info" data-toggle="tooltip" data-placement="top" title="View"><i class="far fa-eye"></i></a>';
-                        }
-                    } else {
-                        if (auth()->user()->can('user.show')) {
-                            $retAction .= '<a href="' . route('office.user.show', $user) . '" class="btn btn-sm btn-icon float-left btn-info" data-toggle="tooltip" data-placement="top" title="View"><i class="far fa-eye"></i></a>';
-                        }
-
-                        if (auth()->user()->can('user.edit')) {
-                            $retAction .= '<a href="' . route('office.user.edit', $user) . '" class="btn btn-sm btn-icon float-left btn-primary ml-2"><i class="far fa-edit"></i></a>';
-                        }
-                    }
-                }
-
-                return $retAction;
-            })
-            ->addColumn('image', function ($user) {
-                return '<figure class="avatar mr-2"><img src="' . $user->images . '" alt=""></figure>';
-            })
-            ->addColumn('name', function ($user) {
-                return $user->name;
-            })
-            ->editColumn('id', function ($user) {
-                return $user->setID;
-            })
-            ->escapeColumns([])
-            ->make(true);
     }
 
     private function username($email)

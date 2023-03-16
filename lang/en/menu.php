@@ -1,9 +1,10 @@
 <?php
 
 return array(
-    'apartments' => 'Apartments',
-    'houses' => 'Houses',
-    'vehicles' => 'Vehicles',
+    'residents'     => 'Residents',
+    'apartments'    => 'Apartments',
+    'houses'        => 'Houses',
+    'vehicles'      => 'Vehicles',
     'menu' => 'Menu',
     'menus' => 'Menus',
     'create' => 'Create',

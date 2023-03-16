@@ -1,5 +1,7 @@
 <div class="section-body">
     <div class="card">
+        <x-alerts />
+
         <form wire:submit.prevent="submit" method="POST">
             @csrf
 
@@ -113,6 +115,7 @@
             </div>
 
             <div class="card-footer text-right">
+                <button class="btn btn-primary mr-1" type="submit">{{ __('levels.submit') }}</button>
                 <button class="btn btn-primary _mr-1" type="submit">{{ __('levels.submit') }}</button>
             </div>
         </form>
