@@ -12,23 +12,23 @@
                     action="{{ route('office.setting.homepage-update') }}">
                     @csrf
                     <fieldset class="setting-fieldset">
-                        <legend class="setting-legend">{{ __('frontend_setting.front_end_enable_disable') }}</legend>
+                        <legend class="setting-legend">{{ __('frontend_setting.enable_homepage') }}</legend>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group" id="">
                                     <label class="control-label"
-                                        for="defaultUnchecked">{{ __('frontend_setting.front_end_enable_disable') }}</label>
+                                        for="defaultUnchecked">{{ __('frontend_setting.enable_homepage') }}</label>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="front_end_enable_disable"
-                                                {{ setting('front_end_enable_disable') == true ? 'checked' : '' }}
+                                            <input type="radio" class="form-check-input" name="enable_homepage"
+                                                {{ setting('enable_homepage') ? 'checked' : '' }}
                                                 value="1">{{ __('frontend_setting.enable') }}
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="front_end_enable_disable"
-                                                {{ setting('front_end_enable_disable') == false ? 'checked' : '' }}
+                                            <input type="radio" class="form-check-input" name="enable_homepage"
+                                                {{ !setting('enable_homepage') ? 'checked' : '' }}
                                                 value="0">{{ __('frontend_setting.disable') }}
                                         </label>
                                     </div>

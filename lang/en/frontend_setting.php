@@ -1,7 +1,7 @@
 <?php
 
-return array (
-  'front_end_enable_disable' => 'Front-end-Enable-Disable',
+return array(
+  'enable_homepage' => 'Front-end-Enable-Disable',
   'enable' => 'Enable',
   'disable' => 'Disable',
   'photo_capture_enable_disable' => 'Photo-Capture-Enable-Disable',

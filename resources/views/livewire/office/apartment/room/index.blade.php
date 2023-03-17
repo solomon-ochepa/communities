@@ -8,9 +8,9 @@
                 <div class="col-sm-12 col-md-6">
                     <div class="dataTables_length" id="maintable_length">
                         <label class="d-flex justify-content-start align-items-center">
-                            <span class="mr-1">Show</span>
+                            <span class="me-1">Show</span>
                             <select wire:model.lazy="limit"
-                                class="custom-select custom-select-sm form-control form-control-sm w-25 mr-1">
+                                class="custom-select custom-select-sm form-control form-control-sm w-25 me-1">
                                 <option value="10">10</option>
                                 <option value="25">25</option>
                                 <option value="50">50</option>
@@ -25,7 +25,7 @@
                 <div class="col-sm-12 col-md-6">
                     <div id="maintable_filter" class="dataTables_filter">
                         <label class="d-flex justify-content-start align-items-center">
-                            <span class="mr-1">Search:</span>
+                            <span class="me-1">Search:</span>
                             <input type="search" class="form-control form-control-sm" placeholder="" wire:model="search">
                         </label>
                     </div>
@@ -39,9 +39,10 @@
                             <input disabled type="checkbox" name="select_all" id="select_all"
                                 wire:model.defer="select_all" />
                         </th>
-                        <th>{{ __('word.name') }}</th>
+                        <th>{{ __('label.name') }}</th>
                         <th>{{ __('resident.resident') }}</th>
-                        <th>{{ __('word.active') }}</th>
+                        <th>{{ __('visitor.visitors') }}</th>
+                        <th>{{ __('label.active') }}</th>
                         <th class="text-right"></th>
                     </tr>
                 </thead>
@@ -61,6 +62,9 @@
                             </td>
                             <td>
                                 {{ $room->residents->count() }}
+                            </td>
+                            <td>
+                                {{ $room->visitors->count() }}
                             </td>
                             <td>
                                 @if ($room->active)

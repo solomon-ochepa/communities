@@ -4,7 +4,7 @@
             @csrf
 
             <div class="card-body p-3">
-                <x-alerts />
+                <x-alert />
 
                 <section class="row d-none g-3 pb-3 mb-2 bg-secondary rounded">
                     {{-- Parent --}}

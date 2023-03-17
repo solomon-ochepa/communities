@@ -15,7 +15,7 @@ class SettingResource extends JsonResource
             'site_phone_number'        => $this['site_phone_number'],
             'site_logo'                => asset(setting('site_logo')),
             'site_footer'              => $this['site_footer'],
-            'front_end_enable_disable' => $this['front_end_enable_disable'],
+            'enable_homepage' => $this['enable_homepage'],
             'photo_capture_enable'     => $this['photo_capture_enable'],
             'site_address'             => strip_tags($this['site_address']),
             'site_description'         => strip_tags($this['site_description']),

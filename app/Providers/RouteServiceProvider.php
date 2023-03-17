@@ -19,7 +19,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/dashboard';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -67,7 +67,6 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
 
-        // if (file_exists(storage_path('installed'))) {
         $addons = Addon::all();
         if (!blank($addons)) {
             foreach ($addons as $addon) {
@@ -80,7 +79,6 @@ class RouteServiceProvider extends ServiceProvider
                 }
             }
         }
-        // }
     }
 
     /**
@@ -97,7 +95,6 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));
 
-        // if (file_exists(storage_path('installed'))) {
         $addons = Addon::all();
         if (!blank($addons)) {
             foreach ($addons as $addon) {
@@ -111,6 +108,5 @@ class RouteServiceProvider extends ServiceProvider
                 }
             }
         }
-        // }
     }
 }

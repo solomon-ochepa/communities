@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Office;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreResidentRequest;
 use App\Models\Apartment;
 use App\Models\Resident;
 use Illuminate\Http\Request;
@@ -30,32 +31,6 @@ class ResidentController extends Controller
         $this->data['title'] = __('resident.residents');
 
         return view('office.resident.index', ['data' => $this->data]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $this->data['title'] = __('resident.add') . " - " . $apartment->name;
-
-        return view('office.apartment.resident.create', [
-            'data' => $this->data,
-            'apartment' => $apartment,
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**

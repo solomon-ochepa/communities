@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <x-alerts />
+                <x-alert />
 
                 ...
             </div>

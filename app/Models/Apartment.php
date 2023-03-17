@@ -52,6 +52,11 @@ class Apartment extends Model
 
     public function residents()
     {
+        return $this->hasMany(Resident::class);
+    }
+
+    public function visitors()
+    {
         return $this->hasManyThrough(Resident::class, Room::class);
     }
 }

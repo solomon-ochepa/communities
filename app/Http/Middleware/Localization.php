@@ -15,13 +15,12 @@ class Localization
      */
     public function handle($request, Closure $next)
     {
-        if (file_exists(storage_path('installed'))) {
-            if (Session()->has('applocale') AND Session()->get('applocale') AND setting('locale')) {
-                App::setLocale(Session()->get('applocale'));
-            } else {
-                App::setLocale(setting('locale'));
-            }
+        if (Session()->has('applocale') and Session()->get('applocale') and setting('locale')) {
+            App::setLocale(Session()->get('applocale'));
+        } else {
+            App::setLocale(setting('locale'));
         }
+
         return $next($request);
     }
 }

@@ -1,5 +1,7 @@
 <?php
+
 namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use Setting as SeederSetting;
 
@@ -24,7 +26,7 @@ class SettingTableSeeder extends Seeder
         $settingArray['invite_templates']         = 'Hello';
         $settingArray['notifications_sms']        = 1;
         $settingArray['sms_gateway']              = 1;
-        $settingArray['front_end_enable_disable'] = 1;
+        $settingArray['enable_homepage'] = 1;
         $settingArray['photo_capture_enable']     = 1;
         $settingArray['terms_condition']          = 'Terms condition';
         $settingArray['welcome_screen']           = '<p>Welcome,please tap on button to check-in</p>';

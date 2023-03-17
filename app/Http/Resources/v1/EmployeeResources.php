@@ -7,21 +7,21 @@ use Carbon\Carbon;
 
 class EmployeeResources extends JsonResource
 {
-    
+
     public function toArray($request)
     {
         return [
-            "id"                             => $this->id,
-            "name"                           => $this->first_name.' '.$this->last_name,
-            "phone"                          => $this->phone,
-            "gender"                         => trans('genders.'.$this->gender),
-            "official_identification_number" => $this->official_identification_number,
-            "date_of_joining"                => Carbon::parse($this->date_of_joining)->format('d M Y'),
-            "status"                         => trans('statuses.'.$this->status),
-            "user_id"                        => (int) $this->user_id,
-            "about"                          => $this->about,
-            "image"                          => $this->user->images
-            
+            "id"            => $this->id,
+            // "name"                           => $this->first_name . ' ' . $this->last_name,
+            // "phone"                          => $this->phone,
+            // "gender"                         => trans('genders.' . $this->gender),
+            "number"        => $this->number,
+            "employed_at"   => Carbon::parse($this->employed_at)->format('d M Y'),
+            "status"        => trans('statuses.' . $this->status),
+            "user_id"       => (int) $this->user_id,
+            "about"         => $this->about,
+            // "image"                          => $this->user->images
+
         ];
     }
 }

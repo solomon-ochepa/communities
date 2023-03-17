@@ -1,32 +1,26 @@
-<x-app-layout :data="$data">
-    <section class="section">
-        <div class="section-header">
-            <h1>
-                <x-back :url="route('office.apartment.show', $apartment->slug)" />
-                {{ __('room.rooms') }} &middot; {{ $apartment->name }}
-            </h1>
-            {{-- {{ Breadcrumbs::render('menus') }} --}}
-        </div>
+<x-office-layout :data="$data">
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            <x-back :url="route('office.apartment.show', $apartment->slug)" />
 
-        <div class="section-body">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        @can('room.create')
-                            <div class="card-header">
-                                <!-- Create modal -->
-                                <a href="{{ route('office.apartment.room.create', ['apartment' => $apartment->slug]) }}"
-                                    class="btn btn-icon icon-left btn-primary">
-                                    <i class="fas fa-plus"></i>
-                                    {{ __('label.create') }}
-                                </a>
-                            </div>
-                        @endcan
+            {{ __('room.rooms') }} &middot; {{ $apartment->name }}
+        </h2>
+    </x-slot>
 
-                        <livewire:office.apartment.room.index :apartment="$apartment" />
-                    </div>
+    <div class="layout-top-spacing">
+        <div class="card">
+            @can('room.create')
+                <div class="card-header">
+                    <!-- Create modal -->
+                    <a href="{{ route('office.apartment.room.create', ['apartment' => $apartment->slug]) }}"
+                        class="btn btn-icon icon-left btn-primary">
+                        <i class="fas fa-plus"></i>
+                        {{ __('label.create') }}
+                    </a>
                 </div>
-            </div>
+            @endcan
+
+            <livewire:office.apartment.room.index :apartment="$apartment" />
         </div>
-    </section>
-</x-app-layout>
+    </div>
+</x-office-layout>

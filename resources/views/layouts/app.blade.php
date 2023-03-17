@@ -79,6 +79,10 @@
     @stack('modals')
 
     <x-app-layout.scripts />
+
+    <script>
+        $('[data-toggle="tooltip",data-bs-toggle="tooltip"]').tooltip();
+    </script>
 </body>
 
 </html>

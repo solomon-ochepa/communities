@@ -14,7 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('visits', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->boolean('active')->default(1);
+            $table->foreignId('visitor_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignUuid('room_id')->nullable();
+            $table->text('note')->nullable();
+            $table->foreignUuid('status_name')->constrained('statuses', 'name')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }

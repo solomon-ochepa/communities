@@ -8,10 +8,10 @@ class FrontEnd
 {
     public function handle($request, Closure $next)
     {
-        // if (setting('front_end_enable_disable') == 1) {
-        return $next($request);
-        // }else{
-        //     return redirect()->route('login');
-        // }
+        if (setting('enable_homepage')) {
+            return $next($request);
+        } else {
+            return redirect()->route('login');
+        }
     }
 }

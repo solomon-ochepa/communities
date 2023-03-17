@@ -4,7 +4,7 @@
             @csrf
 
             <div class="card-body p-3 rounded shadow bg-secondary">
-                <x-alerts />
+                <x-alert />
 
                 {{-- Search User --}}
                 <section class="row g-3 _mb-3 _pb-3">

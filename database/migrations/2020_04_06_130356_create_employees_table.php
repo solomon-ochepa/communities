@@ -15,14 +15,15 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('first_name', 20);
-            $table->string('last_name', 20);
-            $table->string('phone');
-            $table->string('nickname')->nullable();
-            $table->string('display_name')->nullable();
-            $table->unsignedTinyInteger('gender');
-            $table->string('official_identification_number', 255)->nullable();
-            $table->date('date_of_joining');
+            $table->foreignId('user_id');
+            // $table->string('first_name', 20);
+            // $table->string('last_name', 20);
+            // $table->string('phone');
+            // $table->string('nickname')->nullable();
+            // $table->string('display_name')->nullable();
+            // $table->unsignedTinyInteger('gender');
+            $table->string('number')->nullable();
+            $table->date('employed_at');
             $table->unsignedTinyInteger('status');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('department_id');

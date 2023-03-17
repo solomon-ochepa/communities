@@ -22,6 +22,8 @@ class Index extends Component
         'page' => ['except' => 1],
     ];
 
+    protected $listeners = ['refresh' => '$refresh'];
+
     public function render()
     {
         if (strlen($this->search) > 2) {

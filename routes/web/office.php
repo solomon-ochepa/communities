@@ -149,6 +149,13 @@ Route::group(['prefix' => 'office', 'middleware' => ['auth', 'backend_permission
         return redirect()->route('office.apartment.index');
     });
 
+    // Apartment->Residents
+    Route::resource('apartment/{apartment}/resident', ApartmentResidentController::class)->except(['index'])->names('apartment.resident');
+    Route::get('apartment/{apartment}/residents', [ApartmentResidentController::class, 'index'])->name('apartment.resident.index');
+    Route::get('apartment/{apartment}/resident', function () {
+        return redirect()->route('office.apartment.resident.index');
+    });
+
     // Apartment->Rooms
     Route::resource('apartment/{apartment}/room', RoomController::class)->except(['index'])->names('apartment.room');
     Route::get('apartment/{apartment}/rooms', [RoomController::class, 'index'])->name('apartment.room.index');
@@ -161,13 +168,6 @@ Route::group(['prefix' => 'office', 'middleware' => ['auth', 'backend_permission
     Route::get('apartment/{apartment}/rooms', [RoomController::class, 'index'])->name('apartment.room.index');
     Route::get('apartment/{apartment}/room', function () {
         return redirect()->route('office.apartment.room.index');
-    });
-
-    // Apartment->Residents
-    Route::resource('apartment/{apartment}/resident', ApartmentResidentController::class)->except(['index'])->names('apartment.resident');
-    Route::get('apartment/{apartment}/residents', [ApartmentResidentController::class, 'index'])->name('apartment.resident.index');
-    Route::get('apartment/{apartment}/resident', function () {
-        return redirect()->route('office.apartment.resident.index');
     });
 
     // Apartment->Visitors

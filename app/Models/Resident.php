@@ -17,7 +17,7 @@ class Resident extends Model
      */
 
     protected $fillable = [
-        'user_id', 'apartment_id'
+        'user_id', 'apartment_id', 'room_id'
     ];
 
     public function user()

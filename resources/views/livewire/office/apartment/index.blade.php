@@ -50,15 +50,22 @@
                                 wire:model.defer="selected.{{ $key }}.{{ $apartment->id }}" />
                         </td>
                         <td>
-                            <a href="{{ route('office.apartment.show', $apartment->slug) }}">
+                            <a href="{{ route('office.apartment.show', ['apartment' => $apartment->slug]) }}">
                                 {{ $apartment->name }}
                             </a>
                         </td>
                         <td>
-                            {{ $apartment->rooms->count() }}
+                            <a href="{{ route('office.apartment.room.index', ['apartment' => $apartment->slug]) }}">
+                                <i class="fas fa-home text-muted me-1"></i>
+                                {{ $apartment->rooms->count() }}
+                            </a>
                         </td>
                         <td>
-                            {{ $apartment->residents->count() }}
+                            <a
+                                href="{{ route('office.apartment.resident.index', ['apartment' => $apartment->slug]) }}">
+                                <i class="fas fa-users text-muted me-1"></i>
+                                {{ $apartment->residents->count() }}
+                            </a>
                         </td>
                         <td>
                             @if ($apartment->active)

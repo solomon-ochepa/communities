@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(191);
+        // Schema::defaultStringLength(191);
         View::composer(['components.app-layout.sidebar', 'office.layouts.components.sidebar'], 'App\Http\Composers\MenuComposer');
         View::composer(['components.app-layout.footer', 'partials._footer'], 'App\Http\Composers\FrontendFooterComposer');
         View::composer(['components.app-layout.menu', 'office.layouts.components.navigation'], 'App\Http\Composers\NotificationComposer');

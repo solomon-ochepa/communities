@@ -1,6 +1,6 @@
 <div class="section-body">
     <div class="card">
-        <x-alerts />
+        <x-alert />
 
         <form wire:submit.prevent="submit" method="POST">
             @csrf

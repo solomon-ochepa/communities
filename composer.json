@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
@@ -49,15 +52,15 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         },
-         "files": [
+        "files": [
             "app/Http/Helper/Helper.php",
+            "app/Helpers/helpers.php",
             "app/Helpers/Curl.php",
             "app/Helpers/Ip.php",
             "app/Libraries/ArtisanLibrary.php",
             "app/Libraries/FileLibrary.php",
             "app/Libraries/MyString.php"
         ]
-
     },
     "autoload-dev": {
         "psr-4": {

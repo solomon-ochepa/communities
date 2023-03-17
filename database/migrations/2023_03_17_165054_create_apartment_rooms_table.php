@@ -13,15 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rooms', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->boolean('active')->nullable()->default(0);
-            $table->string('name');
-            $table->string('slug')->nullable();
-            $table->foreignUuid('apartment_id')->constrained()->cascadeOnUpdate();
+        Schema::create('apartment_rooms', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
-
-            $table->unique(['name', 'apartment_id'], 'apartment');
         });
     }
 
@@ -32,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rooms');
+        Schema::dropIfExists('apartment_rooms');
     }
 };

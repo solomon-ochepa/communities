@@ -268,7 +268,7 @@ class SettingController extends BackendController
     private function frontendValidateArray()
     {
         return [
-            'front_end_enable_disable'      => 'required|string|max:100',
+            'enable_homepage'      => 'required|string|max:100',
             'photo_capture_enable'          => 'required|string|max:100',
             'welcome_screen'                => 'nullable|string|max:255',
             'terms_condition'               => 'nullable|string|max:255',

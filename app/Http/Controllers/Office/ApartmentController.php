@@ -62,12 +62,10 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        $this->data['title'] = "{$apartment->name}";
+        $this->data['head']['title']    = "{$apartment->name}";
+        $this->data['apartment']        = $apartment;
 
-        return view('office.apartment.show', [
-            'data' => $this->data,
-            'apartment' => $apartment
-        ]);
+        return view('office.apartment.show', $this->data);
     }
 
     /**

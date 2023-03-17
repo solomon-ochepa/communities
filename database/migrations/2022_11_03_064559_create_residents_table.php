@@ -14,14 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('residents', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained()->cascadeOnUpdate();
-            $table->foreignUuid('room_id')->constrained()->cascadeOnUpdate();
-            // $table->foreignUuid('apartment_id')->constrained()->cascadeOnUpdate();
-            //
             $table->uuid('id')->primary();
+            $table->foreignId('user_id')->constrained()->cascadeOnUpdate();
+            $table->foreignUuid('apartment_id')->constrained()->cascadeOnUpdate();
+            $table->foreignUuid('room_id')->nullable()->constrained()->cascadeOnUpdate();
             $table->timestamps();
 
-            $table->unique(['user_id', 'room_id'], 'resident');
+            $table->unique(['user_id', 'apartment_id', 'room_id'], 'resident');
         });
     }
 
