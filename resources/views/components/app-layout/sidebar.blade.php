@@ -1,11 +1,11 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="{{ route('office.dashboard') }}">{{ setting('site_name') }}</a>
+            <a href="{{ route('dashboard') }}">{{ setting('site_name') }}</a>
         </div>
 
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="{{ route('office.dashboard') }}">
+            <a href="{{ route('dashboard') }}">
                 <?php
                 if (setting('site_name')) {
                     $sitenames = explode(' ', setting('site_name'));

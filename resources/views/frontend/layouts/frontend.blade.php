@@ -23,7 +23,7 @@
                 <div class="pm-main-menu-item float-right">
                     <div class="pm-header-btn text-center text-capitalize float-right">
                         @if (auth()->user())
-                            <a href="{{ route('office.dashboard') }}">{{ __('frontend.go_to_dashboard') }}</a>
+                            <a href="{{ route('dashboard') }}">{{ __('frontend.go_to_dashboard') }}</a>
                         @else
                             <a href="{{ route('login') }}">{{ __('frontend.login') }}</a>
                         @endif
@@ -123,8 +123,7 @@
                                     <li>
                                         <a href="{{ route('checkout.index') }}">{{ __('frontend.check_out') }}</a>
                                     </li>
-                                    <li><a
-                                            href="{{ route('office.dashboard') }}">{{ __('frontend.go_to_dashboard') }}</a>
+                                    <li><a href="{{ route('dashboard') }}">{{ __('frontend.go_to_dashboard') }}</a>
                                     </li>
                                 @else
                                     <li>

@@ -6,12 +6,11 @@ use App\Http\Controllers\Api\v1\SettingController;
 use App\Http\Controllers\Api\v1\VisitorController;
 use App\Http\Controllers\Api\v1\EmployeeController;
 use App\Http\Controllers\Api\v1\LanguageController;
-use App\Http\Controllers\Api\v1\DashboardController;
+use App\Http\Controllers\Api\v1\AppController;
 use App\Http\Controllers\Api\v1\AttendanceController;
 use App\Http\Controllers\Api\v1\Auth\LoginController;
 use App\Http\Controllers\Api\v1\Auth\LogoutController;
 use App\Http\Controllers\Api\v1\PreRegisterController;
-use App\Http\Controllers\Api\v1\Auth\RegisterController;
 use App\Http\Controllers\Api\v1\PushNotificationController;
 
 Route::group(['prefix' => 'v1'], function () {
@@ -21,7 +20,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::post('logout', [LogoutController::class, 'action']); //done
         Route::get('me', [MeController::class, 'action']); //done
-        Route::get('dashboard', [DashboardController::class, 'index']); //done
+        Route::get('dashboard', [AppController::class, 'dashboard']); //done
         Route::post('profile-update', [MeController::class, 'update']); //done
         Route::post('change-password', [MeController::class, 'changePassword']); //done
         Route::get('refresh-token', [MeController::class, 'refresh']); //done

@@ -28,13 +28,13 @@ class FrontendController extends Controller
             $data =  $this->jwtTokenService->jwtTokenDecode($token);
             if (auth()->user()) {
                 $this->jwtTokenService->changeStatus($data->visitorID, $status);
-                return redirect()->route('office.dashboard')->withSuccess('The Status Change successfully!');
+                return redirect()->route('dashboard')->withSuccess('The Status Change successfully!');
             } else {
                 $result = User::findorFail($data->employee_user_id);
                 if ($result) {
                     Auth::login($result);
                     $this->jwtTokenService->changeStatus($data->visitorID, $status);
-                    return redirect()->route('office.dashboard')->withSuccess('The Status Change successfully!');
+                    return redirect()->route('dashboard')->withSuccess('The Status Change successfully!');
                 } else {
                     return redirect()->route('/')->withError('These credentials do not match our records');
                 }

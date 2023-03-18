@@ -275,7 +275,7 @@ class VisitorController extends BackendController
         } catch (\Exception $e) {
         }
         if ($dashboard) {
-            return redirect()->route('office.dashboard.index')->withSuccess('The Status Change successfully!');
+            return redirect()->route('dashboard')->withSuccess('The Status Change successfully!');
         }
         return redirect()->route('office.visitors.index');
     }

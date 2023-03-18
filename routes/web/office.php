@@ -12,7 +12,7 @@ use App\Http\Controllers\Office\EmployeeController;
 use App\Http\Controllers\Office\LanguageController;
 use App\Http\Controllers\Office\UserController;
 use App\Http\Controllers\Office\ApartmentVisitorController;
-use App\Http\Controllers\Office\DashboardController;
+use App\Http\Controllers\Office\AppController;
 use App\Http\Controllers\Office\AttendanceController;
 use App\Http\Controllers\Office\DepartmentsController;
 use App\Http\Controllers\Office\PreRegisterController;
@@ -27,10 +27,17 @@ use App\Http\Controllers\Office\ResidentController;
 use App\Http\Controllers\Office\VisitController;
 use App\Http\Controllers\VehicleController;
 
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// Dashboard
+Route::get('dashboard', [AppController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
 
-Route::group(['prefix' => 'office', 'middleware' => ['auth', 'backend_permission'], 'as' => 'office.'], function () {
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('office', fn () => redirect(route('dashboard')));
+
+Route::middleware(['auth'])->prefix('office')->as('office.')->group(function () {
+    Route::get('dashboard', fn () => redirect(route('dashboard')))->name('dashboard');
+
+    Route::group(['prefix' => 'office', 'middleware' => [''], 'namespace' => 'Office', 'as' => 'office.'], function () {
+        Route::get('login', [LoginController::class, 'showLoginForm']);
+    });
 
     // Visits
     Route::resource('visit', VisitController::class)->except(['index'])->names('visit');

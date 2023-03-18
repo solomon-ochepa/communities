@@ -4,7 +4,7 @@ use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 
 // Home
 Breadcrumbs::for('dashboard', function ($trail) {
-    $trail->push(trans('validation.attributes.dashboard'), route('office.dashboard'));
+    $trail->push(trans('validation.attributes.dashboard'), route('dashboard'));
 });
 
 Breadcrumbs::for('profile', function ($trail) {

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Office;
 
-use App\Enums\VisitorStatus;
 use App\Http\Controllers\BackendController;
 use App\Models\Apartment;
 use App\Models\Attendance;
@@ -10,21 +9,21 @@ use App\Models\Employee;
 use App\Models\PreRegister;
 use App\Models\Resident;
 use App\Models\VisitingDetails;
-use App\Models\Visitor;
 
 
-class DashboardController extends BackendController
+class AppController extends BackendController
 {
     public function __construct()
     {
         parent::__construct();
-        $this->data['title'] = 'Dashboard';
 
-        $this->middleware(['permission:dashboard'])->only('index');
+        // $this->middleware(['permission:dashboard'])->only('dashboard');
     }
 
-    public function index()
+    public function dashboard()
     {
+        $this->data['title'] = 'Dashboard';
+
         if (auth()->user()->getrole->name == 'Employee') {
             $visitors       = VisitingDetails::where(['employee_id' => auth()->user()->employee->id])->orderBy('id', 'desc')->get();
             $preregister    = PreRegister::where(['employee_id' => auth()->user()->employee->id])->orderBy('id', 'desc')->get();
