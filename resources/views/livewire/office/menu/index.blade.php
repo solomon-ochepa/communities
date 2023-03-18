@@ -52,7 +52,7 @@
                                         <th>{{ __('Tag') }}</th>
                                         <th>{{ __('Priority') }}</th>
                                         <th>{{ __('levels.status') }}</th>
-                                        <th>{{ __('levels.actions') }}</th>
+                                        <th class="text-end">{{ __('levels.actions') }}</th>
                                     </tr>
                                 </thead>
 
@@ -67,7 +67,14 @@
                                                 @isset($menu->icon)
                                                     <i class="{{ $menu->icon }}"> </i>
                                                 @endisset
+                                                @if ($menu->parent)
+                                                    {{ $menu->parent->name }} &raquo;
+                                                @endif
                                                 {{ $menu->name }}
+                                                <p class="m-0 small text-muted">
+                                                    <i class="fas fa-link"></i>
+                                                    {{ $menu->url }}
+                                                </p>
                                             </td>
                                             <td>{{ $menu->tag ? $menu->tag : 'All' }}</td>
                                             <td>{{ $menu->priority }}</td>
@@ -80,7 +87,7 @@
                                                     Disabled
                                                 @endif
                                             </td>
-                                            <td>
+                                            <td class="text-end">
                                                 <a href="{{ route('office.menu.edit', $menu->id) }}"
                                                     class="text-decoration-none">
                                                     <i class="fas fa-edit"></i>

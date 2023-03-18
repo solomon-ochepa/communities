@@ -116,7 +116,9 @@
 
             <div class="card-footer text-right">
                 <button class="btn btn-primary mr-1" type="submit">{{ __('levels.submit') }}</button>
-                <button class="btn btn-primary _mr-1" type="submit">{{ __('levels.submit') }}</button>
+                <a href="{{ route('office.menu.index') }}" class="btn btn-muted">
+                    <i class="fas fa-undo"></i>
+                    {{ __('label.cancel') }}</a>
             </div>
         </form>
     </div>
