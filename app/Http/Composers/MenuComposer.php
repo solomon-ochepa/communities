@@ -118,7 +118,7 @@ class MenuComposer
 
     private function full_url($url)
     {
-        if (Str::match('(/[\w~,;\-\./?%&+#=]*)', $url) or $url == '#') {
+        if (Str::match('(/[\w~,;\-\./?%&+#=]*)', $url) or Str::startsWith($url, '#')) {
             return url($url);
         } else {
             return route($url);
