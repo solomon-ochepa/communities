@@ -7,7 +7,6 @@ use App\Models\Menu;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\View\View;
 use Illuminate\Support\Str;
 
 class Sidebar extends Component
@@ -81,7 +80,7 @@ class Sidebar extends Component
         return $tree;
     }
 
-    private function html(array $menu_tree, string &$html)
+    private function html(array $menu_tree, string &$html, $child = false)
     {
         foreach ($menu_tree as $menu) {
             // Empty dropdown menu
@@ -123,16 +122,21 @@ class Sidebar extends Component
                 $active = 'active';
             }
 
+            // Layout
             $html .= "<!-- {$menu['name']} -->";
-            $html .= '<li class="menu' . ($active ? ' ' . $active : '') . '">';
+            $html .= '<li class="' . ($child ? '' : 'menu') . '' . ($active ? ' ' . $active : '') . '">';
             if ($level) {
-                $html .= "<a href='{$url}' aria-expanded='true' class='dropdown-toggle' data-bs-toggle='collapse' >";
+                $html .= "<a href='{$url}' data-bs-toggle='collapse' aria-expanded='" . ($active ? 'true' : 'false') . "' class='dropdown-toggle" . ($active ? '' : ' collapsed') . "' >";
             } else {
-                $html .= "<a href='{$url}' aria-expanded='false' class='dropdown-toggle'>";
+                $html .= "<a href='{$url}'";
+                if (!$child) {
+                    $html .= " aria-expanded='" . ($active ? 'true' : 'false') . "' class='dropdown-toggle'";
+                }
+                $html .= ">";
             }
 
             $html .= "<div class=''>";
-            if ($menu['icon']) {
+            if ($menu['icon'] and !$child) {
                 $html .= "<i class='{$menu['icon']}'></i>";
             }
             $html .= "<span>" . (trans('menu.' . $menu['slug'])) . "</span>";
@@ -150,8 +154,8 @@ class Sidebar extends Component
             $html .= '</a>';
 
             if ($level) {
-                $html .= '<ul class="collapse submenu list-unstyled' . ($active ? " show" : "") . '" id="properties" data-bs-parent="#accordionExample">';
-                $this->html($menu['child'], $html);
+                $html .= '<ul class="submenu list-unstyled collapse' . ($active ? " show" : "") . '" id="' . $url . '" data-bs-parent="#accordionExample">';
+                $this->html($menu['child'], $html, true);
                 $html .= "</ul>";
             }
 
