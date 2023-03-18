@@ -1,22 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Office;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\BackendController;
 use App\Models\Apartment;
 use App\Models\Attendance;
 use App\Models\Employee;
 use App\Models\PreRegister;
 use App\Models\Resident;
+use App\Models\Visit;
 use App\Models\VisitingDetails;
 
-
-class AppController extends BackendController
+class AppController extends Controller
 {
+    public $data = [];
+
     public function __construct()
     {
-        parent::__construct();
-
         // $this->middleware(['permission:dashboard'])->only('dashboard');
     }
 

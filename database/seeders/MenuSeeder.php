@@ -19,7 +19,7 @@ class MenuSeeder extends Seeder
         $menus = [
             [
                 'name'      => 'Dashboard',
-                'url'       => 'office/dashboard',
+                'url'       => route('dashboard'),
                 'icon'      => 'fas fa-laptop',
             ],
             [

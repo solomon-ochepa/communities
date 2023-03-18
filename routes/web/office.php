@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Office\ApartmentController;
 use App\Http\Controllers\Office\RoleController;
@@ -12,7 +13,6 @@ use App\Http\Controllers\Office\EmployeeController;
 use App\Http\Controllers\Office\LanguageController;
 use App\Http\Controllers\Office\UserController;
 use App\Http\Controllers\Office\ApartmentVisitorController;
-use App\Http\Controllers\Office\AppController;
 use App\Http\Controllers\Office\AttendanceController;
 use App\Http\Controllers\Office\DepartmentsController;
 use App\Http\Controllers\Office\PreRegisterController;
@@ -43,6 +43,14 @@ Route::middleware(['auth'])->prefix('office')->as('office.')->group(function () 
     Route::resource('visit', VisitController::class)->except(['index'])->names('visit');
     Route::get('visits', [VisitController::class, 'index'])->name('visit.index');
     Route::get('visit', fn () => redirect(route('office.visit.index')));
+
+    //visitors
+    Route::resource('visitors', VisitorController::class);
+    Route::post('visitor/search', [VisitorController::class, 'search'])->name('visitor.search');
+    Route::get('visitor/check-out/{visitingDetail}', [VisitorController::class, 'checkout'])->name('visitors.checkout');
+    Route::get('visitor/change-status/{id}/{status}/{dashboard}',  [VisitorController::class, 'changeStatus'])->name('visitor.change-status');
+    Route::get('get-visitors', [VisitorController::class, 'getVisitor'])->name('visitors.get-visitors');
+    Route::get('visitor/disable/{id}',  [VisitorController::class, 'visitorDisable'])->name('visitors.disable');
 
     // Residences
     Route::resource('resident', ResidentController::class)->except(['index'])->names('resident');
@@ -86,14 +94,6 @@ Route::middleware(['auth'])->prefix('office')->as('office.')->group(function () 
     Route::resource('pre-registers', PreRegisterController::class);
     Route::get('get-pre-registers', [PreRegisterController::class, 'getPreRegister'])->name('pre-registers.get-pre-registers');
 
-    //visitors
-    Route::resource('visitors', VisitorController::class);
-    Route::post('visitor/search', [VisitorController::class, 'search'])->name('visitor.search');
-    Route::get('visitor/check-out/{visitingDetail}', [VisitorController::class, 'checkout'])->name('visitors.checkout');
-    Route::get('visitor/change-status/{id}/{status}/{dashboard}',  [VisitorController::class, 'changeStatus'])->name('visitor.change-status');
-    Route::get('get-visitors', [VisitorController::class, 'getVisitor'])->name('visitors.get-visitors');
-    Route::get('visitor/disable/{id}',  [VisitorController::class, 'visitorDisable'])->name('visitors.disable');
-
     //report
     Route::get('admin-visitor-report', [VisitorReportController::class, 'index'])->name('admin-visitor-report.index');
     Route::post('admin-visitor-report', [VisitorReportController::class, 'index'])->name('admin-visitor-report.post');
@@ -109,12 +109,12 @@ Route::middleware(['auth'])->prefix('office')->as('office.')->group(function () 
 
     Route::resource('attendance', AttendanceController::class);
     Route::get('get-attendance', [AttendanceController::class, 'getAttendance'])->name('attendance.get-attendance');
-    //language
+    // language
     Route::resource('language', LanguageController::class);
     Route::get('get-language', [LanguageController::class, 'getLanguage'])->name('language.get-language');
     Route::get('language/change-status/{id}/{status}', [LanguageController::class, 'changeStatus'])->name('language.change-status');
 
-    //Addons
+    // Addons
     Route::resource('addons', AddonController::class);
     Route::group(['prefix' => 'setting', 'as' => 'setting.'], function () {
         Route::get('/', [SettingController::class, 'index'])->name('index');
@@ -150,37 +150,39 @@ Route::middleware(['auth'])->prefix('office')->as('office.')->group(function () 
     });
 
     // Apartment
-    Route::resource('apartment', ApartmentController::class)->except(['index'])->names('apartment');
-    Route::get('apartments', [ApartmentController::class, 'index'])->name('apartment.index');
-    Route::get('apartment', function () {
-        return redirect()->route('office.apartment.index');
-    });
+    Route::group([], function () {
+        Route::resource('apartment', ApartmentController::class)->except(['index'])->names('apartment');
+        Route::get('apartments', [ApartmentController::class, 'index'])->name('apartment.index');
+        Route::get('apartment', function () {
+            return redirect()->route('office.apartment.index');
+        });
 
-    // Apartment->Residents
-    Route::resource('apartment/{apartment}/resident', ApartmentResidentController::class)->except(['index'])->names('apartment.resident');
-    Route::get('apartment/{apartment}/residents', [ApartmentResidentController::class, 'index'])->name('apartment.resident.index');
-    Route::get('apartment/{apartment}/resident', function () {
-        return redirect()->route('office.apartment.resident.index');
-    });
+        // Apartment->Residents
+        Route::resource('apartment/{apartment}/resident', ApartmentResidentController::class)->except(['index'])->names('apartment.resident');
+        Route::get('apartment/{apartment}/residents', [ApartmentResidentController::class, 'index'])->name('apartment.resident.index');
+        Route::get('apartment/{apartment}/resident', function () {
+            return redirect()->route('office.apartment.resident.index');
+        });
 
-    // Apartment->Rooms
-    Route::resource('apartment/{apartment}/room', RoomController::class)->except(['index'])->names('apartment.room');
-    Route::get('apartment/{apartment}/rooms', [RoomController::class, 'index'])->name('apartment.room.index');
-    Route::get('apartment/{apartment}/room', function () {
-        return redirect()->route('office.apartment.room.index');
-    });
+        // Apartment->Rooms
+        Route::resource('apartment/{apartment}/room', RoomController::class)->except(['index'])->names('apartment.room');
+        Route::get('apartment/{apartment}/rooms', [RoomController::class, 'index'])->name('apartment.room.index');
+        Route::get('apartment/{apartment}/room', function () {
+            return redirect()->route('office.apartment.room.index');
+        });
 
-    // Apartment->Room->Residents
-    Route::resource('apartment/{apartment}/room', RoomController::class)->except(['index'])->names('apartment.room');
-    Route::get('apartment/{apartment}/rooms', [RoomController::class, 'index'])->name('apartment.room.index');
-    Route::get('apartment/{apartment}/room', function () {
-        return redirect()->route('office.apartment.room.index');
-    });
+        // Apartment->Visitors
+        Route::resource('apartment/{apartment}/visitor', ApartmentVisitorController::class)->except(['index'])->names('apartment.visitor');
+        Route::get('apartment/{apartment}/visitors', [ApartmentVisitorController::class, 'index'])->name('apartment.visitor.index');
+        Route::get('apartment/{apartment}/visitor', function () {
+            return redirect()->route('office.apartment.visitor.index');
+        });
 
-    // Apartment->Visitors
-    Route::resource('apartment/{apartment}/visitor', ApartmentVisitorController::class)->except(['index'])->names('apartment.visitor');
-    Route::get('apartment/{apartment}/visitors', [ApartmentVisitorController::class, 'index'])->name('apartment.visitor.index');
-    Route::get('apartment/{apartment}/visitor', function () {
-        return redirect()->route('office.apartment.visitor.index');
+        // Apartment->Room->Residents
+        Route::resource('apartment/{apartment}/room', RoomController::class)->except(['index'])->names('apartment.room');
+        Route::get('apartment/{apartment}/rooms', [RoomController::class, 'index'])->name('apartment.room.index');
+        Route::get('apartment/{apartment}/room', function () {
+            return redirect()->route('office.apartment.room.index');
+        });
     });
 });

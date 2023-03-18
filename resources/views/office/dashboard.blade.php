@@ -1,13 +1,12 @@
-@extends('office.layouts.master')
-
-@section('main-content')
+<x-office-layout>
     <section class="section">
-        <div class="section-header">
+        {{-- <div class="section-header">
             <h1>{{ __('dashboard.dashboard') }}</h1>
             {{ Breadcrumbs::render('dashboard') }}
-        </div>
+        </div> --}}
 
-        <div class="row">
+        {{-- Clock In --}}
+        {{-- <div class="row">
             <div class="col-md-12">
                 @if (!blank($attendance))
                     <div class="float-right  d-flex text-center" style="margin-left:auto">
@@ -26,7 +25,8 @@
                         @if (!$attendance->checkout_time)
                             <form action="{{ route('office.attendance.clockout') }}" method="post">
                                 {{ csrf_field() }}
-                                <button class="btn  d-flex inputbtnclockout align-items-center btn-dark" type="submit"><i
+                                <button class="btn  d-flex inputbtnclockout align-items-center btn-dark"
+                                    type="submit"><i
                                         class="fas fa-4x fa-sign-out-alt"></i>{{ __('dashboard.clock_out') }}</button>
                             </form>
                         @endif
@@ -42,209 +42,13 @@
                     </div>
                 @endif
             </div>
-        </div>
+        </div> --}}
 
-        <div class="row">
-            {{-- Apartment stats --}}
-            <div class="col-md-4">
-                <a href="{{ route('office.apartment.index') }}">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-primary">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>{{ __('apartment.apartments') }}</h4>
-                            </div>
-                            <div class="card-body">
-                                {{ $apartment_count ?? 0 }}
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+        <livewire:dashboard.stats />
 
-            {{-- Residents stats --}}
-            <div class="col-md-4">
-                <a href="javascript://#">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-success">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>{{ __('resident.residents') }}</h4>
-                            </div>
-                            <div class="card-body">
-                                {{ $resident_count ?? 0 }}
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            @if (auth()->user()->getrole->name == 'Employee')
-                {{-- Visitors stats --}}
-                <div class="col-md-4">
-                    <a href="{{ route('office.visitors.index') }}">
-                        <div class="card card-statistic-1">
-                            <div class="card-icon bg-primary">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <div class="card-wrap">
-                                <div class="card-header">
-                                    <h4>{{ __('visitor.visitors') }}</h4>
-                                </div>
-                                <div class="card-body">
-                                    {{ $totalVisitor }}
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                {{-- Pre-rigister stats --}}
-                <div class="col-md-4">
-                    <a href="{{ route('office.pre-registers.index') }}">
-                        <div class="card card-statistic-1">
-                            <div class="card-icon bg-warning">
-                                <i class="fas fa-user-secret"></i>
-                            </div>
-                            <div class="card-wrap">
-                                <div class="card-header">
-                                    <h4>{{ __('dashboard.total_pre_registers') }}</h4>
-                                </div>
-                                <div class="card-body">
-                                    {{ $totalPrerigister }}
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            @else
-                <div class="col-md-4">
-                    <a href="{{ route('office.employees.index') }}">
-                        <div class="card card-statistic-1">
-                            <div class="card-icon bg-danger">
-                                <i class="far fa-user"></i>
-                            </div>
-                            <div class="card-wrap">
-                                <div class="card-header">
-                                    <h4>{{ __('dashboard.total_employees') }}</h4>
-                                </div>
-                                <div class="card-body">
-                                    {{ $totalEmployees }}
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-md-4">
-                    <a href="{{ route('office.visitors.index') }}">
-                        <div class="card card-statistic-1">
-                            <div class="card-icon bg-primary">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <div class="card-wrap">
-                                <div class="card-header">
-                                    <h4>{{ __('visitor.visitors') }}</h4>
-                                </div>
-                                <div class="card-body">
-                                    {{ $totalVisitor }}
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a href="{{ route('office.pre-registers.index') }}">
-                        <div class="card card-statistic-1">
-                            <div class="card-icon bg-warning">
-                                <i class="fas fa-user-secret"></i>
-                            </div>
-                            <div class="card-wrap">
-                                <div class="card-header">
-                                    <h4>{{ __('dashboard.total_pre_registers') }}</h4>
-                                </div>
-                                <div class="card-body">
-                                    {{ $totalPrerigister }}
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            @endif
-        </div>
-
-        <div class="row">
-            <div class="col-md-9">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>{{ __('dashboard.visitors') }} <span class="badge badge-primary">{{ $totalVisitor }}</span>
-                        </h4>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive table-invoice">
-                            <table class="table table-hover">
-                                <tr>
-                                    <th>{{ __('dashboard.name') }}</th>
-                                    <th>{{ __('dashboard.email') }}</th>
-                                    <th>{{ __('dashboard.visitor_id') }}</th>
-                                    <th>{{ __('dashboard.employee') }}</th>
-                                    <th>{{ __('dashboard.checkin') }}</th>
-                                    <th>{{ __('dashboard.action') }}</th>
-                                </tr>
-                                @if (!blank($visitors))
-                                    @foreach ($visitors as $visitor)
-                                        @php
-                                            if ($loop->index > 5) {
-                                                break;
-                                            }
-                                        @endphp
-                                        <tr>
-                                            <td>{{ optional($visitor->visitor)->name }}</td>
-                                            <td>{{ optional($visitor->visitor)->email }}</td>
-                                            <td>{{ $visitor->reg_no }}</td>
-                                            <td>{{ optional($visitor->employee)->user->name }}</td>
-                                            <td>{{ date('d-M-Y h:i A', strtotime($visitor->checkin_at)) }}</td>
-                                            <td>
-                                                <a href="{{ route('office.visitors.show', $visitor) }}"
-                                                    class="btn btn-sm btn-icon btn-primary"><i class="far fa-eye"></i></a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="profile-dashboard bg-maroon-light">
-                        <a href="{{ route('office.profile') }}">
-                            <img src="{{ auth()->user()->images }}" alt="">
-                        </a>
-                        <h1>{{ auth()->user()->name }}</h1>
-                        <p>
-                            {{ auth()->user()->getrole->name ?? '' }}
-                        </p>
-                    </div>
-                    <div class="list-group">
-                        <li class="list-group-item list-group-item-action"><i class="fa fa-user"></i>
-                            {{ auth()->user()->username }}</li>
-                        <li class="list-group-item list-group-item-action"><i class="fa fa-envelope"></i>
-                            {{ auth()->user()->email }}</li>
-                        <li class="list-group-item list-group-item-action"><i class="fa fa-phone"></i>
-                            {{ auth()->user()->phone }}</li>
-                        <li class="list-group-item list-group-item-action"><i class="fa fa-map"></i>
-                            {{ auth()->user()->address }}</li>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <livewire:office.visit.recent />
     </section>
+
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -281,4 +85,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-office-layout>
