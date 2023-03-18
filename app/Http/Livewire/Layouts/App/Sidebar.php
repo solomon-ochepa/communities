@@ -154,7 +154,7 @@ class Sidebar extends Component
             $html .= '</a>';
 
             if ($level) {
-                $html .= '<ul class="submenu list-unstyled collapse' . ($active ? " show" : "") . '" id="' . $url . '" data-bs-parent="#accordionExample">';
+                $html .= '<ul class="submenu list-unstyled collapse' . ($active ? " show" : "") . '" id="' . Str::replaceFirst('#', '', $url) . '" data-bs-parent="#accordionExample">';
                 $this->html($menu['child'], $html, true);
                 $html .= "</ul>";
             }
@@ -165,7 +165,7 @@ class Sidebar extends Component
 
     private function full_url($url)
     {
-        if (Str::match('(/[\w~,;\-\./?%&+#=]*)', $url) or $url == '#') {
+        if (Str::match('(/[\w~,;\-\./?%&+#=]*)', $url) or Str::startsWith($url, '#')) {
             return url($url);
         } else {
             return route($url);
