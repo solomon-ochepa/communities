@@ -8,10 +8,8 @@ use App\Models\Attendance;
 use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
-
 
 class EmployeeService
 {
@@ -73,38 +71,31 @@ class EmployeeService
      */
     public function make(EmployeeRequest $request)
     {
-        $input['first_name'] = $request->input('first_name');
-        $input['last_name']  = $request->input('last_name');
-        $input['username']   = $this->username($request->input('email'));
-        $input['email']      = $request->input('email');
-        $input['phone']      = $request->input('phone');
-        $input['status']      = $request->input('status');
-        $input['password']   = Hash::make($request->input('password'));
-               $user         = User::create($input);
-               $role         = Role::find(2);
+        $user         = User::find($request->input('employee.user_id'));
+        $role         = Role::find(2); // @todo get designation role instead
+
+        $input['status']      = $request->input('employee.status_code');
+
+        dd($user);
+        dd($request->all());
+
         $user->assignRole($role->name);
 
         if ($request->file('image')) {
             $user->addMedia($request->file('image'))->toMediaCollection('user');
         }
-        $result='';
-        if($user) {
-            $data['first_name'] = $request->input('first_name');
-            $data['last_name'] = $request->input('last_name');
-            $data['phone'] = $request->input('phone');
-            $data['user_id'] = $user->id;
-            $data['gender'] = $request->input('gender');
-            $data['department_id'] = $request->input('department_id');
-            $data['designation_id'] = $request->input('designation_id');
-            $data['date_of_joining'] = $request->input('date_of_joining');
-            $data['about'] = $request->input('about');
-            $data['status'] = $request->input('status');
-            $result = Employee::create($data);
 
+        $result = '';
 
-        }
+        $data['department_id'] = $request->input('employee.department_id');
+        $data['designation_id'] = $request->input('employee.designation_id');
+        $data['employed_at'] = $request->input('employee.employed_at');
+        $data['about'] = $request->input('employee.about');
+        $data['status'] = $request->input('employee.status_code');
+
+        $result = Employee::create($data);
+
         return $result;
-
     }
 
     /**
@@ -127,7 +118,7 @@ class EmployeeService
             $user->media()->delete();
             $user->addMedia($request->file('image'))->toMediaCollection('user');
         }
-        if($user) {
+        if ($user) {
             $data['first_name'] = $request->input('first_name');
             $data['last_name'] = $request->input('last_name');
             $data['phone'] = $request->input('phone');
@@ -135,19 +126,18 @@ class EmployeeService
             $data['gender'] = $request->input('gender');
             $data['department_id'] = $request->input('department_id');
             $data['designation_id'] = $request->input('designation_id');
-            $data['date_of_joining'] = $request->input('date_of_joining');
+            $data['employed_at'] = $request->input('employed_at');
             $data['about'] = $request->input('about');
             $data['status'] = $request->input('status');
             $employee->update($data);
-
         }
         return $employee;
     }
 
-    public function check($id,$request)
+    public function check($id, $request)
     {
 
-        if($request['status'] == 1){
+        if ($request['status'] == 1) {
             $checkin = new Attendance();
             $checkin->employee_id            = $id;
             $checkin->status                 = $request['status'];
@@ -155,9 +145,9 @@ class EmployeeService
             $checkin->date                   = date('Y-m-d', strtotime($request['date']));
             $checkin->save();
             return $checkin;
-        }elseif ($request['status'] == 2){
+        } elseif ($request['status'] == 2) {
 
-            $checkout = Attendance::where(['employee_id'=>$id,'date'=>date('Y-m-d')])->first();
+            $checkout = Attendance::where(['employee_id' => $id, 'date' => date('Y-m-d')])->first();
             $checkout->status                   = $request['status'];
             $checkout->checkout_time            = $request['checkout_time'];
             $checkout->date                     = date('Y-m-d', strtotime($request['date']));
@@ -180,7 +170,6 @@ class EmployeeService
         } catch (\Exception $e) {
             return $e->getMessage();
         }
-
     }
 
     private function username($email)

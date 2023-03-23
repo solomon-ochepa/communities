@@ -91,7 +91,7 @@ Breadcrumbs::for('designations/edit', function ($trail) {
 // Dashboard / Employees
 Breadcrumbs::for('employees', function ($trail) {
     $trail->parent('dashboard');
-    $trail->push(trans('validation.attributes.employees'), route('office.employees.index'));
+    $trail->push(trans('validation.attributes.employees'), route('office.employee.index'));
 });
 
 // Dashboard / employees / Add

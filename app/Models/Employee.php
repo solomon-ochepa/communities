@@ -3,26 +3,24 @@
 namespace App\Models;
 
 use App\Models\User;
-use Spatie\MediaLibrary\HasMedia;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Model;
+use Plank\Mediable\Mediable;
 use Shipu\Watchable\Traits\HasAuditColumn;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Employee extends Model implements  HasMedia
+class Employee extends Model
 {
-    use InteractsWithMedia;
-    use HasAuditColumn;
-    use HasRoles;
+    use HasAuditColumn, HasRoles, Mediable;
 
-
-
-    protected $table = 'employees';
+    // protected $table = 'employees';
     protected $guarded = ['id'];
     protected $auditColumn = true;
 
     protected $fakeColumns = [];
+
+    protected $casts = [
+        'employed_at' => 'datetime',
+    ];
 
     public function creator()
     {
@@ -36,7 +34,7 @@ class Employee extends Model implements  HasMedia
 
     public function bookings()
     {
-        return $this->hasMany(Booking::class,'employee_id');
+        return $this->hasMany(Booking::class, 'employee_id');
     }
 
     public function user()
@@ -59,21 +57,26 @@ class Employee extends Model implements  HasMedia
         return $this->belongsTo(Designation::class);
     }
 
-    /**
-     * @return string
-     */
-    public function getNameAttribute()
+    public function status()
     {
-        return $this->first_name . ' ' . $this->last_name;
+        return $this->belongsTo(Status::class, 'status_code', 'code');
     }
 
-    public function getMyStatusAttribute()
-    {
-        return trans('statuses.' . $this->status);
-    }
-    public function getMyGenderAttribute()
-    {
-        return trans('genders.' . $this->gender);
-    }
+    // /**
+    //  * @return string
+    //  */
+    // public function getNameAttribute()
+    // {
+    //     return $this->first_name . ' ' . $this->last_name;
+    // }
 
+    // public function getMyStatusAttribute()
+    // {
+    //     return trans('statuses.' . $this->status);
+    // }
+
+    // public function getMyGenderAttribute()
+    // {
+    //     return trans('genders.' . $this->gender);
+    // }
 }

@@ -16,19 +16,12 @@ return new class extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('user_id');
-            // $table->string('first_name', 20);
-            // $table->string('last_name', 20);
-            // $table->string('phone');
-            // $table->string('nickname')->nullable();
-            // $table->string('display_name')->nullable();
-            // $table->unsignedTinyInteger('gender');
-            $table->string('number')->nullable();
-            $table->date('employed_at');
-            $table->unsignedTinyInteger('status');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('department_id');
-            $table->unsignedBigInteger('designation_id');
+            $table->string('number')->nullable()->unique();
+            $table->timestamp('employed_at');
+            $table->foreignId('department_id');
+            $table->foreignId('designation_id');
             $table->longText('about')->nullable();
+            $table->foreignUuid('status_code')->nullable()->default(status('success', 3))->constrained('statuses', 'code')->cascadeOnUpdate()->nullOnDelete();
             $table->auditColumn();
             $table->timestamps();
         });

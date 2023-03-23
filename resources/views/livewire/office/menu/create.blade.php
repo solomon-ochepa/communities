@@ -10,7 +10,7 @@
                     {{-- Parent --}}
                     <div class="col-md-4">
                         <label for="menu-parent" class="form-label">Parent</label>
-                        <select disabled id="menu-parent" class="form-select"
+                        <select _disabled id="menu-parent" class="form-select"
                             @error('menu.parent_id') is-invalid @enderror wire:model.lazy="menu.parent_id">
                             <option selected>Choose...</option>
                             <option>...</option>

@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-12 col-md-12 col-lg-12">
                     <div class="card">
-                        <form action="{{ route('office.employees.update', $employee) }}" method="POST"
+                        <form action="{{ route('office.employee.update', $employee) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')

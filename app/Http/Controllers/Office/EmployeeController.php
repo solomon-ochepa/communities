@@ -4,25 +4,19 @@ namespace App\Http\Controllers\Office;
 
 use App\Enums\Status;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BookingDateRequest;
 use App\Http\Requests\EmployeeChekinRequest;
 use App\Http\Requests\EmployeeRequest;
 use App\Http\Requests\EmployeeUpdateRequest;
-use App\Models\Attendance;
-use App\Models\Booking;
 use App\Models\Department;
 use App\Models\Designation;
 use App\Models\Employee;
-use App\Models\Invitation;
 use App\Models\PreRegister;
 use App\Models\VisitingDetails;
-use App\Models\Visitor;
-use App\Notifications\SendInvitationToVisitors;
 use App\Http\Services\Booking\BookingService;
 use App\Http\Services\Employee\EmployeeService;
+use App\Models\Status as ModelsStatus;
+use App\Models\User;
 use Illuminate\Http\Request;
-use DB;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Yajra\Datatables\Datatables;
 
@@ -35,16 +29,16 @@ class EmployeeController extends Controller
     {
         $this->employeeService = $employeeService;
         $this->bookingService = $bookingService;
-        $this->middleware('auth');
+
         $this->data['title'] = 'Employees';
 
+        $this->middleware('auth');
         $this->middleware(['permission:employee'])->only('index');
         $this->middleware(['permission:employee.create'])->only('create', 'store');
         $this->middleware(['permission:employee.edit'])->only('edit', 'update');
         $this->middleware(['permission:employee.delete'])->only('destroy');
         $this->middleware(['permission:employee.show'])->only('show');
     }
-
 
     /**
      * Display a listing of the resource.
@@ -53,15 +47,18 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = $this->employeeService->all();
+        $this->data['title'] = 'Employees';
+        $this->data['employees'] = $this->employeeService->all();
+
         return view('office.employee.index', $this->data);
     }
 
     public function create(Request $request)
     {
-
         $this->data['designations'] = Designation::where('status', Status::ACTIVE)->get();
         $this->data['departments'] = Department::where('status', Status::ACTIVE)->get();
+        $this->data['users'] = User::all();
+        $this->data['statuses'] = ModelsStatus::all();
 
         return view('office.employee.create', $this->data);
     }
@@ -69,7 +66,7 @@ class EmployeeController extends Controller
     public function store(EmployeeRequest $request)
     {
         $this->employeeService->make($request);
-        return redirect()->route('office.employees.index')->withSuccess('The data inserted successfully!');
+        return redirect()->route('office.employee.index')->withSuccess('The data inserted successfully!');
     }
 
     /**
@@ -92,12 +89,12 @@ class EmployeeController extends Controller
         $this->data['departments'] = Department::where('status', Status::ACTIVE)->get();
         return view('office.employee.edit', $this->data);
     }
+
     public function update(EmployeeUpdateRequest $request, Employee $employee)
     {
         $this->employeeService->update($employee->id, $request);
-        return redirect()->route('office.employees.index')->withSuccess('The data updated successfully!');
+        return redirect()->route('office.employee.index')->withSuccess('The data updated successfully!');
     }
-
 
     public function checkEmployee(EmployeeChekinRequest $request, $id)
     {
@@ -108,62 +105,7 @@ class EmployeeController extends Controller
     public function destroy($id)
     {
         $this->employeeService->delete($id);
-        return redirect()->route('office.employees.index')->with(['success' => 'Employee delete successfully.']);
-    }
-
-
-    public function getEmployees(Request $request)
-    {
-        $employees = $this->employeeService->all();
-
-        $i            = 1;
-        $employeeArray = [];
-        if (!blank($employees)) {
-            foreach ($employees as $employee) {
-                $employeeArray[$i]          = $employee;
-                $employeeArray[$i]['setID'] = $i;
-                $i++;
-            }
-        }
-        return Datatables::of($employeeArray)
-            ->addColumn('action', function ($employee) {
-                $retAction = '';
-
-                if (auth()->user()->can('employee.show')) {
-                    $retAction .= '<a href="' . route('office.employees.show', $employee) . '" class="btn btn-sm btn-icon mr-2  float-left btn-info" data-toggle="tooltip" data-placement="top" title="View"><i class="far fa-eye"></i></a>';
-                }
-
-                if (auth()->user()->can('employee.edit')) {
-                    $retAction .= '<a href="' . route('office.employees.edit', $employee) . '" class="btn btn-sm btn-icon float-left btn-primary" data-toggle="tooltip" data-placement="top" title="Edit"> <i class="far fa-edit"></i></a>';
-                }
-
-
-                return $retAction;
-            })
-            ->addColumn('image', function ($employee) {
-                return '<figure class="avatar mr-2"><img src="' . $employee->user->images . '" alt=""></figure>';
-            })
-            ->editColumn('name', function ($employee) {
-                return Str::limit($employee->name, 50);
-            })
-            ->editColumn('email', function ($employee) {
-                return Str::limit(optional($employee->user)->email, 50);
-            })
-            ->editColumn('phone', function ($employee) {
-                return Str::limit(optional($employee->user)->phone, 50);
-            })
-            ->editColumn('status', function ($employee) {
-                return ($employee->status == 5 ? trans('statuses.' . Status::ACTIVE) : trans('statuses.' . Status::INACTIVE));
-            })
-            ->editColumn('date_of_joining', function ($employee) {
-                return $employee->date_of_joining;
-            })
-            ->editColumn('id', function ($employee) {
-                return $employee->setID;
-            })
-            ->rawColumns(['name', 'action'])
-            ->escapeColumns([])
-            ->make(true);
+        return redirect()->route('office.employee.index')->with(['success' => 'Employee delete successfully.']);
     }
 
     public function getVisitor($id)

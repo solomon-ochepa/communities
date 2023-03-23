@@ -24,19 +24,13 @@ class EmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'                => 'required|string|max:20',
-            'last_name'                 => 'required|string|max:20',
-            'phone'                     => 'required|string|max:20|unique:users,phone',
-            'email'                     => 'required|string|max:255|email|unique:users,email',
-            'password_confirmation'     => 'required',
-            'password'                  => 'required|same:password_confirmation',
-            'department_id'             => 'required|numeric',
-            'designation_id'            => 'required|numeric',
-            'gender'                    => 'required|numeric',
-            'status'                    => 'required|numeric',
-            'date_of_joining'           => 'required',
-            'about'                     => 'nullable|max:255',
-            'image'                     => 'image|mimes:jpeg,png,jpg|max:5098',
+            'employee.user_id'          => ['required', 'numeric'],
+            'employee.department_id'    => ['required', 'numeric'],
+            'employee.designation_id'   => ['required', 'numeric'],
+            'employee.status_code'      => ['required', 'numeric'],
+            'employee.employed_at'      => ['required'],
+            'employee.about'            => ['nullable', 'max:255'],
+            'image'                     => ['image', 'mimes:jpeg,png,jpg', 'max:5098'],
         ];
     }
 }

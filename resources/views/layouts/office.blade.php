@@ -44,6 +44,8 @@
     <link href="/assets/app/src/assets/css/light/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
     <link href="/assets/app/src/assets/css/dark/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
 
+    @stack('css')
+
     @livewireStyles
 </head>
 
@@ -106,6 +108,7 @@
     @livewireScripts
 
     @stack('js')
+    @stack('scripts')
 </body>
 
 </html>

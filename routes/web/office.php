@@ -83,12 +83,15 @@ Route::middleware(['auth'])->prefix('office')->as('office.')->group(function () 
     //web-token
     Route::post('store-token', [WebNotificationController::class, 'store'])->name('store.token');
 
-    //employee route
-    Route::resource('employees', EmployeeController::class);
-    Route::get('get-employees', [EmployeeController::class, 'getEmployees'])->name('employees.get-employees');
-    Route::get('employees/get-pre-registers/{id}', [EmployeeController::class, 'getPreRegister'])->name('employees.get-pre-registers');
-    Route::get('employees/get-visitors/{id}', [EmployeeController::class, 'getVisitor'])->name('employees.get-visitors');
-    Route::put('employees/check/{id}', [EmployeeController::class, 'checkEmployee'])->name('employees.check');
+    // Employees
+    Route::resource('employee', EmployeeController::class)->except(['index'])->names('employee');
+    Route::get('employees', [EmployeeController::class, 'index'])->name('employee.index');
+    Route::get('employee', fn () => redirect(route('office.employee.index')));
+
+    Route::get('get-employees', [EmployeeController::class, 'getEmployees'])->name('employee.get-employees');
+    Route::get('employee/get-pre-registers/{id}', [EmployeeController::class, 'getPreRegister'])->name('employee.get-pre-registers');
+    Route::get('employee/get-visitors/{id}', [EmployeeController::class, 'getVisitor'])->name('employee.get-visitors');
+    Route::put('employee/check/{id}', [EmployeeController::class, 'checkEmployee'])->name('employee.check');
 
     //pre-registers
     Route::resource('pre-registers', PreRegisterController::class);

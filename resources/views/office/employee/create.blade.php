@@ -1,236 +1,167 @@
-@extends('office.layouts.master')
+<x-office-layout>
+    {{-- <div class="section-header">
+        <h1>{{ __('employee.employees') }}</h1>
+        {{ Breadcrumbs::render('employees/add') }}
+    </div> --}}
 
-@section('css')
-    <link rel="stylesheet" href="{{ asset('assets/modules/select2/dist/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap-social/bootstrap-social.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/modules/summernote/summernote-bs4.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}">
-@endsection
+    <div class="card my-4">
+        <form action="{{ route('office.employee.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
 
-@section('main-content')
-    <section class="section">
-        <div class="section-header">
-            <h1>{{ __('employee.employees') }}</h1>
-            {{ Breadcrumbs::render('employees/add') }}
-        </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="row gy-3">
+                            {{-- User --}}
+                            <div class="form-group col-md-4">
+                                <label for="user_id">{{ __('label.user') }}</label>
+                                <span class="text-danger">*</span>
+                                <select id="user_id" name="employee[user_id]"
+                                    class="form-control @error('employee.user_id') border-danger @enderror" required>
+                                    <option value="">Select</option>
+                                    @foreach ($users as $key => $user)
+                                        <option value="{{ $user->id }}"
+                                            {{ old('employee.user_id') == $user->id ? 'selected' : '' }}>
+                                            {{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('employee.user_id')
+                                    <div class="form-text text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
-        <div class="section-body">
-            <div class="row">
-                <div class="col-12 col-md-12 col-lg-12">
-                    <div class="card">
-                        <form action="{{ route('office.employees.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="card-body">
-                                <div class="form-row">
-                                    <div class="form-group col">
-                                        <label for="first_name">{{ __('employee.first_name') }}</label> <span
-                                            class="text-danger">*</span>
-                                        <input id="first_name" type="text" name="first_name"
-                                            class="form-control {{ $errors->has('first_name') ? ' is-invalid ' : '' }}"
-                                            value="{{ old('first_name') }}">
-                                        @error('first_name')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
+                            {{-- employed_at --}}
+                            <div class="form-group col-md-4">
+                                <label>{{ __('employee.employed_at') }}</label> <span class="text-danger">*</span>
+                                <input type="date" autocomplete="off" id="date-picker" name="employee[employed_at]"
+                                    class="form-control @error('employee.employed_at') border-danger @enderror"
+                                    value="{{ old('employee.employed_at') }}" required />
+                                @error('employee.employed_at')
+                                    <div class="form-text text-danger">
+                                        {{ $message }}
                                     </div>
-                                    <div class="form-group col">
-                                        <label for="last_name">{{ __('employee.last_name') }}</label> <span
-                                            class="text-danger">*</span>
-                                        <input id="last_name" type="text" name="last_name"
-                                            class="form-control {{ $errors->has('last_name') ? ' is-invalid ' : '' }}"
-                                            value="{{ old('last_name') }}">
-                                        @error('last_name')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
+                                @enderror
+                            </div>
 
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col">
-                                        <label>{{ __('employee.email_address') }}</label> <span
-                                            class="text-danger">*</span>
-                                        <input type="text" name="email"
-                                            class="form-control @error('email') is-invalid @enderror"
-                                            value="{{ old('email') }}">
-                                        @error('email')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
+                            <div class="form-group col-md-4">
+                                <label>{{ __('levels.status') }}</label> <span class="text-danger">*</span>
+                                <select name="employee[status_code]"
+                                    class="form-control @error('employee.status_code') border-danger @enderror"
+                                    required>
+                                    <option value="">Select</option>
+                                    @foreach ($statuses ?? [] as $status)
+                                        <option value="{{ $status->code }}"
+                                            {{ old('employee.status_code') == $status->code ? 'selected' : '' }}>
+                                            {{ $status->name }} ({{ $status->code }})</option>
+                                    @endforeach
+                                </select>
+                                @error('employee.status_code')
+                                    <div class="form-text text-danger">
+                                        {{ $message }}
                                     </div>
-                                    <div class="form-group col">
-                                        <label>{{ __('employee.phone') }}</label> <span class="text-danger">*</span>
-                                        <input type="text" name="phone"
-                                            class="form-control @error('phone') is-invalid @enderror"
-                                            value="{{ old('phone') }}">
-                                        @error('phone')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col">
-                                        <label>{{ __('employee.joining_date') }}</label> <span class="text-danger">*</span>
-                                        <input type="text" autocomplete="off" id="date-picker" name="date_of_joining"
-                                            class="form-control @error('date_of_joining') is-invalid @enderror"
-                                            value="{{ old('date_of_joining') }}">
-                                        @error('date_of_joining')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col">
-                                        <label for="gender">{{ __('employee.gender') }}</label> <span
-                                            class="text-danger">*</span>
-                                        <select id="gender" name="gender"
-                                            class="form-control @error('gender') is-invalid @enderror">
-                                            @foreach (trans('genders') as $key => $gender)
-                                                <option value="{{ $key }}"
-                                                    {{ old('gender') == $key ? 'selected' : '' }}>
-                                                    {{ $gender }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('gender')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
+                                @enderror
+                            </div>
 
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col">
-                                        <label for="department_id">{{ __('employee.department') }}</label> <span
-                                            class="text-danger">*</span>
-                                        <select id="department_id" name="department_id"
-                                            class="form-control @error('department_id') is-invalid @enderror">
-                                            @foreach ($departments as $key => $department)
-                                                <option value="{{ $department->id }}"
-                                                    {{ old('department_id') == $department->id ? 'selected' : '' }}>
-                                                    {{ $department->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('department_id')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
+                            <div class="form-group col-md-6">
+                                <label for="employee-department_id">{{ __('employee.department') }}</label> <span
+                                    class="text-danger">*</span>
+                                <select id="employee-department_id" name="employee[department_id]"
+                                    class="form-control @error('employee.department_id') border-danger @enderror"
+                                    required>
+                                    <option value="">Select</option>
+                                    @foreach ($departments as $key => $department)
+                                        <option value="{{ $department->id }}"
+                                            {{ old('employee.department_id') == $department->id ? 'selected' : '' }}>
+                                            {{ $department->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('employee.department_id')
+                                    <div class="form-text text-danger">
+                                        {{ $message }}
                                     </div>
-                                    <div class="form-group col">
-                                        <label for="designation_id">{{ __('employee.designation') }}</label> <span
-                                            class="text-danger">*</span>
-                                        <select id="designation_id" name="designation_id"
-                                            class="form-control @error('designation_id') is-invalid @enderror">
-                                            @foreach ($designations as $key => $designation)
-                                                <option value="{{ $designation->id }}"
-                                                    {{ old('designation_id') == $designation->id ? 'selected' : '' }}>
-                                                    {{ $designation->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('designation_id')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
+                                @enderror
+                            </div>
 
-                                <div class="form-row">
-                                    <div class="form-group col">
-                                        <label>{{ __('employee.password') }}</label> <span class="text-danger">*</span>
-                                        <input type="password" name="password"
-                                            class="form-control @error('password') is-invalid @enderror"
-                                            value="{{ old('password') }}">
-                                        @error('password')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
+                            <div class="form-group col-md-6">
+                                <label for="employee-designation_id">{{ __('employee.designation') }}</label> <span
+                                    class="text-danger">*</span>
+                                <select id="employee-designation_id" name="employee[designation_id]"
+                                    class="form-control @error('employee.designation_id') border-danger @enderror"
+                                    required>
+                                    <option value="">Select</option>
+                                    @foreach ($designations as $key => $designation)
+                                        <option value="{{ $designation->id }}"
+                                            {{ old('employee.designation_id') == $designation->id ? 'selected' : '' }}>
+                                            {{ $designation->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('employee.designation_id')
+                                    <div class="form-text text-danger">
+                                        {{ $message }}
                                     </div>
-                                    <div class="form-group col">
-                                        <label>{{ __('employee.confirm_password') }}</label> <span
-                                            class="text-danger">*</span>
-                                        <input type="password" name="password_confirmation"
-                                            class="form-control @error('password_confirmation') is-invalid @enderror"
-                                            value="{{ old('password_confirmation') }}">
-                                        @error('password_confirmation')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col">
-                                        <label>{{ __('levels.status') }}</label> <span class="text-danger">*</span>
-                                        <select name="status" class="form-control @error('status') is-invalid @enderror">
-                                            @foreach (trans('statuses') as $key => $status)
-                                                <option value="{{ $key }}"
-                                                    {{ old('status') == $key ? 'selected' : '' }}>
-                                                    {{ $status }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('status')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
+                                @enderror
+                            </div>
 
-                                <div class="form-row">
-                                    <div class="form-group col">
-                                        <label for="about">{{ __('employee.about') }}</label>
-                                        <textarea name="about"
-                                            class="summernote-simple form-control height-textarea @error('about')
-                                                  is-invalid @enderror"
-                                            id="about">
-                                    {{ old('about') }}
+                            <div class="form-group col-md-12">
+                                <label for="about">{{ __('employee.about') }}</label>
+                                <textarea name="employee[about]"
+                                    class="summernote-simple form-control height-textarea @error('employee.about')
+                                                  border-danger @enderror"
+                                    id="about">
+                                    {{ old('employee.about') }}
                                     </textarea>
-                                        @error('about')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
+                                @error('employee.about')
+                                    <div class="form-text text-danger">
+                                        {{ $message }}
                                     </div>
-                                    <div class="form-group col">
-                                        <label for="customFile">{{ __('employee.image') }}</label>
-                                        <div class="custom-file">
-                                            <input name="image" type="file"
-                                                class="custom-file-input @error('image') is-invalid @enderror"
-                                                id="customFile" onchange="readURL(this);">
-                                            <label class="custom-file-label"
-                                                for="customFile">{{ __('employee.choose_file') }}</label>
-                                        </div>
-                                        @if ($errors->has('image'))
-                                            <div class="help-block text-danger">
-                                                {{ $errors->first('image') }}
-                                            </div>
-                                        @endif
-                                        <img class="img-thumbnail image-width mt-4 mb-3" id="previewImage"
-                                            src="{{ asset('assets/img/default/user.png') }}" alt="your image" />
-                                    </div>
-                                </div>
+                                @enderror
                             </div>
+                        </div>
+                    </div>
 
-                            <div class="card-footer ">
-                                <button class="btn btn-primary mr-1" type="submit">{{ __('employee.submit') }}</button>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <img class="img-thumbnail image-width mt-4 mb-3 w-100" id="previewImage"
+                                src="{{ asset('assets/img/default/user.png') }}" alt="your image" />
+
+                            <div class="custom-file">
+                                <input name="image" type="file"
+                                    class="custom-file-input @error('image') border-danger @enderror" id="customFile"
+                                    onchange="readURL(this);" />
+
+                                {{-- <label class="custom-file-label"
+                                    for="customFile">{{ __('employee.choose_file') }}</label> --}}
                             </div>
-                        </form>
+                            @error('image')
+                                <div class="form-text help-block text-danger">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-@endsection
 
-@section('scripts')
-    <script src="{{ asset('assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('assets/modules/summernote/summernote-bs4.js') }}"></script>
-    <script src="{{ asset('assets/modules/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ asset('js/employee/create.js') }}"></script>
-@endsection
+            <div class="card-footer ">
+                <button class="btn btn-primary mr-1" type="submit">{{ __('employee.submit') }}</button>
+                <a href="{{ route('office.employee.index') }}" class="btn btn-default">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    @push('css')
+        <link rel="stylesheet" href="{{ asset('assets/modules/select2/dist/css/select2.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap-social/bootstrap-social.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/modules/summernote/summernote-bs4.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}">
+    @endpush
+
+    @push('js')
+        <script src="{{ asset('assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
+        <script src="{{ asset('assets/modules/summernote/summernote-bs4.js') }}"></script>
+        <script src="{{ asset('assets/modules/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+        <script src="{{ asset('js/employee/create.js') }}"></script>
+    @endpush
+</x-office-layout>

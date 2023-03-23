@@ -60,7 +60,7 @@
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-hover" id="visitortable"
-                                            data-url="{{ route('office.employees.get-visitors', $employee) }}"
+                                            data-url="{{ route('office.employee.get-visitors', $employee) }}"
                                             data-status="{{ \App\Enums\Status::ACTIVE }}"
                                             data-hidecolumn="{{ auth()->user()->can('visitor.show') ||auth()->user()->can('visitor.edit') ||auth()->user()->can('visitor.delete') }}">
                                             <thead>
@@ -83,7 +83,7 @@
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-hover" id="preregistertable"
-                                            data-url="{{ route('office.employees.get-pre-registers', $employee) }}"
+                                            data-url="{{ route('office.employee.get-pre-registers', $employee) }}"
                                             data-status="{{ \App\Enums\Status::ACTIVE }}"
                                             data-hidecolumn="{{ auth()->user()->can('pre-register.show') ||auth()->user()->can('pre-register.edit') ||auth()->user()->can('pre-register.delete') }}">
                                             <thead>
