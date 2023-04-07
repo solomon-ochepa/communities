@@ -1,0 +1,16 @@
+{
+    "name": "User",
+    "alias": "user",
+    "description": "Users - Laravel module.",
+    "keywords": [
+        "user-module",
+        "laravel-module",
+        "solomon-ochepa",
+        "oki technologies ltd"
+    ],
+    "priority": 0,
+    "providers": [
+        "Modules\\User\\app\\Providers\\UserServiceProvider"
+    ],
+    "files": []
+}

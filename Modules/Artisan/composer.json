@@ -1,0 +1,33 @@
+{
+    "name": "solomon-ochepa/artisan-module",
+    "type": "laravel-module",
+    "description": "Artisan - Laravel module.",
+    "keywords": [
+        "artisan-module",
+        "laravel-module",
+        "solomon-ochepa",
+        "oki technologies ltd"
+    ],
+    "authors": [
+        {
+            "name": "Solomon Ochepa",
+            "email": "solomon-ochepa@gmail.com"
+        }
+    ],
+    "require": {
+        "nwidart/laravel-modules": "*",
+        "joshbrw/laravel-module-installer": "*",
+        "mhmiton/laravel-modules-livewire": "*"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Artisan\\": ""
+        }
+    }
+}

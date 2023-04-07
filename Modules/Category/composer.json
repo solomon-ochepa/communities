@@ -1,0 +1,34 @@
+{
+    "name": "solomon-ochepa/category-module",
+    "type": "laravel-module",
+    "description": "Categories - Laravel module.",
+    "keywords": [
+        "category-module",
+        "laravel-module",
+        "solomon-ochepa",
+        "oki technologies ltd"
+    ],
+    "authors": [
+        {
+            "name": "Solomon Ochepa",
+            "email": "solomon-ochepa@gmail.com"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "nwidart/laravel-modules": "*",
+        "joshbrw/laravel-module-installer": "*",
+        "mhmiton/laravel-modules-livewire": "*"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Category\\": ""
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "solomon-ochepa/address",
+    "description": "",
+    "authors": [
+        {
+            "name": "Solomon Ochepa",
+            "email": "solomon-ochepa@gmail.com"
+        }
+    ],
+    "require": {
+        "nwidart/laravel-modules": "*",
+        "joshbrw/laravel-module-installer": "*",
+        "mhmiton/laravel-modules-livewire": "*"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Address\\": ""
+        }
+    }
+}

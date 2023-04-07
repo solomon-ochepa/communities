@@ -1,0 +1,34 @@
+{
+    "name": "solomon-ochepa/attribute-module",
+    "type": "laravel-module",
+    "description": "Attributes - Laravel module.",
+    "keywords": [
+        "attribute-module",
+        "laravel-module",
+        "solomon-ochepa",
+        "oki technologies ltd"
+    ],
+    "authors": [
+        {
+            "name": "Solomon Ochepa",
+            "email": "solomon-ochepa@gmail.com"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "nwidart/laravel-modules": "*",
+        "joshbrw/laravel-module-installer": "*",
+        "mhmiton/laravel-modules-livewire": "*"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Attribute\\": ""
+        }
+    }
+}
