@@ -41,7 +41,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => isset($_REQUEST['dev']) ? true : (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'asset_url' => env('ASSET_URL'),
+    'asset_url' => env('ASSET_URL', '/'),
 
     /*
     |--------------------------------------------------------------------------
@@ -181,13 +181,10 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Akaunting\Setting\Provider::class,
+
         /*
          * Package Service Providers...
          */
-        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
-        RachidLaasri\LaravelInstaller\Providers\LaravelInstallerServiceProvider::class,
-        'Intervention\Image\ImageServiceProvider',
 
         /*
          * Application Service Providers...
@@ -197,11 +194,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Barryvdh\TranslationManager\TranslationServiceProvider::class,
-        Brotzka\DotenvEditor\DotenvEditorServiceProvider::class,
-        Jackiedo\Timezonelist\TimezonelistServiceProvider::class,
-        Spatie\Permission\PermissionServiceProvider::class,
-        Yajra\DataTables\DataTablesServiceProvider::class,
 
     ],
 
@@ -218,10 +210,6 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
-        'Setting' => Akaunting\Setting\Facade::class,
-        'DotenvEditor' => Brotzka\DotenvEditor\DotenvEditorFacade::class,
-        'Timezonelist' => Jackiedo\Timezonelist\Facades\Timezonelist::class,
-        'Image' => 'Intervention\Image\Facades\Image'
     ])->toArray(),
 
 ];

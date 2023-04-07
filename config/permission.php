@@ -119,7 +119,7 @@ return [
      * the default setting is false here for optimum safety.
      */
 
-    'display_permission_in_exception' => true,
+    'display_permission_in_exception' => false,
 
     /*
      * When set to true, the required role names are added to the exception
@@ -127,13 +127,13 @@ return [
      * the default setting is false here for optimum safety.
      */
 
-    'display_role_in_exception' => true,
+    'display_role_in_exception' => false,
 
     /*
      * By default wildcard permission lookups are disabled.
      */
 
-    'enable_wildcard_permission' => true,
+    'enable_wildcard_permission' => false,
 
     'cache' => [
 

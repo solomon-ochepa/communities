@@ -1,0 +1,16 @@
+{
+    "Artisan": true,
+    "Category": true,
+    "Attribute": true,
+    "Setting": true,
+    "Status": true,
+    "Tag": true,
+    "User": true,
+    "Address": true,
+    "Media": true,
+    "Apartment": true,
+    "Visitor": true,
+    "Menu": true,
+    "Tenant": true,
+    "Room": true
+}

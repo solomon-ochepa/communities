@@ -1,9 +1,8 @@
 <?php
 
-use App\Models\Currency;
-use App\Models\Setting;
-use App\Models\Status;
-use App\Models\User;
+use Modules\Setting\app\Models\Setting;
+use Modules\Status\app\Models\Status;
+use Modules\User\app\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
@@ -134,28 +133,5 @@ if (!function_exists('route_is')) {
     function route_is($patterns): bool
     {
         return request()->routeIs($patterns);
-    }
-}
-
-if (!function_exists('currency')) {
-    /**
-     * @param Int|String $code
-     */
-    function currency($code, $default = null)
-    {
-        $changed    = false; // $user->isDirty(); // true
-        $key        = "currencies." . Str::slug($code, '.');
-        if (Cache::has($key) and !$changed) {
-            return Cache::get($key);
-        } else {
-            if (is_int($code)) {
-                $value = Currency::where('code', $code)->value('name') ?? $default;
-            } else {
-                $value = Currency::where('name', $code)->Orwhere('slug', $code)->value('id') ?? $default;
-            }
-
-            Cache::put($key, $value, 60);
-            return $value;
-        }
     }
 }

@@ -48,7 +48,7 @@ return [
      * * `'replace'` : the old file and media model is deleted
      * * `'error'`: an Exception is thrown
      */
-    'on_duplicate' => Plank\Mediable\MediaUploader::ON_DUPLICATE_INCREMENT,
+    'on_duplicate' => Plank\Mediable\MediaUploader::ON_DUPLICATE_REPLACE,
 
     /*
      * Reject files unless both their mime and extension are recognized and both match a single aggregate type
@@ -59,7 +59,7 @@ return [
      * Reject files whose mime type or extension is not recognized
      * if true, files will be given a type of `'other'`
      */
-    'allow_unrecognized_types' => false,
+    'allow_unrecognized_types' => true,
 
     /*
      * Only allow files with specific MIME type(s) to be uploaded
@@ -88,12 +88,17 @@ return [
                 'image/jpeg',
                 'image/png',
                 'image/gif',
+                'image/webp',
+                'image/tiff',
             ],
             'extensions' => [
                 'jpg',
                 'jpeg',
                 'png',
                 'gif',
+                'webp',
+                'tif',
+                'tiff'
             ]
         ],
         Plank\Mediable\Media::TYPE_IMAGE_VECTOR => [
@@ -185,17 +190,17 @@ return [
         ],
         Plank\Mediable\Media::TYPE_PRESENTATION => [
             'mime_types' =>
-                [
-                    'application/vnd.ms-powerpoint',
-                    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-                    'application/vnd.openxmlformats-officedocument.presentationml.slideshow'
-                ],
+            [
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                'application/vnd.openxmlformats-officedocument.presentationml.slideshow'
+            ],
             'extensions' =>
-                [
-                    'ppt',
-                    'pptx',
-                    'ppsx',
-                ]
+            [
+                'ppt',
+                'pptx',
+                'ppsx',
+            ]
         ],
     ],
 

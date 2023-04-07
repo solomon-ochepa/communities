@@ -2,6 +2,8 @@
 
 namespace App\View\Components\Layouts\App\Navbar;
 
+use Closure;
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class UserProfile extends Component
@@ -10,8 +12,6 @@ class UserProfile extends Component
 
     /**
      * Create a new component instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -20,10 +20,8 @@ class UserProfile extends Component
 
     /**
      * Get the view / contents that represent the component.
-     *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
      */
-    public function render()
+    public function render(): View|Closure|string
     {
         $this->data['user'] = auth()->user();
 

@@ -1,3 +1,3 @@
-<a class="pr-1 text-decoration-none text-muted" href="{{ $url ?? 'javascript://#url' }}">
-    <i class="fas fa-undo"></i>
-</a>
+<div>
+    <!-- I begin to speak only when I am certain what I will say is not better left unsaid. - Cato the Younger -->
+</div>

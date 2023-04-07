@@ -7,8 +7,6 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
-use App\Models\Addon;
-use Illuminate\Support\Facades\File;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -23,10 +21,8 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->configureRateLimiting();
 
@@ -40,73 +36,13 @@ class RouteServiceProvider extends ServiceProvider
         });
     }
 
-    public function map()
-    {
-        $this->mapApiRoutes();
-
-        $this->mapWebRoutes();
-
-        //
-    }
-
     /**
      * Configure the rate limiters for the application.
-     *
-     * @return void
      */
-    protected function configureRateLimiting()
+    protected function configureRateLimiting(): void
     {
         RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()->id ?: $request->ip());
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
-    }
-
-    protected function mapWebRoutes()
-    {
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/web.php'));
-
-        $addons = Addon::all();
-        if (!blank($addons)) {
-            foreach ($addons as $addon) {
-                if (isset(json_decode($addon->files)->web_route)) {
-                    if (File::exists(__DIR__ . "/../../routes/{$addon->slug}.php")) {
-                        Route::middleware('web')
-                            ->namespace($this->namespace)
-                            ->group(__DIR__ . "/../../routes/{$addon->slug}.php");
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * Define the "api" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
-     * @return void
-     */
-    protected function mapApiRoutes()
-    {
-        Route::prefix('api')
-            ->middleware('api')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/api.php'));
-
-        $addons = Addon::all();
-        if (!blank($addons)) {
-            foreach ($addons as $addon) {
-                if (isset(json_decode($addon->files)->api_route)) {
-                    if (File::exists(__DIR__ . "/../../routes/{$addon->slug}.php")) {
-                        Route::prefix('api')
-                            ->middleware('api')
-                            ->namespace($this->namespace)
-                            ->group(__DIR__ . "/../../routes/{$addon->slug}-api.php");
-                    }
-                }
-            }
-        }
     }
 }

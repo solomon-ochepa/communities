@@ -2,87 +2,115 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>
-        {!! isset($data['title']) ? $data['title'] . ' &middot; ' : '' !!}{{ setting('site_name') }}
+        @isset($title)
+            {{ $title }} &middot;
+        @endisset {{ config('app.name', 'Laravel') }}
     </title>
 
-    <!-- SEO Meta Tags-->
     <meta name="description" content="{{ $description ?? '' }}">
-    <meta name="keywords" content="{{ $keywords ?? '' }}">
-    <meta name="author" content="{{ $author ?? '' }}">
 
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-
-    <!-- Favicon and Touch Icons-->
-    <link href="{{ asset('') }}/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
-    <link href="{{ asset('') }}/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32" />
-    <link href="{{ asset('') }}/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16" />
-    <link href="{{ asset('') }}/site.webmanifest" rel="manifest" />
-    <link href="{{ asset('') }}/safari-pinned-tab.svg" rel="mask-icon" color="#fe6a6a">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
     <!-- Scripts -->
     @vite('resources/js/app.js')
 
-    {{-- Styles --}}
-    @livewireStyles
+    @production
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+    @else
+        <link rel="stylesheet" href="//cdn.test/font-awesome/6.1.2/css/all.min.css">
+    @endproduction
 
-    @env('development')
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    @endenv
-    @env('local')
-    <link rel="stylesheet" href="http://cdn.test/bootstrap/5.0.2/css/bootstrap.min.css">
-    @endenv
+    <link href="/assets/app/layouts/vertical-light-menu/css/light/loader.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/app/layouts/vertical-light-menu/css/dark/loader.css" rel="stylesheet" type="text/css" />
+    <script src="/assets/app/layouts/vertical-light-menu/loader.js"></script>
 
-    <!-- General CSS Files -->
-    <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/dist/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/modules/@fortawesome/fontawesome-free/css/all.min.css') }}">
+    <!-- GLOBAL MANDATORY STYLES -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
 
-    <!-- CSS Libraries -->
-    <link rel="stylesheet" href="{{ asset('assets/modules/izitoast/dist/css/iziToast.min.css') }}">
-    @yield('css')
-    <link rel="stylesheet" href="{{ asset('assets/css/dropzone.css') }}">
+    <link href="/assets/app/src/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/app/layouts/vertical-light-menu/css/light/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/app/layouts/vertical-light-menu/css/dark/plugins.css" rel="stylesheet" type="text/css" />
 
-    <!-- Template CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <!-- EXTRA -->
+    {{-- <link href="/assets/app/src/plugins/src/apex/apexcharts.css" rel="stylesheet" type="text/css"> --}}
+    <link href="/assets/app/src/assets/css/light/components/modal.css" rel="stylesheet" type="text/css">
+    <link href="/assets/app/src/assets/css/dark/components/modal.css" rel="stylesheet" type="text/css">
 
+    <!-- PAGE LEVEL PLUGINS/CUSTOM STYLES -->
     @stack('css')
+
+    @livewireStyles
 </head>
 
-<body>
-    <audio id="myAudio1">
-        <source src="{{ asset('beep.mp3') }}" type="audio/mpeg">
-    </audio>
+<body class="layout-boxed">
+    <x-layouts.app.loader />
 
-    <div id="app">
-        <div class="main-wrapper">
-            <x-app-layout.menu />
-            <x-app-layout.sidebar />
+    <x-layouts.app.navbar />
 
-            <!-- Main Content -->
-            <div class="main-content">
-                {{ $slot }}
+    <div class="main-container" id="container">
+        <div class="overlay"></div>
+        <div class="search-overlay"></div>
+
+        <x-layouts.app.sidebar />
+
+        <!-- Page Content -->
+        <div id="content" class="main-content">
+            <div class="layout-px-spacing">
+                <div class="middle-content container-xxl p-0">
+                    <x-layouts.app.breadcrumbs />
+
+                    <!-- Page Heading -->
+                    @if (isset($header))
+                        <header class="container -fluid mt-3 py-2 rounded shadow-sm">
+                            <div class="row">
+                                <div class="col-sm-12 border-start border-5">
+                                    {{ $header }}
+                                </div>
+                            </div>
+                        </header>
+                    @endif
+
+                    {{ $slot }}
+                </div>
             </div>
-
-            <x-app-layout.footer />
         </div>
     </div>
 
-    <!-- Modals -->
     @stack('modals')
 
-    <x-app-layout.scripts />
+    @production
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"
+            integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @else
+        <script src="//cdn.test/font-awesome/6.1.2/js/all.min.js"></script>
+    @endproduction
 
-    <script>
-        $('[data-toggle="tooltip",data-bs-toggle="tooltip"]').tooltip();
-    </script>
+    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+    <script src="/assets/app/src/plugins/src/global/vendors.min.js"></script>
+
+    <script src="/assets/app/src/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/app/src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="/assets/app/src/plugins/src/mousetrap/mousetrap.min.js"></script>
+    <script src="/assets/app/src/plugins/src/waves/waves.min.js"></script>
+    <script src="/assets/app/layouts/vertical-light-menu/app.js"></script>
+
+    <!-- EXTRA -->
+    {{-- <script src="/assets/app/src/plugins/src/apex/apexcharts.min.js"></script> --}}
+    {{-- <script src="/assets/app/src/plugins/src/jquery-ui/jquery-ui.min.js"></script> --}}
+
+    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+    @stack('js')
+
+    @livewireScripts
 </body>
 
 </html>

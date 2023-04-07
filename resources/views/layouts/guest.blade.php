@@ -1,61 +1,36 @@
-<!-- Simplicity is an acquired taste. - Katharine Gerould -->
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-
-    <title>
-        {!! isset($data['title']) ? $data['title'] . ' &middot; ' : '' !!}{{ setting('site_name') }}
-    </title>
-
-    <!-- SEO Meta Tags-->
-    <meta name="description" content="{{ $description ?? '' }}">
-    <meta name="keywords" content="{{ $keywords ?? '' }}">
-    <meta name="author" content="{{ $author ?? '' }}">
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Favicon and Touch Icons-->
-    <link href="{{ asset('') }}/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
-    <link href="{{ asset('') }}/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32" />
-    <link href="{{ asset('') }}/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16" />
-    <link href="{{ asset('') }}/site.webmanifest" rel="manifest" />
-    <link href="{{ asset('') }}/safari-pinned-tab.svg" rel="mask-icon" color="#fe6a6a">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Styles -->
-    {{-- @livewireStyles --}}
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/dist/css/bootstrap.min.css') }}">
+    @vite('resources/css/app.css')
 
-    <!-- Template CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
-
-    @stack('css')
+    <!-- Scripts -->
+    @vite('resources/js/app.js')
 </head>
 
-<body>
-    <main id="app">
-        {{ $slot }}
-    </main>
+<body class="font-sans text-gray-900 antialiased">
+    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
+        <div>
+            <a href="/">
+                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+            </a>
+        </div>
 
-    {{-- Modals --}}
-    @stack('modals')
-
-    {{-- Scripts --}}
-    {{-- @livewireScripts --}}
-
-    {{-- Required --}}
-    <script src="{{ asset('frontend/frontend/js/jquery.js') }}"></script>
-
-    <script src="{{ asset('frontend/js/demo-login.js') }}"></script>
-
-    @stack('js')
+        <div
+            class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+            {{ $slot }}
+        </div>
+    </div>
 </body>
 
 </html>

@@ -15,7 +15,7 @@ class CreateMediableTables extends Migration
     {
         if (!Schema::hasTable('media')) {
             Schema::create('media', function (Blueprint $table) {
-                $table->uuid('id')->primary();
+                $table->increments('id');
                 $table->string('disk', 32);
                 $table->string('directory');
                 $table->string('filename');
@@ -32,8 +32,10 @@ class CreateMediableTables extends Migration
 
         if (!Schema::hasTable('mediables')) {
             Schema::create('mediables', function (Blueprint $table) {
-                $table->foreignUuid('media_id')->constrained()->cascadeOnDelete();
+                $table->integer('media_id')->unsigned();
                 $table->uuidMorphs('mediable');
+                // $table->string('mediable_type');
+                // $table->integer('mediable_id')->unsigned();
                 $table->string('tag');
                 $table->integer('order')->unsigned();
 
@@ -41,6 +43,9 @@ class CreateMediableTables extends Migration
                 $table->index(['mediable_id', 'mediable_type']);
                 $table->index('tag');
                 $table->index('order');
+                $table->foreign('media_id')
+                    ->references('id')->on('media')
+                    ->cascadeOnDelete();
             });
         }
     }

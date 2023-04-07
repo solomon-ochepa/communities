@@ -38,40 +38,11 @@ class Handler extends ExceptionHandler
 
     /**
      * Register the exception handling callbacks for the application.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->reportable(function (Throwable $e) {
             //
         });
-    }
-
-    public function report(Throwable $exception)
-    {
-        parent::report($exception);
-    }
-
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Throwable  $exception
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @throws \Throwable
-     */
-    public function render($request, Throwable $exception)
-    {
-        if ($request->is('office/*')) {
-            return parent::render($request, $exception);
-        }
-
-        if ($exception instanceof \Illuminate\Auth\AuthenticationException) {
-            return response(['status' => 401, 'message' => 'Unauthorized'], 401);
-        }
-
-        return parent::render($request, $exception);
     }
 }
