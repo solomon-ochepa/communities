@@ -26,10 +26,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('apartment/{apartment}/rooms', [ApartmentRoomController::class, 'index'])->name('apartment.room.index');
     Route::get('apartment/{apartment}/room', fn () => redirect()->route('admin.apartment.room.index'));
 
-    // // Apartment->Tenants
-    // Route::resource('apartment/{apartment}/tenant', ApartmentResidentController::class)->except(['index'])->names('apartment.tenant');
-    // Route::get('apartment/{apartment}/tenants', [ApartmentResidentController::class, 'index'])->name('apartment.tenant.index');
-    // Route::get('apartment/{apartment}/tenant', function () {
-    //     return redirect()->route('admin.apartment.tenant.index');
-    // });
+    // Apartment->Tenants
+    Route::resource('apartment/{apartment}/tenant', ApartmentResidentController::class)->except(['index'])->names('apartment.tenant');
+    Route::get('apartment/{apartment}/tenants', [ApartmentResidentController::class, 'index'])->name('apartment.tenant.index');
+    Route::get('apartment/{apartment}/tenant', function () {
+        return redirect()->route('admin.apartment.tenant.index');
+    });
 });
