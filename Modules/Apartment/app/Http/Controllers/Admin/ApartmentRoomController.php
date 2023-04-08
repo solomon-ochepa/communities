@@ -74,10 +74,11 @@ class ApartmentRoomController extends Controller
      */
     public function edit(Apartment $apartment, Room $room)
     {
-        $this->data['head']['title'] = "Edit: {$room->name}";
+        $this->data['head']['title'] = __('Edit') . ": {$room->name} &middot; {$apartment->name}";
+        $this->data['apartment'] = $apartment;
         $this->data['room'] = $room;
 
-        // return view('apartment::admin.room.edit', $this->data);
+        return view('apartment::admin.room.edit', $this->data);
     }
 
     /**
@@ -101,6 +102,6 @@ class ApartmentRoomController extends Controller
         $room->delete();
 
         session()->flash('status', 'Apartment room deleted successfully.');
-        return redirect(route('admin.apartment.index'));
+        return redirect(route('admin.apartment.room.index', ['apartment' => $apartment->slug]));
     }
 }

@@ -14,7 +14,8 @@ class UpdateApartmentRoomRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'room.name' => ['required', 'string', 'max:32', 'unique:rooms,name,' . $this->id],
+            'room.active' => ['nullable', 'boolean'],
         ];
     }
 
@@ -25,7 +26,6 @@ class UpdateApartmentRoomRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
-        // return $this->user()->can('example.create');
+        return $this->user()->can('apartment.room.update');
     }
 }

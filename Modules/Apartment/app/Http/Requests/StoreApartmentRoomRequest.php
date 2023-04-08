@@ -26,7 +26,6 @@ class StoreApartmentRoomRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
-        // return $this->user()->can('example.create');
+        return $this->user()->can('apartment.room.create');
     }
 }
