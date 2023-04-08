@@ -7,5 +7,8 @@
         </h2>
     </x-slot>
 
-    <livewire:apartment::admin.create />
+
+    <section class="layout-top-spacing">
+        <livewire:apartment::admin.create />
+    </section>
 </x-app-layout>
