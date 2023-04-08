@@ -1,13 +1,11 @@
-<x-app-layout :data="$data">
-    <section class="section">
-        <div class="section-header">
-            <h1>
-                <x-back :url="route('office.apartment.index')" />
-                {{ __('menu.apartments') }}
-            </h1>
-            {{-- {{ Breadcrumbs::render('menus') }} --}}
-        </div>
+<x-app-layout :data="$head ?? []">
+    <x-slot name="header">
+        <h2 class="h3 m-0">
+            <x-back :url="route('admin.apartment.index')" />
 
-        <livewire:office.apartment.create />
-    </section>
+            {{ __('Create Apartment') }}
+        </h2>
+    </x-slot>
+
+    <livewire:apartment::admin.create />
 </x-app-layout>

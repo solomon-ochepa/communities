@@ -23,7 +23,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('office.attendance.clockin') }}" method="POST">
+                <form action="{{ route('admin.attendance.clockin') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">

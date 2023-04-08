@@ -1,8 +1,8 @@
-<x-app-layout :data="$data">
+<x-app-layout :data="$head ?? []">
     <section class="section">
         <div class="section-header">
             <h1>
-                <x-back :url="route('office.apartment.room.index', ['apartment' => $room->apartment->slug])" />
+                <x-back :url="route('admin.apartment.room.index', ['apartment' => $room->apartment->slug])" />
                 {!! $data['title'] ?? $room->apartment->name !!}
             </h1>
             {{-- {{ Breadcrumbs::render('menus') }} --}}
@@ -14,7 +14,7 @@
                 <div class="card mb-3">
                     <div class="card-body p-3">
                         <!-- Create modal -->
-                        <a href="{{ route('office.apartment.resident.create', ['apartment' => $room->apartment->slug]) }}"
+                        <a href="{{ route('admin.apartment.resident.create', ['apartment' => $room->apartment->slug]) }}"
                             class="btn btn-icon icon-left btn-primary">
                             <i class="fas fa-plus"></i>
                             {{ __('label.create') }}
@@ -31,7 +31,7 @@
                         @can('resident.create')
                             <span class="position-absolute" style="right: 8px; top: 8px;">
                                 <!-- Create modal -->
-                                <a href="{{ route('office.apartment.resident.create', ['apartment' => $room->apartment->slug]) }}"
+                                <a href="{{ route('admin.apartment.resident.create', ['apartment' => $room->apartment->slug]) }}"
                                     class="btn btn-sm btn-primary">
                                     <i class="fas fa-plus"></i>
                                 </a>

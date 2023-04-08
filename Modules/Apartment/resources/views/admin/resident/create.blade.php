@@ -1,8 +1,8 @@
-<x-app-layout :data="$data">
+<x-app-layout :data="$head ?? []">
     <section class="section">
         <div class="section-header">
             <h1>
-                <x-back :url="route('office.apartment.resident.index', $apartment->slug)" />
+                <x-back :url="route('admin.apartment.resident.index', $apartment->slug)" />
                 {!! $data['title'] !!}
             </h1>
             {{-- {{ Breadcrumbs::render('menus') }} --}}
