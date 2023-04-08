@@ -94,6 +94,10 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
+        if ($apartment->rooms) {
+            $apartment->rooms->each(fn ($room) => $room->delete());
+        }
+
         $apartment->delete();
 
         session()->flash('status', 'Apartment deleted successfully.');
