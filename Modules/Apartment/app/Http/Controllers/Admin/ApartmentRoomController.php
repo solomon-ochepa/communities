@@ -59,7 +59,7 @@ class ApartmentRoomController extends Controller
      * @param Apartment $apartment
      * @return Renderable
      */
-    public function show(Room $room)
+    public function show(Apartment $apartment, Room $room)
     {
         $this->data['head']['title'] = "{$room->name}";
         $this->data['room'] = $room;
@@ -72,7 +72,7 @@ class ApartmentRoomController extends Controller
      * @param Apartment $apartment
      * @return Renderable
      */
-    public function edit(Room $room)
+    public function edit(Apartment $apartment, Room $room)
     {
         $this->data['head']['title'] = "Edit: {$room->name}";
         $this->data['room'] = $room;
@@ -86,7 +86,7 @@ class ApartmentRoomController extends Controller
      * @param Apartment $apartment
      * @return Renderable
      */
-    public function update(Request $request, Room $room)
+    public function update(Request $request, Apartment $apartment, Room $room)
     {
         //
     }
@@ -96,7 +96,7 @@ class ApartmentRoomController extends Controller
      * @param Apartment $apartment
      * @return Renderable
      */
-    public function destroy(Room $room)
+    public function destroy(Apartment $apartment, Room $room)
     {
         $room->delete();
 

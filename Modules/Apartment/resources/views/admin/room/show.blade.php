@@ -2,8 +2,8 @@
     <section class="section">
         <div class="section-header">
             <h1>
-                <x-back :url="route('admin.apartment.room.index', ['apartment' => $room->apartment->slug])" />
-                {!! $data['title'] ?? $room->apartment->name !!}
+                <x-back :url="route('admin.apartment.room.index', ['apartment' => $room->roomable->slug])" />
+                {!! $data['title'] ?? $room->roomable->name !!}
             </h1>
             {{-- {{ Breadcrumbs::render('menus') }} --}}
         </div>
@@ -14,7 +14,7 @@
                 <div class="card mb-3">
                     <div class="card-body p-3">
                         <!-- Create modal -->
-                        <a href="{{ route('admin.apartment.resident.create', ['apartment' => $room->apartment->slug]) }}"
+                        <a href="{{ route('admin.apartment.tenant.create', ['apartment' => $room->roomable->slug]) }}"
                             class="btn btn-icon icon-left btn-primary">
                             <i class="fas fa-plus"></i>
                             {{ __('label.create') }}
@@ -31,7 +31,7 @@
                         @can('resident.create')
                             <span class="position-absolute" style="right: 8px; top: 8px;">
                                 <!-- Create modal -->
-                                <a href="{{ route('admin.apartment.resident.create', ['apartment' => $room->apartment->slug]) }}"
+                                <a href="{{ route('admin.apartment.tenant.create', ['apartment' => $room->roomable->slug]) }}"
                                     class="btn btn-sm btn-primary">
                                     <i class="fas fa-plus"></i>
                                 </a>
@@ -47,7 +47,7 @@
                                 <h4>{{ __('resident.residents') }}</h4>
                             </div>
                             <div class="card-body">
-                                {{ $room->apartment->residents->count() }}
+                                {{ $room->roomable->tenants->count() }}
                             </div>
                         </div>
                     </div>
