@@ -1,5 +1,6 @@
 <div class="card">
-    <form wire:submit.prevent="store" method="POST">
+    {{-- @dd($apartment) --}}
+    <form wire:submit.prevent="update" method="POST">
         @csrf
 
         <div class="card-body p-3">
@@ -35,22 +36,6 @@
                         </label>
                     </div>
                     @error('apartment.active')
-                        <div class="invalid-feedback form-text">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-
-                {{-- Rooms --}}
-                <div class="col-md-2">
-                    <div class="input-group input-group-sm">
-                        <label class="input-group-text m-0" for="rooms">
-                            <i class="fas fa-home"></i>
-                        </label>
-                        <input type="number" class="form-control" id="rooms" @error('rooms') is-invalid @enderror
-                            value="{{ old('rooms') }}" placeholder="{{ __('Rooms') }}" wire:model.lazy="rooms">
-                    </div>
-                    @error('rooms')
                         <div class="invalid-feedback form-text">
                             {{ $message }}
                         </div>

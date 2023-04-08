@@ -11,8 +11,6 @@ class Create extends Component
     public $apartment;
     public $rooms;
 
-    public $edit = true;
-
     protected $listeners = ['refresh' => '$refresh'];
 
     protected function rules()
@@ -23,12 +21,8 @@ class Create extends Component
 
     public function mount()
     {
-        if (!$this->apartment) {
-            $this->apartment = new Apartment();
-            $this->edit = false;
-
-            $this->apartment->active = true;
-        }
+        $this->apartment = new Apartment();
+        $this->apartment->active = true;
     }
 
     public function render()
@@ -36,7 +30,7 @@ class Create extends Component
         return view('apartment::livewire.admin.create');
     }
 
-    public function submit()
+    public function store()
     {
         $this->validate();
 
@@ -54,15 +48,8 @@ class Create extends Component
             }
         }
 
+        session()->flash('status', "Apartment created successfully.");
+        $this->reset();
         $this->emitUp('refresh');
-
-        if ($this->edit) {
-            session()->flash('status', "Apartment updated successfully.");
-        } else {
-            session()->flash('status', "Apartment created successfully.");
-            $this->reset();
-        }
-
-        $this->emit('refresh');
     }
 }
