@@ -1,4 +1,4 @@
-<x-office-layout :data="$head ?? []">
+<x-app-layout :data="$head ?? []">
     <x-slot name="header">
         <h2 class="h3 m-0">
             <x-back :url="route('office.apartment.show', $apartment->slug)" />
@@ -23,4 +23,4 @@
             <livewire:office.apartment.room.index :apartment="$apartment" />
         </div>
     </div>
-</x-office-layout>
+</x-app-layout>

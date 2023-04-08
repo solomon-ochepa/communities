@@ -59,10 +59,10 @@ class Apartment extends Model
         return $this->hasMany(Tenant::class);
     }
 
-    public function visitors() //morph
-    {
-        return $this->hasManyThrough(Visitor::class, Room::class);
-    }
+    // public function visitors() //morph
+    // {
+    //     return $this->hasManyThrough(Visitor::class, Room::class);
+    // }
 
     public function visits() // morph
     {
