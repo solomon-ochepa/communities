@@ -38,7 +38,7 @@ class ApartmentRoomController extends Controller
      */
     public function create(Apartment $apartment)
     {
-        $this->data['head']['title'] = 'Create Apartment';
+        $this->data['head']['title'] = 'Create Room';
         $this->data['apartment'] = $apartment;
 
         return view('apartment::admin.room.create', $this->data);
