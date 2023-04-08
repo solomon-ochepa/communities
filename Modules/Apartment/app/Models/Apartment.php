@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Room\app\Models\Room;
 use Modules\Tenant\app\Models\Tenant;
 use Modules\Visitor\app\Models\Visit;
-use Modules\Visitor\app\Models\Visitor;
 
 class Apartment extends Model
 {
