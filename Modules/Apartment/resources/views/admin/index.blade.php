@@ -13,7 +13,7 @@
             @can('apartment.create')
                 <div class="card-header">
                     <!-- Create modal -->
-                    <a href="{{ route('admin.apartment.create') }}" class="btn btn-icon icon-left btn-primary">
+                    <a href="{{ route('admin.apartment.create') }}" class="btn btn-icon icon-left">
                         <i class="fas fa-plus"></i>
                         {{ __('Create') }}
                     </a>

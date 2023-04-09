@@ -18,7 +18,7 @@
                     <tr>
                         <td>
                             <a class="text-dark"
-                                href="{{ route('admin.apartment.room.show', ['apartment' => $room->roomable->slug, 'room' => $room->id]) }}">
+                                href="{{ route('admin.apartment.room.show', ['apartment' => $room->roomable->id, 'room' => $room->id]) }}">
                                 {{ $room->name }}
 
                                 @if ($room->active)
@@ -38,13 +38,13 @@
                         <!-- Actions -->
                         <td class="text-end">
                             <div class="action-btns">
-                                <a href="{{ route('admin.apartment.room.show', ['apartment' => $room->roomable->slug, 'room' => $room->id]) }}"
+                                <a href="{{ route('admin.apartment.room.show', ['apartment' => $room->roomable->id, 'room' => $room->id]) }}"
                                     class="action-btn btn-view bs-tooltip me-2" data-toggle="tooltip"
                                     data-placement="top" title="View">
                                     <i class="fas fa-eye"></i>
                                 </a>
 
-                                <a href="{{ route('admin.apartment.room.edit', ['apartment' => $room->roomable->slug, 'room' => $room->id]) }}"
+                                <a href="{{ route('admin.apartment.room.edit', ['apartment' => $room->roomable->id, 'room' => $room->id]) }}"
                                     class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip"
                                     data-placement="top" title="Edit">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -55,7 +55,7 @@
                                 </a>
 
                                 <form class="d-inline" method="POST"
-                                    action="{{ route('admin.apartment.room.destroy', ['apartment' => $room->roomable->slug, 'room' => $room->id]) }}">
+                                    action="{{ route('admin.apartment.room.destroy', ['apartment' => $room->roomable->id, 'room' => $room->id]) }}">
                                     @method('DELETE')
                                     @csrf
 

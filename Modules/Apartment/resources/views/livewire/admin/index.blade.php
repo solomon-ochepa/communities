@@ -24,18 +24,18 @@
                                 wire:model.defer="selected.{{ $key }}.{{ $apartment->id }}" />
                         </td>
                         <td>
-                            <a href="{{ route('admin.apartment.show', ['apartment' => $apartment->slug]) }}">
+                            <a href="{{ route('admin.apartment.show', ['apartment' => $apartment->id]) }}">
                                 {{ $apartment->name }}
                             </a>
                         </td>
                         <td>
-                            <a href="{{ route('admin.apartment.room.index', ['apartment' => $apartment->slug]) }}">
+                            <a href="{{ route('admin.apartment.room.index', ['apartment' => $apartment->id]) }}">
                                 <i class="fas fa-home text-muted me-1"></i>
                                 {{ $apartment->rooms->count() }}
                             </a>
                         </td>
                         <td>
-                            <a href="{{ route('admin.apartment.tenant.index', ['apartment' => $apartment->slug]) }}">
+                            <a href="{{ route('admin.apartment.tenant.index', ['apartment' => $apartment->id]) }}">
                                 <i class="fas fa-users text-muted me-1"></i>
                                 {{ $apartment->tenants->count() }}
                             </a>
@@ -53,13 +53,13 @@
                         <!-- Actions -->
                         <td class="text-end">
                             <div class="action-btns">
-                                <a href="{{ route('admin.apartment.show', $apartment->slug) }}"
+                                <a href="{{ route('admin.apartment.show', $apartment->id) }}"
                                     class="action-btn btn-view bs-tooltip me-2" data-toggle="tooltip"
                                     data-placement="top" title="View">
                                     <i class="fas fa-eye"></i>
                                 </a>
 
-                                <a href="{{ route('admin.apartment.edit', $apartment->slug) }}"
+                                <a href="{{ route('admin.apartment.edit', $apartment->id) }}"
                                     class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip"
                                     data-placement="top" title="Edit">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -70,7 +70,7 @@
                                 </a>
 
                                 <form class="d-inline" method="POST"
-                                    action="{{ route('admin.apartment.destroy', $apartment->slug) }}">
+                                    action="{{ route('admin.apartment.destroy', $apartment->id) }}">
                                     @method('delete')
                                     @csrf
 

@@ -59,7 +59,7 @@ class MenuController extends Controller
      */
     public function show(Menu $menu)
     {
-        $this->data['head']['title'] = $menu->name . ' &middot; ' . __('Menus');
+        $this->data['head']['title'] = $menu->name;
 
         return view('menu::admin.show', $this->data);
     }
@@ -71,7 +71,7 @@ class MenuController extends Controller
      */
     public function edit(Menu $menu)
     {
-        $this->data['head']['title'] = 'Edit: ' . $menu->name . ' &middot; ' . __('Menus');
+        $this->data['head']['title'] = 'Edit: ' . $menu->name;
 
         $this->data['menu'] = $menu;
 

@@ -2,7 +2,7 @@
     <section class="section">
         <div class="section-header">
             <h1>
-                <x-back :url="route('admin.apartment.room.index', ['apartment' => $room->roomable->slug])" />
+                <x-back :url="route('admin.apartment.room.index', ['apartment' => $room->roomable->id])" />
                 {!! $data['title'] ?? $room->roomable->name !!}
             </h1>
             {{-- {{ Breadcrumbs::render('menus') }} --}}
@@ -14,8 +14,8 @@
                 <div class="card mb-3">
                     <div class="card-body p-3">
                         <!-- Create modal -->
-                        <a href="{{ route('admin.apartment.tenant.create', ['apartment' => $room->roomable->slug]) }}"
-                            class="btn btn-icon icon-left btn-primary">
+                        <a href="{{ route('admin.apartment.tenant.create', ['apartment' => $room->roomable->id]) }}"
+                            class="btn btn-icon icon-left">
                             <i class="fas fa-plus"></i>
                             {{ __('label.create') }}
                         </a>
@@ -31,7 +31,7 @@
                         @can('resident.create')
                             <span class="position-absolute" style="right: 8px; top: 8px;">
                                 <!-- Create modal -->
-                                <a href="{{ route('admin.apartment.tenant.create', ['apartment' => $room->roomable->slug]) }}"
+                                <a href="{{ route('admin.apartment.tenant.create', ['apartment' => $room->roomable->id]) }}"
                                     class="btn btn-sm btn-primary">
                                     <i class="fas fa-plus"></i>
                                 </a>

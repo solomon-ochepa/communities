@@ -10,7 +10,7 @@
                             <h6 class="value">
                                 <a href="{{ route('admin.apartment.index') }}">
                                     {{ __('Apartments') }}
-                                    <sup class="fs-12"><i class="fas fa-arrow-up-right-from-square"></i></sup>
+                                    <x-link-icon />
                                 </a>
                             </h6>
                         </div>
@@ -112,8 +112,7 @@
                                     </svg>
                                 </a>
 
-                                <div class="dropdown-menu left" aria-labelledby="expenses"
-                                    style="will-change: transform;">
+                                <div class="dropdown-menu left" aria-labelledby="expenses" style="will-change: transform;">
                                     <a class="dropdown-item" href="javascript:void(0);">This
                                         Week</a>
                                     <a class="dropdown-item" href="javascript:void(0);">Last
@@ -179,7 +178,7 @@
                                 <a href="{{ route('admin.tenant.index') }}">
                                     {{-- dmin.apartment.tenant.index --}}
                                     {{ __('Tenants') }}
-                                    <sup class="fs-12"><i class="fas fa-arrow-up-right-from-square"></i></sup>
+                                    <x-link-icon />
                                 </a>
                             </h6>
                         </div>

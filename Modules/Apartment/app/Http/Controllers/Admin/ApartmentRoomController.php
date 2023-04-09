@@ -102,6 +102,6 @@ class ApartmentRoomController extends Controller
         $room->delete();
 
         session()->flash('status', 'Apartment room deleted successfully.');
-        return redirect(route('admin.apartment.room.index', ['apartment' => $apartment->slug]));
+        return redirect(route('admin.apartment.room.index', ['apartment' => $apartment->id]));
     }
 }

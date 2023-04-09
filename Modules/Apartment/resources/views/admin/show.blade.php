@@ -18,7 +18,8 @@
                             <div class="w-info">
                                 <h6 class="value">
                                     <a href="{{ route('admin.apartment.room.index', ['apartment' => $apartment]) }}">
-                                        {{ __('room.rooms') }}
+                                        {{ __('Rooms') }}
+                                        <x-link-icon />
                                     </a>
                                 </h6>
                             </div>
@@ -103,6 +104,7 @@
                             <h6 class="value">
                                 <a href="{{ route('admin.apartment.tenant.index', ['apartment' => $apartment]) }}">
                                     {{ __('Tenants') }}
+                                    <x-link-icon />
                                 </a>
                             </h6>
                         </div>
@@ -275,4 +277,14 @@
         </div>
     </div>
     </section>
+
+    @push('css')
+        <link href="/assets/app/src/plugins/src/apex/apexcharts.css" rel="stylesheet" type="text/css">
+        <link href="/assets/app/src/assets/css/light/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/app/src/assets/css/dark/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
+    @endpush
+    @push('js')
+        <script src="/assets/app/src/plugins/src/apex/apexcharts.min.js"></script>
+        <script src="/assets/app/src/assets/js/dashboard/dash_1.js"></script>
+    @endpush
 </x-app-layout>

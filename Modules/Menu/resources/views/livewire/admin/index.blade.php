@@ -2,7 +2,7 @@
     @can('menu.create')
         <div class="card-header">
             <!-- Create modal -->
-            <a href="{{ route('admin.menu.create') }}" class="btn btn-icon icon-left btn-primary">
+            <a href="{{ route('admin.menu.create') }}" class="btn btn-icon icon-left">
                 <i class="fas fa-plus"></i>
                 {{ __('Create') }}
             </a>
