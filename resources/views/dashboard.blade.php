@@ -1,10 +1,4 @@
 <x-app-layout>
-    {{-- <x-slot name="header">
-        <h2 class="h4 fw-normal m-0 text-uppercase">
-            {{ $head['title'] ?? __('Dashboard') }}
-        </h2>
-    </x-slot> --}}
-
     <div class="section">
         <livewire:admin.dashboard.stats />
 

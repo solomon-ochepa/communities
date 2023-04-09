@@ -13,8 +13,6 @@ class MenuController extends Controller
 
     public function __construct()
     {
-        $this->data['title'] = 'Menus';
-
         $this->middleware('auth');
         $this->middleware(['permission:menu.index'])->only('index');
         $this->middleware(['permission:menu.create'])->only('create', 'store');
@@ -28,6 +26,8 @@ class MenuController extends Controller
      */
     public function index()
     {
+        $this->data['head']['title'] = 'Menus Management';
+
         return view('menu::admin.index', $this->data);
     }
 
@@ -37,6 +37,8 @@ class MenuController extends Controller
      */
     public function create()
     {
+        $this->data['head']['title'] = 'Create Menu';
+
         return view('menu::admin.create', $this->data);
     }
 
@@ -57,6 +59,8 @@ class MenuController extends Controller
      */
     public function show(Menu $menu)
     {
+        $this->data['head']['title'] = $menu->name . ' &middot; ' . __('Menus');
+
         return view('menu::admin.show', $this->data);
     }
 
@@ -67,6 +71,8 @@ class MenuController extends Controller
      */
     public function edit(Menu $menu)
     {
+        $this->data['head']['title'] = 'Edit: ' . $menu->name . ' &middot; ' . __('Menus');
+
         $this->data['menu'] = $menu;
 
         return view('menu::admin.edit', $this->data);
@@ -90,6 +96,9 @@ class MenuController extends Controller
      */
     public function destroy(Menu $menu)
     {
+        if ($menu->child->count()) {
+            session()->flash('status', 'You cannot delete a parent menu with sub-menus.');
+        }
         $menu->delete();
 
         session()->flash('status', 'Menu deleted successfully.');

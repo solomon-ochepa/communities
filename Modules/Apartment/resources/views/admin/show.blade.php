@@ -1,35 +1,13 @@
 <x-app-layout :data="$data['head'] ?? []">
-    {{-- <h1>
-        <x-back :url="route('admin.apartment.index')" />
-        {!! $data['title'] ?? $apartment->name !!}
-    </h1> --}}
+    <x-slot name="header">
+        <h2 class="h3 m-0">
+            <x-back :url="route('admin.apartment.index')" />
 
-    {{-- Stats --}}
-    @php
-        $active_rooms = $apartment
-            ->rooms()
-            ->whereActive(1)
-            ->count();
-        
-        $inactive_rooms = $apartment
-            ->rooms()
-            ->whereActive(0)
-            ->count();
-        
-        $total_rooms = $apartment->rooms()->count();
-        $active_rooms_percentage = $total_rooms > 0 ? (100 / $total_rooms) * $active_rooms : 0;
-        
-        // $active_visitors = $apartment
-        //     ->visitors()
-        //     ->whereActive(1)
-        //     ->count();
-        // dd($active_visitors);
-        // $total_visitors = $apartment->visitors()->count();
-        // $active_visitors_percentage = $total_visitors > 0 ? (100 / $total_visitors) * $active_visitors : 0;
-        
-    @endphp
+            {!! __($head['title'] ?? '') !!}
+        </h2>
+    </x-slot>
 
-    <div class="row mt-4">
+    <div class="row layout-top-spacing">
         @isset($total_rooms)
             {{-- Rooms --}}
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">

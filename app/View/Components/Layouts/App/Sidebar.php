@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Modules\Menu\app\Models\Menu;
+use Modules\User\app\Models\User;
 
 class Sidebar extends Component
 {
@@ -22,7 +23,7 @@ class Sidebar extends Component
      */
     public function __construct()
     {
-        $this->user = auth()->user();
+        $this->user = User::find(auth()->user()->id);
     }
 
     /**
@@ -107,13 +108,13 @@ class Sidebar extends Component
             $current_uri    = Request::fullUrl();
 
             // Generate URL
-            $url = $this->full_url($menu['url']);
+            $url = $this->generate_url($menu['url']);
 
             // Active dropdown
             if (isset($menu['child'])) {
                 $level          = 1;
                 $child_uri      = collect($menu['child'])->map(function ($child) {
-                    $child['url'] = $this->full_url($child['url']);
+                    $child['url'] = $this->generate_url($child['url']);
                     return $child;
                 })->pluck('url')->toArray();
 
@@ -171,12 +172,18 @@ class Sidebar extends Component
         }
     }
 
-    private function full_url($url)
+    private function generate_url($url)
     {
         if (Str::match('(/[\w~,;\-\./?%&+#=]*)', $url) or Str::startsWith($url, '#')) {
+            // URL
             return url($url);
         } else {
-            return route($url);
+            // Route
+            if (Route::has($url)) {
+                return route($url);
+            } else {
+                return 'javascript://' . $url;
+            }
         }
     }
 }

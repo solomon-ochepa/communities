@@ -47,7 +47,7 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // livewire
     }
 
     /**
@@ -57,8 +57,21 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        $this->data['head']['title']    = "{$apartment->name}";
+        $this->data['head']['title']    = $apartment->name;
+
         $this->data['apartment']        = $apartment;
+        $this->data['active_rooms'] = $apartment->rooms()->whereActive(1)->count();
+        $this->data['inactive_rooms'] = $apartment->rooms()->whereActive(0)->count();
+        $this->data['total_rooms'] = $apartment->rooms()->count();
+        $this->data['active_rooms_percentage'] = $this->data['total_rooms'] > 0 ? (100 / $this->data['total_rooms']) * $this->data['active_rooms'] : 0;
+
+        // $active_visitors = $apartment
+        //     ->visitors()
+        //     ->whereActive(1)
+        //     ->count();
+        // dd($active_visitors);
+        // $total_visitors = $apartment->visitors()->count();
+        // $active_visitors_percentage = $total_visitors > 0 ? (100 / $total_visitors) * $active_visitors : 0;
 
         return view('apartment::admin.show', $this->data);
     }
