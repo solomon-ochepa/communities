@@ -35,9 +35,7 @@
             <div class="card-body">
                 <div class="row gy-3">
                     <div class="col-md-4">
-                        <a class="card style-7"
-                            href="https://themeforest.net/item/cork-responsive-admin-dashboard-template/25582188"
-                            target="_blank">
+                        <a class="card style-7" href="javascript://" target="_blank">
                             <img src="/assets/app/src/assets/img/ecommerce-1.jpg" class="card-img-top" alt="...">
                             <div class="card-footer">
                                 <h5 class="card-title mb-0">Kelly Young</h5>
@@ -58,9 +56,7 @@
             <div class="card-body">
                 <div class="row gy-3">
                     <div class="col-md-4">
-                        <a class="card style-7"
-                            href="https://themeforest.net/item/cork-responsive-admin-dashboard-template/25582188"
-                            target="_blank">
+                        <a class="card style-7" href="javascript://" target="_blank">
                             <img src="/assets/app/src/assets/img/tl-2.jpg" class="card-img-top" alt="...">
                             <div class="card-footer">
                                 <h5 class="card-title mb-0">Kelly Young</h5>
