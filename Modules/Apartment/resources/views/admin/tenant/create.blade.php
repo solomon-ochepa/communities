@@ -3,7 +3,7 @@
         <div class="section-header">
             <h1>
                 <x-back :url="route('admin.apartment.resident.index', $apartment->id)" />
-                {!! $data['title'] !!}
+                {!! $head['title'] !!}
             </h1>
             {{-- {{ Breadcrumbs::render('menus') }} --}}
         </div>

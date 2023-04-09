@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Apartment\app\Http\Controllers\Admin\ApartmentController;
 use Modules\Apartment\app\Http\Controllers\Admin\ApartmentRoomController;
+use Modules\Apartment\app\Http\Controllers\Admin\ApartmentTenantController;
 
 /*
     |--------------------------------------------------------------------------
@@ -27,8 +28,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('apartment/{apartment}/room', fn () => redirect()->route('admin.apartment.room.index'));
 
     // Apartment->Tenants
-    Route::resource('apartment/{apartment}/tenant', ApartmentResidentController::class)->except(['index'])->names('apartment.tenant');
-    Route::get('apartment/{apartment}/tenants', [ApartmentResidentController::class, 'index'])->name('apartment.tenant.index');
+    Route::resource('apartment/{apartment}/tenant', ApartmentTenantController::class)->except(['index'])->names('apartment.tenant');
+    Route::get('apartment/{apartment}/tenants', [ApartmentTenantController::class, 'index'])->name('apartment.tenant.index');
     Route::get('apartment/{apartment}/tenant', function () {
         return redirect()->route('admin.apartment.tenant.index');
     });
