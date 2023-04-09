@@ -144,12 +144,14 @@ class Sidebar extends Component
                 $html .= ">";
             }
 
+            // start: div
             $html .= "<div class=''>";
             if ($menu['icon'] and !$child) {
                 $html .= "<i class='{$menu['icon']}'></i>";
             }
-            $html .= "<span>" . __(Str::title($menu['label'] ?? $menu['slug']) . '') . "</span>";
+            $html .= "<span>" . __(Str::title($menu['name'])) . "</span>";
             $html .= '</div>';
+            // end: div
 
             if ($level) {
                 $html .= '<div>
