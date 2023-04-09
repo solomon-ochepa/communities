@@ -1,87 +1,72 @@
 <x-app-layout :data="$head ?? []">
-    <section class="section">
-        <div class="section-header">
-            <h1>
-                <x-back :url="route('admin.apartment.room.index', ['apartment' => $room->roomable->id])" />
-                {!! $data['title'] ?? $room->roomable->name !!}
-            </h1>
-            {{-- {{ Breadcrumbs::render('menus') }} --}}
+    <x-slot name="header">
+        <h2 class="h3 m-0">
+            <x-back :url="route('admin.apartment.room.index', ['apartment' => $room->roomable->id])" />
+            {!! __($head['title'] ?? '') !!} &middot; {{ $room->roomable->name }}
+        </h2>
+    </x-slot>
+
+    <section class="layout-top-spacing">
+        {{-- Activities --}}
+        <div class="card mb-3">
+            <div class="card-header">
+                <h3>Activities</h3>
+            </div>
+            <div class="card-body">
+                ...
+            </div>
         </div>
 
-        <div class="section-body">
-            {{-- Navbar --}}
-            @can('resident.create')
-                <div class="card mb-3">
-                    <div class="card-body p-3">
-                        <!-- Create modal -->
-                        <a href="{{ route('admin.apartment.tenant.create', ['apartment' => $room->roomable->id]) }}"
-                            class="btn btn-icon icon-left">
-                            <i class="fas fa-plus"></i>
-                            {{ __('label.create') }}
+        {{-- Tenants --}}
+        <div class="card mb-3">
+            <div class="card-header d-flex">
+                <h3 class="col">{{ __('Tenants') }} ({{ $room->tenants->count() }})</h3>
+
+                @can('apartment.room.tenant.create')
+                    <!-- Create modal -->
+                    <a href="{{ route('admin.apartment.tenant.create', ['apartment' => $room->roomable->id]) }}"
+                        class="col-auto btn btn-icon icon-left">
+                        <i class="fas fa-plus"></i>
+                        {{ __('Create') }}
+                    </a>
+                @endcan
+            </div>
+
+            <div class="card-body">
+                <div class="row gy-3">
+                    <div class="col-md-4">
+                        <a class="card style-7"
+                            href="https://themeforest.net/item/cork-responsive-admin-dashboard-template/25582188"
+                            target="_blank">
+                            <img src="/assets/app/src/assets/img/ecommerce-1.jpg" class="card-img-top" alt="...">
+                            <div class="card-footer">
+                                <h5 class="card-title mb-0">Kelly Young</h5>
+                                <p class="card-text">Project manager</p>
+                            </div>
                         </a>
                     </div>
                 </div>
-            @endcan
+            </div>
+        </div>
 
-            {{-- Stats --}}
-            <div class="row">
-                {{-- Residents stats --}}
-                <div class="col-md-4">
-                    <div class="card card-statistic-1">
-                        @can('resident.create')
-                            <span class="position-absolute" style="right: 8px; top: 8px;">
-                                <!-- Create modal -->
-                                <a href="{{ route('admin.apartment.tenant.create', ['apartment' => $room->roomable->id]) }}"
-                                    class="btn btn-sm btn-primary">
-                                    <i class="fas fa-plus"></i>
-                                </a>
-                            </span>
-                        @endcan
-
-                        <div class="card-icon card-image bg-primary">
-                            <i class="fas fa-users"></i>
-                        </div>
-
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>{{ __('resident.residents') }}</h4>
-                            </div>
-                            <div class="card-body">
-                                {{ $room->roomable->tenants->count() }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Visitors stats --}}
-                <div class="col-md-4">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon card-image bg-primary">
-                            <i class="fas fa-users"></i>
-                        </div>
-
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>{{ __('visitor.visitors') }}</h4>
-                            </div>
-                            <div class="card-body">
-                                0
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        {{-- Visitors --}}
+        <div class="card mb-3">
+            <div class="card-header d-flex">
+                <h3 class="col">{{ __('Visitors') }} ({{ $room->tenants->count() }})</h3>
             </div>
 
-            {{-- Activities --}}
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Activities</h3>
-                        </div>
-                        <div class="card-body">
-                            ...
-                        </div>
+            <div class="card-body">
+                <div class="row gy-3">
+                    <div class="col-md-4">
+                        <a class="card style-7"
+                            href="https://themeforest.net/item/cork-responsive-admin-dashboard-template/25582188"
+                            target="_blank">
+                            <img src="/assets/app/src/assets/img/tl-2.jpg" class="card-img-top" alt="...">
+                            <div class="card-footer">
+                                <h5 class="card-title mb-0">Kelly Young</h5>
+                                <p class="card-text">Project manager</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
