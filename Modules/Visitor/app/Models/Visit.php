@@ -6,10 +6,11 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Activity\app\Models\Activity;
 
 class Visit extends Model
 {
-    use HasFactory, HasUuids, Sluggable;
+    use HasFactory, HasUuids;
 
     /**
      * The attributes that are mass assignable.
@@ -17,34 +18,15 @@ class Visit extends Model
      * @var array
      */
 
-    protected $fillable = [];
-
-    /**
-     * Return the sluggable configuration array for this model.
-     *
-     * @return array
-     */
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => 'name'
-            ]
-        ];
-    }
-
-    /**
-     * Get the route key for the model.
-     *
-     * @return string
-     */
-    public function getRouteKeyName()
-    {
-        return 'id';
-    }
+    protected $fillable = ['visitor_id', 'visitable_type', 'visitable_id'];
 
     public function visitor()
     {
         return $this->belongsTo(Visitor::class);
+    }
+
+    public function activities()
+    {
+        return $this->morphMany(Activity::class, 'activitable');
     }
 }

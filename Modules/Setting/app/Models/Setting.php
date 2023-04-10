@@ -5,11 +5,10 @@ namespace Modules\Setting\app\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Setting extends Model
 {
-    use HasFactory, HasUuids, SoftDeletes;
+    use HasFactory, HasUuids;
 
     /**
      * The attributes that are mass assignable.
@@ -20,6 +19,10 @@ class Setting extends Model
         'name',
         'value',
         'config'
+    ];
+
+    protected $casts = [
+        'value' => 'json',
     ];
 
     public function model()

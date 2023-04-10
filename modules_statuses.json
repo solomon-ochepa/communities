@@ -12,5 +12,14 @@
     "Visitor": true,
     "Menu": true,
     "Tenant": true,
-    "Room": true
+    "Room": true,
+    "GatePass": true,
+    "Message": true,
+    "GateRequest": true,
+    "Noticeboard": true,
+    "Comment": true,
+    "View": true,
+    "Like": true,
+    "Option": true,
+    "Activity": true
 }

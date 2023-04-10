@@ -9,6 +9,7 @@ use Modules\Menu\app\Models\Menu;
 class Create extends Component
 {
     public $menu;
+    public $parents;
     public $edit = true;
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -23,6 +24,9 @@ class Create extends Component
 
     public function render()
     {
+        $this->parents = Menu::whereNull('parent_id')->pluck('name', 'id')->toArray();
+        // dd($this->parents);
+
         return view('menu::livewire.admin.create');
     }
 

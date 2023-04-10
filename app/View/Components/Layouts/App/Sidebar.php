@@ -85,7 +85,8 @@ class Sidebar extends Component
             }
         }
 
-        $tree = Arr::sort($tree, ['priority', 'name']);
+        // dd($tree);
+        $tree = Arr::sort($tree, ['priority']);
         return $tree;
     }
 

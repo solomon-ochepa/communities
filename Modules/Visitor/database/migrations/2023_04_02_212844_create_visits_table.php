@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('visits', function (Blueprint $table) {
-            $table->id();
-
+            $table->uuid('id')->primary();
+            $table->foreignUuid('visitor_id');
+            $table->nullableUuidMorphs('visitable');
             $table->timestamps();
         });
     }

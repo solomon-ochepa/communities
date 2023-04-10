@@ -43,4 +43,13 @@ class Menu extends Model
         return 'id';
     }
 
+    public function parent()
+    {
+        return $this->belongsTo(Menu::class);
+    }
+
+    public function child()
+    {
+        return $this->hasMany(Menu::class);
+    }
 }

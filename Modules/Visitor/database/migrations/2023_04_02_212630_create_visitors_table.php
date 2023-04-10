@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('visitors', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->unique();
-            $table->auditColumn();
             $table->timestamps();
         });
     }

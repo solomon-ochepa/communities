@@ -38,7 +38,7 @@
                                     <i class="{{ $menu->icon }} me-1"> </i>
                                 @endisset
                                 @if ($menu->parent)
-                                    {{ $menu->parent->name }} &raquo;
+                                    {{ $menu->parent->name }} &rightarrow;
                                 @endif
                                 {{ $menu->name }}
                                 <p class="m-0 small text-muted">

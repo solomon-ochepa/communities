@@ -2,7 +2,6 @@
 
 namespace Modules\Menu\database\seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -18,7 +17,7 @@ class MenuSeeder extends Seeder
     public function run()
     {
         $menus = array(
-            array('id' => '97a5ba25-e90d-4278-a115-2dc3dc9d39c2', 'parent_id' => NULL, 'name' => 'Dashboard', 'slug' => 'dashboard', 'url' => 'dashboard', 'icon' => 'fas fa-laptop', 'priority' => '0'),
+            array('id' => '97a5ba25-e90d-4278-a115-2dc3dc9d39c2', 'active' => 1, 'parent_id' => NULL, 'name' => 'Dashboard', 'slug' => 'dashboard', 'url' => 'dashboard', 'icon' => 'fas fa-laptop', 'priority' => '0'),
             array('id' => '97a5ba25-f162-4459-b19e-dbbc851b0d5c', 'parent_id' => NULL, 'name' => 'Manage Staff', 'slug' => 'manage_staff', 'url' => '#manage-staff', 'icon' => 'fas fa-archive', 'priority' => '80'),
             array('id' => '97a5ba25-f7d0-4317-a7ec-f339dddef115', 'parent_id' => '97a5ba25-f162-4459-b19e-dbbc851b0d5c', 'name' => 'Staff', 'slug' => 'staff', 'url' => 'office/employees', 'icon' => 'fas fa-user-secret', 'priority' => NULL),
             array('id' => '97a5ba25-fa31-4a8e-b16c-5c633d0bc2e9', 'parent_id' => '97a5ba25-f162-4459-b19e-dbbc851b0d5c', 'name' => 'Departments', 'slug' => 'departments', 'url' => 'office/departments', 'icon' => 'fas fa-building', 'priority' => NULL),
@@ -34,15 +33,15 @@ class MenuSeeder extends Seeder
             array('id' => '97a5ba26-16ee-431a-9fc2-ee4a2ac9cc13', 'parent_id' => '97a5ba26-1430-41a8-83a1-5cb2f84d7e2a', 'name' => 'All Users', 'slug' => 'users', 'url' => 'admin.user.index', 'icon' => 'fas fa-users', 'priority' => NULL),
             array('id' => '97a5ba26-196f-4d71-b191-13690b03abf1', 'parent_id' => '97a5ba26-1430-41a8-83a1-5cb2f84d7e2a', 'name' => 'Role', 'slug' => 'role', 'url' => 'office/role', 'icon' => 'fa fa-star', 'priority' => NULL),
             array('id' => '97a5ba26-1be8-4a10-a774-41ee4f195e7b', 'parent_id' => NULL, 'name' => 'Attendance', 'slug' => 'attendance', 'url' => 'office/attendance', 'icon' => 'fas fa-clock', 'priority' => '60'),
-            array('id' => '97a5ba26-1e19-4add-b5b2-c668fc18d649', 'parent_id' => NULL, 'name' => 'Settings', 'slug' => 'settings', 'url' => '#settings', 'icon' => 'fas fa-id-card ', 'priority' => '1000'),
-            array('id' => '97a5ba26-204d-40d1-a361-679f8b5573de', 'parent_id' => '97a5ba26-1e19-4add-b5b2-c668fc18d649', 'name' => 'Menus', 'slug' => 'menus', 'url' => 'admin.menu.index', 'icon' => 'fa fa-cog', 'priority' => NULL),
+            array('id' => '97a5ba26-1e19-4add-b5b2-c668fc18d649', 'active' => 1, 'parent_id' => NULL, 'name' => 'Settings', 'slug' => 'settings', 'url' => '#settings', 'icon' => 'fas fa-id-card ', 'priority' => '1000'),
+            array('id' => '97a5ba26-204d-40d1-a361-679f8b5573de', 'active' => 1, 'parent_id' => '97a5ba26-1e19-4add-b5b2-c668fc18d649', 'name' => 'Menus', 'slug' => 'menus', 'url' => 'admin.menu.index', 'icon' => 'fa fa-cog', 'priority' => NULL),
             array('id' => '97a5ba26-225e-441f-989c-742abfb3ebe0', 'parent_id' => '97a5ba26-1e19-4add-b5b2-c668fc18d649', 'name' => 'Language', 'slug' => 'language', 'url' => 'office/language', 'icon' => 'fas fa-globe', 'priority' => NULL),
             array('id' => '97a5ba26-248e-4f2c-b05d-c09595f4bbbb', 'parent_id' => '97a5ba26-1e19-4add-b5b2-c668fc18d649', 'name' => 'Addons', 'slug' => 'addons', 'url' => 'office/addons', 'icon' => 'fa fa-crosshairs', 'priority' => NULL),
             array('id' => '97a5ba26-26bc-4c67-87b8-af985c5075fb', 'parent_id' => '97a5ba26-1e19-4add-b5b2-c668fc18d649', 'name' => 'General Settings', 'slug' => 'general_settings', 'url' => 'office/setting', 'icon' => 'fas fa-cogs', 'priority' => NULL),
             array('id' => '97a5e2db-0098-42da-bed6-4af662a6966b', 'parent_id' => NULL, 'name' => 'Vehicles', 'slug' => 'vehicles', 'url' => 'admin.vehicle.index', 'icon' => 'fas fa-car', 'priority' => '30'),
-            array('id' => '97a77cee-0b5c-42a8-a697-40119541ffce', 'parent_id' => NULL, 'name' => 'Apartments', 'slug' => 'apartments', 'url' => 'admin.apartment.index', 'icon' => 'fas fa-home', 'priority' => '20'),
+            array('id' => '97a77cee-0b5c-42a8-a697-40119541ffce', 'active' => 1, 'parent_id' => NULL, 'name' => 'Apartments', 'slug' => 'apartments', 'url' => 'admin.apartment.index', 'icon' => 'fas fa-home', 'priority' => '20'),
             array('id' => '98afd1b5-f9c7-4823-af51-6078b270119e', 'parent_id' => '97a5ba25-feb7-441b-bc66-5bd35d36b528', 'name' => 'Visits', 'slug' => 'visits', 'url' => 'admin.visit.index', 'icon' => 'fa fa-users', 'priority' => '0'),
-            array('id' => '98afee28-d890-4d4a-8730-40ae281aec94', 'parent_id' => NULL, 'name' => 'Residents', 'slug' => 'residents', 'url' => 'admin.resident.index', 'icon' => 'fa fa-user-tie', 'priority' => '30')
+            array('id' => '98afee28-d890-4d4a-8730-40ae281aec94', 'active' => 1, 'parent_id' => NULL, 'name' => 'Tenants', 'slug' => 'tenants', 'url' => 'admin.tenant.index', 'icon' => 'fa fa-user-tie', 'priority' => '30')
         );
 
         $this->create_menus($menus);

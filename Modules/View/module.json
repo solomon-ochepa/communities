@@ -1,0 +1,11 @@
+{
+    "name": "View",
+    "alias": "view",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\View\\app\\Providers\\ViewServiceProvider"
+    ],
+    "files": []
+}
