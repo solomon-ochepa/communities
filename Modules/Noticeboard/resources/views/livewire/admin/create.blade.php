@@ -1,23 +1,21 @@
 <div class="card">
     <form wire:submit.prevent="store" method="POST">
         @csrf
-        <input type="hidden" value="{{ auth()->user()->id }}" name="user_id" />
 
         <div class="card-body p-3">
             <x-alert />
 
             <section class="row g-3">
-                {{-- Name --}}
+                {{-- Body --}}
                 <div class="col-md-12">
                     <div class="input-group">
-                        <label for="apartment-name" class="input-group-text m-0">
+                        <span class="input-group-text m-0">
                             <i class="fas fa-edit"></i>
-                        </label>
-                        <input type="text" class="form-control" id="apartment-name"
-                            @error('apartment.name') is-invalid @enderror value="{{ old('apartment.name') }}" required
-                            placeholder="{{ __('Name') }}" wire:model.lazy="apartment.name">
+                        </span>
+                        <textarea rows="6" class="form-control" @error('noticeboard.body') is-invalid @enderror
+                            value="{{ old('noticeboard.body') }}" required placeholder="{{ __('Message') }}" wire:model.lazy="noticeboard.body"></textarea>
                     </div>
-                    @error('apartment.name')
+                    @error('noticeboard.body')
                         <div class="invalid-feedback form-text">
                             {{ $message }}
                         </div>
