@@ -16,11 +16,11 @@
     "GatePass": true,
     "Message": true,
     "GateRequest": true,
-    "Noticeboard": true,
     "Comment": true,
     "View": true,
     "Like": true,
     "Option": true,
     "Activity": true,
-    "Notice": true
+    "Notice": true,
+    "Timeline": true
 }
