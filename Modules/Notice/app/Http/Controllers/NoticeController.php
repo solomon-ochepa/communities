@@ -5,6 +5,7 @@ namespace Modules\Notice\app\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Notice\app\Models\Notice;
 
 class NoticeController extends Controller
 {
@@ -16,7 +17,9 @@ class NoticeController extends Controller
      */
     public function index()
     {
-        return view('notice::index', $this->data);
+        $this->data['head']['title'] = 'Notices Management';
+
+        return view('notice::admin.index', $this->data);
     }
 
     /**
@@ -25,7 +28,9 @@ class NoticeController extends Controller
      */
     public function create()
     {
-        return view('notice::create', $this->data);
+        $this->data['head']['title'] = '';
+
+        return view('notice::admin.create', $this->data);
     }
 
     /**
@@ -40,41 +45,45 @@ class NoticeController extends Controller
 
     /**
      * Show the specified resource.
-     * @param int $id
+     * @param Notice $notice
      * @return Renderable
      */
-    public function show($id)
+    public function show(Notice $notice)
     {
-        return view('notice::show', $this->data);
+        $this->data['head']['title'] = '';
+
+        return view('notice::admin.show', $this->data);
     }
 
     /**
      * Show the form for editing the specified resource.
-     * @param int $id
+     * @param Notice $notice
      * @return Renderable
      */
-    public function edit($id)
+    public function edit(Notice $notice)
     {
-        return view('notice::edit', $this->data);
+        $this->data['head']['title'] = '';
+
+        return view('notice::admin.edit', $this->data);
     }
 
     /**
      * Update the specified resource in storage.
      * @param Request $request
-     * @param int $id
+     * @param Notice $notice
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Notice $notice)
     {
         //
     }
 
     /**
      * Remove the specified resource from storage.
-     * @param int $id
+     * @param Notice $notice
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy(Notice $notice)
     {
         //
     }
