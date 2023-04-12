@@ -21,5 +21,6 @@
     "View": true,
     "Like": true,
     "Option": true,
-    "Activity": true
+    "Activity": true,
+    "Notice": true
 }
