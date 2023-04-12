@@ -59,7 +59,7 @@
         <div class="overlay"></div>
         <div class="search-overlay"></div>
 
-        <x-layouts.app.sidebar />
+        <livewire:menu::sidebar />
 
         <!-- Page Content -->
         <div id="content" class="main-content">
