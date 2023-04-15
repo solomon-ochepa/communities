@@ -2,6 +2,7 @@
 
 namespace Modules\Tenant\app\Http\Livewire\Admin\Tenant;
 
+use Illuminate\Support\Arr;
 use Livewire\Component;
 use Modules\Apartment\app\Models\Apartment;
 use Modules\Room\app\Models\Room;
@@ -16,6 +17,9 @@ class CreateModal extends Component
     public Tenant $tenant;
 
     public array $data;
+    public array $tenants;
+
+    protected $listeners = ['refresh' => '$refresh'];
 
     public function mount()
     {
@@ -26,9 +30,19 @@ class CreateModal extends Component
         if ($this->room) {
             $this->tenant->room_id = $this->room->id; // nullable
             $this->tenant->apartment_id = $this->room->roomable->id; // required
+
+            $this->tenants = $this->room->tenants->pluck('user_id')->toArray();
         } elseif ($this->apartment) {
             $this->tenant->apartment_id = $this->apartment->id; // required
+            $this->tenants = $this->apartment->tenants->pluck('user_id')->toArray();
         }
+    }
+
+    public function render()
+    {
+        $this->data['users'] = User::whereNotIn('id', $this->tenants)->get();
+
+        return view('tenant::livewire.admin.tenant.create-modal', $this->data);
     }
 
     public function rules()
@@ -37,16 +51,15 @@ class CreateModal extends Component
         return $request->rules();
     }
 
-    public function render()
-    {
-        $this->data['users'] = User::all();
-
-        return view('tenant::livewire.admin.tenant.create-modal', $this->data);
-    }
-
     public function submit()
     {
         $this->validate();
+
+        $exists = Tenant::where($this->tenant->only('user_id', 'apartment_id', 'room_id'))->first();
+        if ($exists) {
+            session()->flash('error', 'This tenant already exists.');
+            return;
+        }
 
         // Status code
         if ($this->tenant->status_code === null)
@@ -54,8 +67,6 @@ class CreateModal extends Component
 
         // Tenant
         $this->tenant->save();
-
-        $this->reset();
 
         session()->flash('status', 'Tenant added successfully.');
         $this->emit('refresh');
