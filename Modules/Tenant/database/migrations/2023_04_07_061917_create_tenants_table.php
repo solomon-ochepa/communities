@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tenants', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->boolean('active')->default(1);
-            $table->foreignId('user_id');
+            $table->foreignUuid('user_id');
             $table->foreignUuid('apartment_id');
             $table->foreignUuid('room_id')->nullable();
             $table->foreignUuid('status_code')->default(1)->nullable();

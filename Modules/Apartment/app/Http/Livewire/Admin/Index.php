@@ -10,10 +10,8 @@ class Index extends Component
 {
     use WithPagination;
 
-    public $selected = [];
-
-    public $limit = 25;
     public $search = "";
+    public $limit = 25;
     public $page = 1;
 
     protected $queryString = [

@@ -5,6 +5,7 @@ namespace Modules\Tenant\app\Http\Controllers\Admin;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Tenant\app\Models\Tenant;
 
 class TenantController extends Controller
 {
@@ -13,10 +14,10 @@ class TenantController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware(['permission:apartment.resident.index'])->only('index');
-        $this->middleware(['permission:apartment.resident.create'])->only('create', 'store');
-        $this->middleware(['permission:apartment.resident.edit'])->only('edit', 'update');
-        $this->middleware(['permission:apartment.resident.delete'])->only('destroy');
+        $this->middleware(['permission:apartment.tenant.index'])->only('index');
+        $this->middleware(['permission:apartment.tenant.create'])->only('create', 'store');
+        $this->middleware(['permission:apartment.tenant.edit'])->only('edit', 'update');
+        $this->middleware(['permission:apartment.tenant.delete'])->only('destroy');
     }
 
     /**
@@ -53,20 +54,20 @@ class TenantController extends Controller
 
     /**
      * Show the specified resource.
-     * @param int $id
+     * @param Tenant $tenant
      * @return Renderable
      */
-    public function show($id)
+    public function show(Tenant $tenant)
     {
         return view('tenant::admin.show', $this->data);
     }
 
     /**
      * Show the form for editing the specified resource.
-     * @param int $id
+     * @param Tenant $tenant
      * @return Renderable
      */
-    public function edit($id)
+    public function edit(Tenant $tenant)
     {
         return view('tenant::admin.edit', $this->data);
     }
@@ -74,20 +75,20 @@ class TenantController extends Controller
     /**
      * Update the specified resource in storage.
      * @param Request $request
-     * @param int $id
+     * @param Tenant $tenant
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tenant $tenant)
     {
         //
     }
 
     /**
      * Remove the specified resource from storage.
-     * @param int $id
+     * @param Tenant $tenant
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy(Tenant $tenant)
     {
         //
     }
