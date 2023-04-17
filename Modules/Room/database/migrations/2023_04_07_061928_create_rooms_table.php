@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->nullable();
             $table->uuidMorphs('roomable');
-            $table->foreignUuid('status_code')->nullable();
+            $table->foreignUuid('status_code')->default(1);
             $table->timestamps();
 
             $table->unique(['name', 'roomable_type', 'roomable_id'], 'room');

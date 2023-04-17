@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignUuid('apartment_id');
             $table->foreignUuid('room_id')->nullable();
             $table->foreignUuid('status_code')->default(1)->nullable();
+            $table->timestamp('moved_in')->nullable()->useCurrent();
             $table->timestamps();
 
             $table->unique(['user_id', 'room_id'], 'tenant');
