@@ -35,7 +35,7 @@
             <div class="card-header d-flex">
                 <h3 class="col m-0">{{ __('Tenants') }} ({{ $room->tenants->count() }})</h3>
 
-                @can('apartment.room.tenant.create')
+                @can('tenant.create')
                     <!-- Create modal -->
                     <button type="button" class="col-auto btn btn-icon icon-left" data-bs-toggle="modal"
                         data-bs-target="#tenant-create-modal">

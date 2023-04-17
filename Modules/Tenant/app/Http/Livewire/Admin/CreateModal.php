@@ -3,6 +3,7 @@
 namespace Modules\Tenant\app\Http\Livewire\Admin;
 
 use Livewire\Component;
+use Modules\Apartment\app\Models\Apartment;
 use Modules\Tenant\app\Http\Requests\StoreTenantRequest;
 use Modules\Tenant\app\Models\Tenant;
 use Modules\User\app\Models\User;
@@ -20,6 +21,9 @@ class CreateModal extends Component
 
     /** @var array $data meta data */
     public array $data = [];
+
+    /** @var array $form meta data */
+    public array $form = [];
 
     /** @var array $tenants List of existing tenants. */
     public array $tenants = [];
@@ -42,8 +46,13 @@ class CreateModal extends Component
             $this->tenants = $this->room->tenants->pluck('user_id')->toArray(); // update on 'room_id' changed!
         } elseif ($this->apartment) {
             $this->tenant->apartment_id = $this->apartment->id; // required
+            $this->data['rooms'] = $this->apartment->rooms->pluck('name', 'id')->toArray();
 
             $this->tenants = $this->apartment->tenants->pluck('user_id')->toArray(); // update on 'room_id' changed!
+        }
+
+        if(!$this->apartment){
+            $this->data['apartments'] = Apartment::pluck('name', 'id')->toArray();
         }
     }
 
@@ -53,6 +62,13 @@ class CreateModal extends Component
         $this->data['users'] = User::whereNotIn('id', $this->tenants)->get();
 
         return view('tenant::livewire.admin.create-modal', $this->data);
+    }
+
+    public function updatedTenantApartmentID($id, $key = null)
+    {
+        $apartment = Apartment::find($id);
+
+        $this->data['rooms'] = $apartment->rooms->pluck('name', 'id')->toArray();
     }
 
     public function rules()

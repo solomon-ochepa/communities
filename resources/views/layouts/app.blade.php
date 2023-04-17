@@ -20,13 +20,16 @@
     <!-- Scripts -->
     @vite('resources/js/app.js')
 
-    @production
+    {{-- @production
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
             integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
     @else
         <link rel="stylesheet" href="//cdn.test/font-awesome/6.4.0/css/all.min.css">
-    @endproduction
+    @endproduction --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link href="/assets/app/layouts/vertical-light-menu/css/light/loader.css" rel="stylesheet" type="text/css" />
     <link href="/assets/app/layouts/vertical-light-menu/css/dark/loader.css" rel="stylesheet" type="text/css" />
@@ -86,13 +89,17 @@
 
     @stack('modals')
 
-    @production
+    {{-- @production
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
             integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @else
         <script src="//cdn.test/font-awesome/6.4.0/js/all.min.js"></script>
-    @endproduction
+    @endproduction --}}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+    integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
     <script src="/assets/app/src/plugins/src/global/vendors.min.js"></script>

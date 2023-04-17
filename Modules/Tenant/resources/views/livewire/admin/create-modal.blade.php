@@ -27,35 +27,44 @@
                                 <span class="input-group-text">
                                     <i class="fas fa-building"></i>
                                 </span>
-                                <select class="form-control" name="room[roomable_id]" aria-label="{{ __('apartment') }}"
-                                    wire:model="room.roomable_id" required>
+                                <select class="form-control" name="tenant[apartment_id]" aria-label="{{ __('apartment') }}"
+                                    wire:model="tenant.apartment_id" required>
                                     <option value="">{{ __('Choose apartment') }}</option>
-                                    @foreach ($apartments ?? [] as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @foreach ($apartments ?? [] as $id => $name)
+                                        <option value="{{ $id }}">{{ $name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            @error('room.roomable_id')
+                            @error('tenant.apartment_id')
                                 <div class="form-text text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                     @endif
 
                     @if (!$room)
+                    @if ($tenant->apartment_id)
                         {{-- Room --}}
                         <div class="form-group mb-3">
                             <div class="input-group">
                                 <span class="input-group-text">
                                     <i class="fa-solid fa-door-open _fa-beat-fade"></i>
                                 </span>
-                                <input type="text" class="form-control" name="room[name]" placeholder="Name"
-                                    aria-label="{{ __('room name') }}" wire:model="room.name" required />
+                                <select class="form-control" name="tenant[room_id]" aria-label="{{ __('Room') }}"
+                                    wire:model="tenant.room_id" required>
+                                    <option value="">{{ __('All rooms') }}</option>
+                                    @foreach ($rooms ?? [] as $id => $name)
+                                        <option value="{{ $id }}">{{ $name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            @error('room.name')
+                            @error('tenant.room_id')
                                 <div class="form-text text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+
                     @endif
+                    @endif
+
                     {{-- User ID --}}
                     <div class="form-group">
                         <div class="input-group mb-3">
