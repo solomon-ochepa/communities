@@ -8,6 +8,8 @@
     </x-slot>
 
     <div class="row layout-top-spacing">
+        <x-alert />
+
         @isset($total_rooms)
             {{-- Rooms --}}
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">

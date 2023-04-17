@@ -8,6 +8,8 @@
     </x-slot>
 
     <div class="layout-top-spacing">
+        <x-alert />
+
         <div class="card">
             @can('room.create')
                 <div class="card-header">

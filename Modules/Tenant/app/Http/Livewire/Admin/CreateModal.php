@@ -84,8 +84,9 @@ class CreateModal extends Component
             $this->apartment->refresh();
         }
 
-        session()->flash('status', 'Tenant added successfully.');
         $this->emit('refresh');
+
+        session()->flash('status', 'Tenant added successfully.');
         $this->reset_tenant();
     }
 }

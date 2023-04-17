@@ -7,6 +7,8 @@
     </x-slot>
 
     <section class="layout-top-spacing">
+        <x-alert />
+
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
