@@ -90,6 +90,19 @@ class TenantController extends Controller
      */
     public function destroy(Tenant $tenant)
     {
-        //
+        // Room: change status to pending if tenant is the only tenant.
+        if (!$tenant->room->tenants->except([$tenant->id])->count()) {
+            $tenant->room->update(['status_code' => 1]);
+        }
+
+        // Apartment: change status to pending if tenant is the only tenant.
+        if (!$tenant->apartment->tenants->except([$tenant->id])->count()) {
+            $tenant->apartment->update(['status_code' => 1]);
+        }
+
+        $tenant->delete();
+
+        session()->flash('status', 'Tenant deleted successfully.');
+        return back();
     }
 }

@@ -25,30 +25,11 @@
                             </div>
 
                             {{-- Actions dropdown --}}
-                            <div class="task-action">
-                                <div class="dropdown">
-                                    <a class="disabled dropdown-toggle" href="#" role="button" id="expenses"
-                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round"
-                                            class="feather feather-more-horizontal">
-                                            <circle cx="12" cy="12" r="1"></circle>
-                                            <circle cx="19" cy="12" r="1"></circle>
-                                            <circle cx="5" cy="12" r="1"></circle>
-                                        </svg>
-                                    </a>
-
-                                    <div class="dropdown-menu left" aria-labelledby="expenses"
-                                        style="will-change: transform;">
-                                        <a class="dropdown-item" href="javascript:void(0);">This
-                                            Week</a>
-                                        <a class="dropdown-item" href="javascript:void(0);">Last
-                                            Week</a>
-                                        <a class="dropdown-item" href="javascript:void(0);">Last
-                                            Month</a>
-                                    </div>
-                                </div>
+                            <div class="task-action d-flex">
+                                <a type="button" class="cursor-pointer" data-bs-toggle="modal"
+                                    data-bs-target="#room-create-modal">
+                                    <i class="fas fa-plus-circle"></i>
+                                </a>
                             </div>
                         </div>
 
@@ -89,6 +70,11 @@
                             </div>
 
                         </div>
+
+                        @push('modals')
+                            <!-- Room: Create Modal -->
+                            <livewire:room::admin.create-modal :apartment="$apartment" />
+                        @endpush
                     </div>
                 </div>
             </div>
@@ -110,9 +96,9 @@
                         </div>
 
                         {{-- Actions dropdown --}}
-                        <div class="task-action">
+                        <div class="task-action d-flex">
                             <div class="dropdown">
-                                <a class="disabled dropdown-toggle" href="#" role="button" id="expenses"
+                                <a class="dropdown-toggle" href="#" role="button" id="tenants"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -124,16 +110,19 @@
                                     </svg>
                                 </a>
 
-                                <div class="dropdown-menu left" aria-labelledby="expenses"
+                                <div class="dropdown-menu left" aria-labelledby="tenants"
                                     style="will-change: transform;">
-                                    <a class="dropdown-item" href="javascript:void(0);">This
-                                        Week</a>
+                                    <a class="dropdown-item" href="javascript:void(0);">
+                                        This Week
+                                    </a>
                                     <a class="dropdown-item" href="javascript:void(0);">Last
                                         Week</a>
                                     <a class="dropdown-item" href="javascript:void(0);">Last
                                         Month</a>
                                 </div>
                             </div>
+
+                            <a href="" class=""><i class="fas fa-plus-circle"></i></a>
                         </div>
                     </div>
 
@@ -172,6 +161,11 @@
                         </div>
 
                     </div> --}}
+
+                    @push('modals')
+                        <!-- Modal -->
+                        <livewire:tenant::admin.create-modal />
+                    @endpush
                 </div>
             </div>
         </div>

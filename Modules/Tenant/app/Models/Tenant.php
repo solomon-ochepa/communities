@@ -2,7 +2,6 @@
 
 namespace Modules\Tenant\app\Models;
 
-use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +11,7 @@ use Modules\User\app\Models\User;
 
 class Tenant extends Model
 {
-    use HasFactory, HasUuids, Sluggable;
+    use HasFactory, HasUuids;
 
     /**
      * The attributes that are mass assignable.
@@ -20,21 +19,7 @@ class Tenant extends Model
      * @var array
      */
 
-    protected $fillable = ['user_id', 'room_id'];
-
-    /**
-     * Return the sluggable configuration array for this model.
-     *
-     * @return array
-     */
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => 'name'
-            ]
-        ];
-    }
+    protected $fillable = ['active', 'user_id', 'apartment_id', 'room_id', 'status_code'];
 
     /**
      * Get the route key for the model.

@@ -21,11 +21,11 @@
     @vite('resources/js/app.js')
 
     @production
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
     @else
-        <link rel="stylesheet" href="//cdn.test/font-awesome/6.1.2/css/all.min.css">
+        <link rel="stylesheet" href="//cdn.test/font-awesome/6.4.0/css/all.min.css">
     @endproduction
 
     <link href="/assets/app/layouts/vertical-light-menu/css/light/loader.css" rel="stylesheet" type="text/css" />
@@ -87,11 +87,11 @@
     @stack('modals')
 
     @production
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"
-            integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw=="
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+            integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @else
-        <script src="//cdn.test/font-awesome/6.1.2/js/all.min.js"></script>
+        <script src="//cdn.test/font-awesome/6.4.0/js/all.min.js"></script>
     @endproduction
 
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
@@ -104,6 +104,28 @@
     <script src="/assets/app/layouts/vertical-light-menu/app.js"></script>
 
     <!-- EXTRA -->
+    <script>
+        // Enable Popover
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+        // $(document).ready(function() {
+        //     $('[data-bs-toggle="popover"]').popover({
+        //         html: true,
+        //         placement: 'auto left',
+        //         trigger: 'hover',
+        //         selector: '[data-bs-toggle="popover"]'
+        //     });
+        // });
+
+        // Enable Tooltip
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+        // Enable Toast
+        const toastElList = document.querySelectorAll('.toast')
+        const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, option))
+    </script>
+
     {{-- <script src="/assets/app/src/plugins/src/apex/apexcharts.min.js"></script> --}}
     {{-- <script src="/assets/app/src/plugins/src/jquery-ui/jquery-ui.min.js"></script> --}}
 

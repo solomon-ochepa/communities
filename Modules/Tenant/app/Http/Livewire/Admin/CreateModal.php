@@ -1,48 +1,58 @@
 <?php
 
-namespace Modules\Tenant\app\Http\Livewire\Admin\Tenant;
+namespace Modules\Tenant\app\Http\Livewire\Admin;
 
-use Illuminate\Support\Arr;
 use Livewire\Component;
-use Modules\Apartment\app\Models\Apartment;
-use Modules\Room\app\Models\Room;
 use Modules\Tenant\app\Http\Requests\StoreTenantRequest;
 use Modules\Tenant\app\Models\Tenant;
 use Modules\User\app\Models\User;
 
 class CreateModal extends Component
 {
-    public Room $room;
-    public Apartment $apartment;
-    public Tenant $tenant;
+    /** @var Tenant $tenant The tenant to be created */
+    public $tenant;
 
-    public array $data;
-    public array $tenants;
+    /** @var Room $room The room that tenant will be assigned. Can be null if the tenant is occupying the whole apartment. */
+    public $room;
+
+    /** @var Apartment $apartment The apartment that tenant will be assigned */
+    public $apartment;
+
+    /** @var array $data meta data */
+    public array $data = [];
+
+    /** @var array $tenants List of existing tenants. */
+    public array $tenants = [];
 
     protected $listeners = ['refresh' => '$refresh'];
 
     public function mount()
     {
+        $this->reset_tenant();
+    }
+
+    protected function reset_tenant()
+    {
         $this->tenant = new Tenant();
-
         $this->tenant->active = true;
-
         if ($this->room) {
-            $this->tenant->room_id = $this->room->id; // nullable
             $this->tenant->apartment_id = $this->room->roomable->id; // required
+            $this->tenant->room_id = $this->room->id; // nullable
 
-            $this->tenants = $this->room->tenants->pluck('user_id')->toArray();
+            $this->tenants = $this->room->tenants->pluck('user_id')->toArray(); // update on 'room_id' changed!
         } elseif ($this->apartment) {
             $this->tenant->apartment_id = $this->apartment->id; // required
-            $this->tenants = $this->apartment->tenants->pluck('user_id')->toArray();
+
+            $this->tenants = $this->apartment->tenants->pluck('user_id')->toArray(); // update on 'room_id' changed!
         }
     }
 
     public function render()
     {
+        /** @var Collection $users get list of users that can be added as new tenants */
         $this->data['users'] = User::whereNotIn('id', $this->tenants)->get();
 
-        return view('tenant::livewire.admin.tenant.create-modal', $this->data);
+        return view('tenant::livewire.admin.create-modal', $this->data);
     }
 
     public function rules()
@@ -68,7 +78,14 @@ class CreateModal extends Component
         // Tenant
         $this->tenant->save();
 
+        if ($this->room) {
+            $this->room->refresh();
+        } elseif ($this->apartment) {
+            $this->apartment->refresh();
+        }
+
         session()->flash('status', 'Tenant added successfully.');
         $this->emit('refresh');
+        $this->reset_tenant();
     }
 }

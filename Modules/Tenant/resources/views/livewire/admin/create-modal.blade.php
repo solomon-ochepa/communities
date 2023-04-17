@@ -1,9 +1,9 @@
-<div wire:ignore.self class="modal fade" id="createTenantModal" data-bs-backdrop="static" data-bs-keyboard="false"
-    tabindex="-1" role="dialog" aria-labelledby="createTenantModalLabel" aria-hidden="true">
+<div wire:ignore.self class="modal fade" id="tenant-create-modal" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" role="dialog" aria-labelledby="tenant-create-modalLabel" aria-hidden="true">
     <div class="modal-dialog _modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createTenantModalLabel">
+                <h5 class="modal-title" id="tenant-create-modalLabel">
                     {{ __('Add Tenant') }}
                     @if ($room)
                         &rightarrow; {{ $room->name }}
@@ -21,9 +21,10 @@
                 <div class="modal-body">
                     <x-alert />
 
+                    {{-- User ID --}}
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <span class="input-group-text">
+                            <span class="input-group-text" title="User" data-bs-toggle="tooltip">
                                 <i class="fas fa-user"></i>
                             </span>
                             <select class="form-control" aria-label="users" wire:model="tenant.user_id" required>
@@ -38,10 +39,25 @@
                         @enderror
                     </div>
 
+                    {{-- Move in --}}
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" type="button" title="Moved in" data-bs-toggle="tooltip">
+                                <i class="fa-solid fa-person-walking _fa-beat-fade"></i>
+                            </span>
+                            <input type="date" class="form-control" name="tenant[moved_in]"
+                                aria-label="{{ __('Moved in') }}" wire:model="tenant.moved_in" required />
+                        </div>
+                        @error('tenant.moved_in')
+                            <div class="form-text text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- Active ? --}}
                     <div class="d-flex justify-content-between">
                         <div class="form-check form-check-primary form-check-inline">
                             <input class="form-check-input" type="checkbox" value="" id="form-check-primary"
-                                wire:model.defer="tenant.active">
+                                wire:model.defer="tenant.active" title="" data-bs-toggle="tooltip">
                             <label class="form-check-label mb-0" for="form-check-primary">
                                 {{ __('Active') }}
                             </label>

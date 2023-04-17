@@ -38,7 +38,7 @@
                 @can('apartment.room.tenant.create')
                     <!-- Create modal -->
                     <button type="button" class="col-auto btn btn-icon icon-left" data-bs-toggle="modal"
-                        data-bs-target="#createTenantModal">
+                        data-bs-target="#tenant-create-modal">
                         <i class="fas fa-plus"></i>
                         {{ __('Create') }}
                     </button>
@@ -48,17 +48,7 @@
             <div class="card-body">
                 <div class="row gy-3">
                     @forelse ($room->tenants as $tenant)
-                        {{-- @dd($tenant) --}}
-                        <div class="col-md-3">
-                            <a class="card style-7" href="javascript://">
-                                <img src="{{ $tenant->user->hasMedia(['image', 'profile'])? $tenant->user->media(['image', 'profile'])->first()->getUrl(): '/unknown.svg' }}"
-                                    class="card-img-top" alt="...">
-                                <div class="card-footer">
-                                    <h5 class="card-title mb-0">{{ $tenant->user->name }}</h5>
-                                    <p class="card-text">Project manager</p>
-                                </div>
-                            </a>
-                        </div>
+                        <x-tenant::admin.tenant :tenant="$tenant" />
                     @empty
                         <p class="text-center py-4">No record found.</p>
                     @endforelse
@@ -69,6 +59,6 @@
 
     @push('modals')
         <!-- Modal -->
-        <livewire:tenant::admin.tenant.create-modal :room="$room" />
+        <livewire:tenant::admin.create-modal :room="$room" />
     @endpush
 </x-app-layout>

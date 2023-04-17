@@ -9,9 +9,9 @@ class Index extends Component
 {
     use WithPagination;
 
-    public $data = [];
-
     public $apartment;
+
+    public $data = [];
 
     public $search = "";
     public $limit = 25;
@@ -20,6 +20,8 @@ class Index extends Component
         'search' => ['except' => ''],
         'page' => ['except' => 1],
     ];
+
+    protected $listeners = ['refresh' => '$refresh'];
 
     public function render()
     {
