@@ -99,6 +99,12 @@ class ApartmentRoomController extends Controller
      */
     public function destroy(Apartment $apartment, Room $room)
     {
+        // Can't delete a room with active tenants!
+        if ($room->tenants->count()) {
+            session()->flash('error', 'Room with tenants can\'t be deleted. Please, transfer or remove tenants and try again.');
+            return back()->withInput();
+        }
+
         $room->delete();
 
         session()->flash('status', 'Apartment room deleted successfully.');

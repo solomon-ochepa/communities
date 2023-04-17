@@ -9,15 +9,19 @@
 
     <section class="layout-top-spacing">
         <div class="card">
-            @can('apartment.room.tenant.create')
+            @can('tenant.create')
                 <div class="card-header">
                     <!-- Create modal -->
-                    <button type="button" class="btn btn-icon icon-left" data-bs-toggle="modal"
-                        data-bs-target="#createTenantModal">
-                        <i class="fas fa-plus"></i>
+                    <a type="button" class="btn btn-icon icon-left bg-transparent" data-bs-toggle="modal"
+                        data-bs-target="#tenant-create-modal">
+                        <i class="fas fa-plus-circle"></i>
                         {{ __('Create') }}
-                    </button>
+                    </a>
                 </div>
+                @push('modals')
+                    <!-- Room: Create Modal -->
+                    <livewire:tenant::admin.create-modal />
+                @endpush
             @endcan
 
             <livewire:tenant::admin.tenant.index />

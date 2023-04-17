@@ -21,6 +21,41 @@
                 <div class="modal-body">
                     <x-alert />
 
+                    @if (!$apartment and !$room)
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">
+                                    <i class="fas fa-building"></i>
+                                </span>
+                                <select class="form-control" name="room[roomable_id]" aria-label="{{ __('apartment') }}"
+                                    wire:model="room.roomable_id" required>
+                                    <option value="">{{ __('Choose apartment') }}</option>
+                                    @foreach ($apartments ?? [] as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @error('room.roomable_id')
+                                <div class="form-text text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    @endif
+
+                    @if (!$room)
+                        {{-- Room --}}
+                        <div class="form-group mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-door-open _fa-beat-fade"></i>
+                                </span>
+                                <input type="text" class="form-control" name="room[name]" placeholder="Name"
+                                    aria-label="{{ __('room name') }}" wire:model="room.name" required />
+                            </div>
+                            @error('room.name')
+                                <div class="form-text text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    @endif
                     {{-- User ID --}}
                     <div class="form-group">
                         <div class="input-group mb-3">
