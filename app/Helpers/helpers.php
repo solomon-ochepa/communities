@@ -103,35 +103,25 @@ if (!function_exists('greeting')) {
     }
 }
 
-if (!function_exists('admin_route_prefix')) {
-    /**
-     * Check if currenct route is using the admin prefix
-     */
-    function admin_route_prefix(): bool
-    {
-        return trim(request()->route()->getPrefix(), "/") === setting('admin.dashboard');
-    }
-}
-
-if (!function_exists('prefix')) {
-    /**
-     * Get current route prefix
-     */
-    function prefix($prefix = null)
-    {
-        $x = trim(request()->route()->getPrefix(), " /");
-        $prefix = ($prefix) ? $x === $prefix : $x;
-
-        return $prefix;
-    }
-}
-
-if (!function_exists('route_is')) {
+if (!function_exists('number_format_k')) {
     /**
      * Check if route matches given $patterns
      */
-    function route_is($patterns): bool
+    function number_format_k(float $number): string
     {
-        return request()->routeIs($patterns);
+        $number = number_format($number, 2, '.', '');
+
+        if ($number >= $b = 1000000000) {
+            $number = number_format($number / $b, 2);
+            return "{$number}b";
+        } else if ($number >= $m = 1000000) {
+            $number = number_format($number / $m, 2);
+            return "{$number}m";
+        } else if ($number >= $k = 1000) {
+            $number = number_format($number / $k, 2);
+            return "{$number}k";
+        } else {
+            return number_format($number);
+        }
     }
 }
