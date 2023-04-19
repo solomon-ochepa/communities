@@ -15,7 +15,7 @@ class Tenant extends Component
      */
     public function __construct()
     {
-        dd($this->tenant);
+        //
     }
 
     /**
@@ -25,8 +25,6 @@ class Tenant extends Component
      */
     public function render()
     {
-        dd(__CLASS__);
-
         return view('tenant::components.admin/tenant');
     }
 }

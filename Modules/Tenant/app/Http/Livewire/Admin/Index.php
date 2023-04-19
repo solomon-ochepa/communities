@@ -1,13 +1,10 @@
 <?php
 
-namespace Modules\Tenant\app\Http\Livewire\Admin\Tenant;
+namespace Modules\Tenant\app\Http\Livewire\Admin;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use Modules\Apartment\app\Models\Apartment;
-use Modules\Room\app\Models\Room;
 use Modules\Tenant\app\Models\Tenant;
-use Modules\User\app\Models\User;
 
 class Index extends Component
 {
@@ -21,6 +18,8 @@ class Index extends Component
         'search'    => ['except' => ''],
         'page'      => ['except' => 1],
     ];
+
+    protected $listeners = ['refresh' => '$refresh'];
 
     public function render()
     {
@@ -66,6 +65,6 @@ class Index extends Component
             $data['tenants'] = Tenant::paginate($this->limit);
         }
 
-        return view('tenant::livewire.admin.tenant.index', $data);
+        return view('tenant::livewire.admin.index', $data);
     }
 }

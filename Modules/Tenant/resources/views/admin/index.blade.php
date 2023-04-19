@@ -2,8 +2,7 @@
     <x-slot name="header">
         <h2 class="h3 m-0">
             <x-back :url="route('dashboard')" />
-
-            {{ __('Tenants Management') }}
+            {!! __($head['title'] ?? '') !!}
         </h2>
     </x-slot>
 
@@ -24,7 +23,7 @@
                 @endpush
             @endcan
 
-            <livewire:tenant::admin.tenant.index />
+            <livewire:tenant::admin.index />
         </div>
     </section>
 </x-app-layout>

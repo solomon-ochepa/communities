@@ -4,12 +4,16 @@ namespace Modules\Tenant\app\Http\Livewire\Admin;
 
 use Livewire\Component;
 use Modules\Apartment\app\Models\Apartment;
+use Modules\Room\app\Models\Room;
 use Modules\Tenant\app\Http\Requests\StoreTenantRequest;
 use Modules\Tenant\app\Models\Tenant;
 use Modules\User\app\Models\User;
 
 class CreateModal extends Component
 {
+    // /** @var User $user Seleted user to be added as tenant */
+    // public $user;
+
     /** @var Tenant $tenant The tenant to be created */
     public $tenant;
 
@@ -39,6 +43,7 @@ class CreateModal extends Component
     {
         $this->tenant = new Tenant();
         $this->tenant->active = true;
+        $this->tenant->status_code = 1;
         if ($this->room) {
             $this->tenant->apartment_id = $this->room->roomable->id; // required
             $this->tenant->room_id = $this->room->id; // nullable
@@ -46,29 +51,51 @@ class CreateModal extends Component
             $this->tenants = $this->room->tenants->pluck('user_id')->toArray(); // update on 'room_id' changed!
         } elseif ($this->apartment) {
             $this->tenant->apartment_id = $this->apartment->id; // required
-            $this->data['rooms'] = $this->apartment->rooms->pluck('name', 'id')->toArray();
 
             $this->tenants = $this->apartment->tenants->pluck('user_id')->toArray(); // update on 'room_id' changed!
         }
 
-        if(!$this->apartment){
-            $this->data['apartments'] = Apartment::pluck('name', 'id')->toArray();
+        if (!$this->apartment) {
+            $apartments_with_single_tenant = Tenant::whereDoesntHave(\Room::class)->pluck('apartment_id')->toArray();
+
+            $this->data['apartments'] = Apartment::whereNotIn('id', $apartments_with_single_tenant)->pluck('name', 'id')->toArray();
         }
     }
 
     public function render()
     {
-        /** @var Collection $users get list of users that can be added as new tenants */
-        $this->data['users'] = User::whereNotIn('id', $this->tenants)->get();
+        /** get list of users that are eligeble as new tenants */
+        $this->data['users'] = User::/*whereNotIn('id', $this->tenants)->*/get();
 
         return view('tenant::livewire.admin.create-modal', $this->data);
     }
 
     public function updatedTenantApartmentID($id, $key = null)
     {
-        $apartment = Apartment::find($id);
+        $this->apartment = Apartment::find($id);
 
-        $this->data['rooms'] = $apartment->rooms->pluck('name', 'id')->toArray();
+        $this->data['rooms'] = $this->apartment ? $this->apartment->rooms->WhereNotIn('id', $this->data['user']['rooms'] ?? [])->pluck('name', 'id')->toArray() : [];
+    }
+
+    public function updatedTenantRoomID($id, $key = null)
+    {
+        $this->room = Room::find($id);
+        // $this->tenants = $this->apartment->tenants->pluck('user_id')->toArray(); // update on 'room_id' changed!
+    }
+
+    public function updatedTenantUserID($id, $key = null)
+    {
+        if (isset($this->data['apartments'])) {
+            $this->reset(['apartment']);
+        }
+
+        $this->reset(['room']);
+
+        if ($id) {
+            $this->data['user']['rooms'] = Tenant::whereUserId($id)->pluck('room_id')->toArray();
+        }
+
+        $this->data['rooms'] = $this->apartment ? $this->apartment->rooms->WhereNotIn('id', $this->data['user']['rooms'] ?? [])->pluck('name', 'id')->toArray() : [];
     }
 
     public function rules()
@@ -87,10 +114,9 @@ class CreateModal extends Component
             return;
         }
 
-        // Status code
-        if ($this->tenant->status_code === null)
-            $this->tenant->status_code = 1;
+        $this->tenant->moved_in = $this->form['moved_in'];
 
+        // dd($this->tenant);
         // Tenant
         $this->tenant->save();
 
@@ -101,8 +127,8 @@ class CreateModal extends Component
         }
 
         $this->emit('refresh');
+        $this->reset_tenant();
 
         session()->flash('status', 'Tenant added successfully.');
-        $this->reset_tenant();
     }
 }

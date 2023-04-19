@@ -21,53 +21,9 @@
                 <div class="modal-body">
                     <x-alert />
 
-                    @if (!$apartment and !$room)
-                        <div class="form-group">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">
-                                    <i class="fas fa-building"></i>
-                                </span>
-                                <select class="form-control" name="tenant[apartment_id]" aria-label="{{ __('apartment') }}"
-                                    wire:model="tenant.apartment_id" required>
-                                    <option value="">{{ __('Choose apartment') }}</option>
-                                    @foreach ($apartments ?? [] as $id => $name)
-                                        <option value="{{ $id }}">{{ $name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            @error('tenant.apartment_id')
-                                <div class="form-text text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    @endif
-
-                    @if (!$room)
-                    @if ($tenant->apartment_id)
-                        {{-- Room --}}
-                        <div class="form-group mb-3">
-                            <div class="input-group">
-                                <span class="input-group-text">
-                                    <i class="fa-solid fa-door-open _fa-beat-fade"></i>
-                                </span>
-                                <select class="form-control" name="tenant[room_id]" aria-label="{{ __('Room') }}"
-                                    wire:model="tenant.room_id" required>
-                                    <option value="">{{ __('All rooms') }}</option>
-                                    @foreach ($rooms ?? [] as $id => $name)
-                                        <option value="{{ $id }}">{{ $name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            @error('tenant.room_id')
-                                <div class="form-text text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                    @endif
-                    @endif
-
                     {{-- User ID --}}
                     <div class="form-group">
-                        <div class="input-group mb-3">
+                        <div class="input-group">
                             <span class="input-group-text" title="User" data-bs-toggle="tooltip">
                                 <i class="fas fa-user"></i>
                             </span>
@@ -83,35 +39,83 @@
                         @enderror
                     </div>
 
-                    {{-- Move in --}}
-                    <div class="form-group">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" type="button" title="Moved in" data-bs-toggle="tooltip">
-                                <i class="fa-solid fa-person-walking _fa-beat-fade"></i>
-                            </span>
-                            <input type="date" class="form-control" name="tenant[moved_in]"
-                                aria-label="{{ __('Moved in') }}" wire:model="tenant.moved_in" required />
-                        </div>
-                        @error('tenant.moved_in')
-                            <div class="form-text text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
+                    @if ($tenant->user_id)
+                        @if (!$apartment and !$room)
+                            <div class="form-group mt-3">
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-building"></i>
+                                    </span>
+                                    <select class="form-control" name="tenant[apartment_id]"
+                                        aria-label="{{ __('apartment') }}" wire:model="tenant.apartment_id" required>
+                                        <option value="">{{ __('Choose apartment') }}</option>
+                                        @foreach ($apartments ?? [] as $id => $name)
+                                            <option value="{{ $id }}">{{ $name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('tenant.apartment_id')
+                                    <div class="form-text text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        @endif
 
-                    {{-- Active ? --}}
-                    <div class="d-flex justify-content-between">
-                        <div class="form-check form-check-primary form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="" id="form-check-primary"
-                                wire:model.defer="tenant.active" title="" data-bs-toggle="tooltip">
-                            <label class="form-check-label mb-0" for="form-check-primary">
-                                {{ __('Active') }}
-                            </label>
-                        </div>
-                        @error('tenant.active')
-                            <div class="form-text text-danger">{{ $message }}</div>
-                        @enderror
+                        @if ($tenant->apartment_id)
+                            @if (!$room)
+                                {{-- Room --}}
+                                <div class="form-group mt-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fa-solid fa-door-open _fa-beat-fade"></i>
+                                        </span>
+                                        <select class="form-control" name="tenant[room_id]"
+                                            aria-label="{{ __('Room') }}" wire:model="tenant.room_id" required>
+                                            <option value="0">{{ __('All rooms') }}</option>
+                                            @foreach ($rooms ?? [] as $id => $name)
+                                                <option value="{{ $id }}">{{ $name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @error('tenant.room_id')
+                                        <div class="form-text text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-                        {{-- <a href="javascript:void(0);">Forget Password?</a> --}}
-                    </div>
+                            @endif
+
+                            {{-- Move in --}}
+                            <div class="form-group">
+                                <div class="input-group mt-3">
+                                    <span class="input-group-text" type="button" title="Moved in"
+                                        data-bs-toggle="tooltip">
+                                        <i class="fa-solid fa-person-walking _fa-beat-fade"></i>
+                                    </span>
+                                    <input type="date" class="form-control" name="form[moved_in]"
+                                        aria-label="{{ __('Moved in') }}" wire:model="form.moved_in" required />
+                                </div>
+                                @error('form.moved_in')
+                                    <div class="form-text text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            {{-- Active ? --}}
+                            <div class="d-flex justify-content-between">
+                                <div class="form-check form-check-primary form-check-inline">
+                                    <input class="form-check-input" type="checkbox" value=""
+                                        id="form-check-primary" wire:model.defer="tenant.active" title=""
+                                        data-bs-toggle="tooltip">
+                                    <label class="form-check-label mb-0" for="form-check-primary">
+                                        {{ __('Active') }}
+                                    </label>
+                                </div>
+                                @error('tenant.active')
+                                    <div class="form-text text-danger">{{ $message }}</div>
+                                @enderror
+
+                                {{-- <a href="javascript:void(0);">Forget Password?</a> --}}
+                            </div>
+                        @endif
+                    @endif
                 </div>
 
                 <div class="modal-footer">

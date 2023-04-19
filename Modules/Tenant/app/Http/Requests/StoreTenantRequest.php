@@ -16,10 +16,10 @@ class StoreTenantRequest extends FormRequest
         return [
             'tenant.user_id'   => ['required', 'uuid'],
             'tenant.apartment_id'   => ['nullable', 'required_without:tenant.room_id', 'uuid'],
-            'tenant.room_id'   => ['nullable', 'required_without:tenant.apartment_id', 'uuid'],
+            'tenant.room_id'   => ['nullable', 'sometimes', 'required_without:tenant.apartment_id', 'string'],
             'tenant.active'   => ['nullable', 'boolean'],
             'tenant.status_code'   => ['nullable', 'integer'],
-            'tenant.moved_in'   => ['required', 'date'],
+            'form.moved_in'   => ['required', 'date'],
         ];
     }
 
