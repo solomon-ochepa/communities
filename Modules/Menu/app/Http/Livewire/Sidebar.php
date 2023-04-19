@@ -26,6 +26,8 @@ class Sidebar extends Component
         $this->user = User::find(auth()->user()->id);
     }
 
+    protected $listeners = ['refresh_sidebar' => '$refresh'];
+
     public function render(): View|Closure|string
     {
         $this->data['menus'] = $this->menu();
@@ -35,7 +37,7 @@ class Sidebar extends Component
 
     private function menu()
     {
-        $menus      = Cache::remember('sidebar', 60, fn () => Menu::whereActive(1)->get()->toArray());
+        $menus      = Cache::remember('menu.sidebar', 60, fn () => Menu::whereActive(1)->get()->toArray());
         $menu_tree  = $this->menu_tree($menus);
         $html       = '';
 

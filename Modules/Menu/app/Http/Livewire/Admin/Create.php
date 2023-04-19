@@ -25,7 +25,6 @@ class Create extends Component
     public function render()
     {
         $this->parents = Menu::whereNull('parent_id')->pluck('name', 'id')->toArray();
-        // dd($this->parents);
 
         return view('menu::livewire.admin.create');
     }
@@ -45,13 +44,15 @@ class Create extends Component
         }
 
         $this->menu->save();
+        cache()->forget('menu.sidebar');
 
         if ($this->edit) {
             session()->flash('status', "Menu updated successfully.");
-
-            $this->emitUp('refresh');
+            $this->emit('refresh_sidebar');
         } else {
             session()->flash('status', "Menu created successfully.");
+            $this->emit('refresh_sidebar');
+            $this->reset('menu');
 
             return redirect(route('admin.menu.index'));
         }
