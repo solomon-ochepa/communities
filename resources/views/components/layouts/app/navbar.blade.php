@@ -4,7 +4,8 @@
         <ul class="navbar-item theme-brand flex-row  text-center">
             <li class="nav-item theme-logo">
                 <a href="{{ route('dashboard') }}">
-                    <img src="/logo.png" class="_navbar-logo rounded -circle" alt="logo">
+                    {{-- <img src="/logo.png" class="_navbar-logo rounded -circle" alt="logo"> --}}
+                    <x-logo class="_w-20 _h-20 fill-current text-gray-500" alt="logo" width="auto" height="50px" />
                 </a>
             </li>
             <li class="nav-item theme-text">

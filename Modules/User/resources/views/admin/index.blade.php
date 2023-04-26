@@ -12,18 +12,18 @@
                 <div class="card-header">
                     <!-- Create -->
                     <a type="button" class="btn btn-icon icon-left bg-transparent" data-bs-toggle="modal"
-                        data-bs-target="#tenant-create-modal">
+                        data-bs-target="#user-create-modal">
                         <i class="fas fa-plus-circle"></i>
                         {{ __('Create') }}
                     </a>
                 </div>
-                @push('modals')
-                    <!-- Room: Create Modal -->
-                    <livewire:tenant::admin.create-modal />
-                @endpush
             @endcan
 
             <livewire:user::admin.index />
         </div>
     </section>
+
+    @push('modals')
+        <livewire:user::admin.create-modal />
+    @endpush
 </x-app-layout>

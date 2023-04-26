@@ -47,15 +47,18 @@
                                         </a>
                                     @endcan
                                     @can('users.delete')
-                                        <form action="{{ route('admin.user.destroy', ['user' => $user->id]) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
+                                        @if (!in_array($user->username, ['admin', 'super-admin']))
+                                            <form action="{{ route('admin.user.destroy', ['user' => $user->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
 
-                                            <button type="submit" class="dropdown-item text-danger">
-                                                <span>Trash</span>
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
+                                                <button type="submit" class="dropdown-item text-danger">
+                                                    <span>Trash</span>
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        @endif
                                     @endcan
                                 @endif
                             </div>

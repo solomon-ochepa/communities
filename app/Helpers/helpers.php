@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Arr;
 use Modules\Setting\app\Models\Setting;
 use Modules\Status\app\Models\Status;
 use Modules\User\app\Models\User;
@@ -40,21 +41,35 @@ if (!function_exists('status')) {
     /**
      * @param Int|String $code
      */
-    function status(int|string $code, $default = null): Int|String|null
+    function status(int|string|array $code = null, $default = null): Int|String|array|null
     {
-        $changed    = false; // $user->isDirty(); // true
-        $key        = "statuses." . Str::slug($code, '.');
-        if (Cache::has($key) and cache($key) !== null and !$changed) {
+        $key        = "status" . ($code ? '.' . Str::slug(is_array($code) ? Arr::join($code, '.') : $code, '.') : '');
+
+        if (Cache::has($key) and cache($key) !== null) {
             return Cache::get($key);
         } else {
-            if (is_numeric($code)) {
-                $value = Status::where('code', $code)->value('name') ?? $default;
+            if (is_array($code)) {
+                $value = collect();
+                foreach ($code as $key => $_code) {
+                    if (is_numeric($_code)) {
+                        $status = Status::where('code', $_code)->select('name', 'id')->first();
+                        $value->put($status->id, $status->name);
+                    } elseif (is_string($_code) and strlen($_code)) {
+                        $status = Status::where('name', $_code)->orwhere('slug', $_code)->select('name', 'id')->first();
+                        $value->put($status->id, $status->name);
+                    }
+                }
+                $value = $value->toArray();
+            } elseif (is_numeric($code)) {
+                $value = Status::where('code', $code)->value('name');
+            } elseif (is_string($code) and strlen($code)) {
+                $value = Status::where('name', $code)->orwhere('slug', $code)->value('code');
             } else {
-                $value = Status::where('name', $code)->orwhere('slug', $code)->value('code') ?? $default;
+                $value = Status::pluck('name', 'id')->toArray();
             }
 
-            cache($key, $value, 10);
-            return $value;
+            Cache::remember($key, 30, fn () => $value);
+            return $value ?? $default;
         }
     }
 }

@@ -4,7 +4,7 @@
             <div class="nav-logo">
                 <div class="nav-item theme-logo">
                     <a href="{{ route('dashboard') }}">
-                        <img src="/logo.svg" class="navbar-logo" alt="logo">
+                        <x-logo class="navbar-logo w-20 h-20 fill-current text-gray-500" alt="Logo" />
                     </a>
                 </div>
                 <div class="nav-item theme-text">

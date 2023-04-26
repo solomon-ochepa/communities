@@ -7,7 +7,8 @@
                 <div class="col mt-10 mb-10">
                     <div class="logo">
                         <a href="/">
-                            <img style="max-height: 60px;" src="/logo.png" alt="Logo">
+                            <x-logo class="navbar-logo w-20 h-20 mh-60 fill-current text-gray-500" alt="Logo"
+                                style="max-height: 60px;" />
                         </a>
                     </div>
                 </div>
