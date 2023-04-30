@@ -66,13 +66,13 @@
 
                                 {{-- arrived_at --}}
                                 <div class="col-md-12">
-                                    <label for="">Expected date of arrival</label>
+                                    <label for="">Expected time of arrival</label>
                                     <div class="input-group">
                                         <span class="input-group-text" title="Arrival Date" data-bs-toggle="tooltip">
                                             <i class="fas fa-clock"></i>
                                         </span>
                                         <input type="datetime-local" class="form-control" aria-label="Arrival Date"
-                                            wire:model.lazy="visit.arrived_at" required />
+                                            wire:model.defer="visit.arrived_at" required />
                                     </div>
                                     @error('visit.arrived_at')
                                         <div class="form-text text-danger">{{ $message }}</div>
@@ -83,11 +83,13 @@
                                 <div class="col-md-12">
                                     <label for="">Expiry date</label>
                                     <div class="input-group">
-                                        <span class="input-group-text" title="Departure date" data-bs-toggle="tooltip">
+                                        <span class="input-group-text" title="Visit expiration date"
+                                            data-bs-toggle="tooltip">
                                             <i class="fas fa-clock"></i>
                                         </span>
-                                        <input type="datetime-local" class="form-control" aria-label="Departure date"
-                                            wire:model.lazy="visit.expired_at" required />
+                                        <input type="datetime-local" class="form-control"
+                                            aria-label="Visit expiration date" wire:model.defer="visit.expired_at"
+                                            required />
                                     </div>
                                     @error('visit.expired_at')
                                         <div class="form-text text-danger">{{ $message }}</div>

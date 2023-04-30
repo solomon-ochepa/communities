@@ -15,8 +15,8 @@ class StoreVisitRequest extends FormRequest
     {
         return [
             'visit.reason'  => ['required', 'string'],
-            'visit.arrived_at'  => ['required', 'date'],
-            'visit.expired_at'  => ['required', 'date'],
+            'visit.arrived_at'  => ['required', 'date', 'after_or_equal:' . now()],
+            'visit.expired_at'  => ['required', 'date', 'after:visit.arrived_at'],
             'form.user_id' => ['required', 'uuid'],
             'form.tenant_id' => ['required', 'uuid'],
         ];
