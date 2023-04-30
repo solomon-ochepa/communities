@@ -2,15 +2,15 @@
 
 namespace Modules\Visitor\app\Models;
 
-use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Modules\Activity\app\Models\Activity;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Timeline\app\Models\Timeline;
 
 class Visit extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -18,15 +18,15 @@ class Visit extends Model
      * @var array
      */
 
-    protected $fillable = ['visitor_id', 'visitable_type', 'visitable_id'];
+    protected $fillable = ['active', 'visitor_id', 'reason', 'note', 'requested_by', 'approved_by', 'arrival_date', 'expired_at', 'checked_in_at', 'checked_out_at', 'visitable_type', 'visitable_id', 'status_code'];
 
     public function visitor()
     {
         return $this->belongsTo(Visitor::class);
     }
 
-    public function activities()
+    public function timelines()
     {
-        return $this->morphMany(Activity::class, 'activitable');
+        return $this->morphMany(Timeline::class, 'timeable');
     }
 }

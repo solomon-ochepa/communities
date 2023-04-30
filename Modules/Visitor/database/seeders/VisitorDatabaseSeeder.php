@@ -16,6 +16,8 @@ class VisitorDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $this->call([
+            VisitSeeder::class,
+        ]);
     }
 }

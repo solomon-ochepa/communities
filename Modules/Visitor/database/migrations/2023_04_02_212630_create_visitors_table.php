@@ -17,6 +17,9 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->unique();
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->unique(['user_id'], 'visitor');
         });
     }
 

@@ -15,9 +15,22 @@ return new class extends Migration
     {
         Schema::create('visits', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->boolean('active')->default(0);
             $table->foreignUuid('visitor_id');
+            $table->text('reason');
+            $table->text('note')->nullable();
             $table->nullableUuidMorphs('visitable');
+            $table->foreignUuid('requested_by');
+            $table->foreignUuid('approved_by')->nullable();
+            $table->timestamp('arrival_date')->useCurrent(); // next visit should be 1 hour interval
+            $table->timestamp('expired_at')->nullable();
+            $table->timestamp('checked_in_at')->nullable();
+            $table->timestamp('checked_out_at')->nullable();
+            $table->foreignUuid('status_code')->default(1);
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->unique(['visitor_id', 'visitable_type', 'visitable_id', 'arrival_date'], 'visit');
         });
     }
 

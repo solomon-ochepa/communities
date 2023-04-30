@@ -3,7 +3,7 @@
     <div class="col-12 _layout-spacing">
         <div class="widget widget-card-four">
             <div class="widget-content">
-                <div class="w-header">
+                <div class="w-header d-none">
                     {{-- Title --}}
                     <div class="w-info">
                         <h6 class="value">
@@ -68,16 +68,14 @@
                             <p>{{ $active_visits_percentage }}%</p>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="table-responsive mt-3">
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>{{ __('Name') }}</th>
                                 <th>{{ __('Visitor') }}</th>
-                                <th>{{ __('Visit') }}</th>
+                                <th>{{ __('Visiting') }}</th>
                                 <th>{{ __('Checkin') }}</th>
                                 <th class="text-end"></th>
                             </tr>
@@ -91,24 +89,24 @@
                                     }
                                 @endphp
                                 <tr>
-                                    <td>{{ optional($visit->visitor)->name }}</td>
-                                    <td>{{ optional($visit->visitor)->email }}</td>
-                                    <td>{{ $visit->reg_no }}</td>
-                                    <td>{{ optional($visit->employee)->user->name }}</td>
-                                    <td>{{ date('d-M-Y h:i A', strtotime($visit->checkin_at)) }}</td>
+                                    <td>{{ optional($visit->visitor->user)->name }}</td>
+                                    <td> ... </td>
+                                    <td> ... </td>
+
+                                    {{-- Actions --}}
                                     <td>
-                                        <a href="{{ route('admin.visitors.show', $visit) }}"
-                                            class="btn btn-sm btn-icon btn-primary"><i class="far fa-eye"></i></a>
+                                        <a href="{{ route('admin.visit.show', $visit->id) }}"
+                                            class="btn btn-sm btn-icon btn-primary">
+                                            <i class="far fa-eye"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
 
-                    @empty($visit)
-                        <p class="text-center py-4">
-                            No record found.
-                        </p>
+                    @empty($visits)
+                        <p class="text-center py-4">No record found.</p>
                     @endempty
                 </div>
             </div>

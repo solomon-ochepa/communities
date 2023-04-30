@@ -17,7 +17,9 @@ class VisitController extends Controller
      */
     public function index()
     {
-        return view('visitor::admin.visit.index', $this->data);
+        $this->data['head']['title'] = "Visits Management";
+
+        return view('visitor::visit.admin.index', $this->data);
     }
 
     /**
@@ -26,7 +28,7 @@ class VisitController extends Controller
      */
     public function create()
     {
-        return view('visitor::admin.visit.create', $this->data);
+        return view('visitor::visit.admin.create', $this->data);
     }
 
     /**
@@ -46,7 +48,7 @@ class VisitController extends Controller
      */
     public function show(Visit $visit)
     {
-        return view('visitor::admin.visit.show', $this->data);
+        return view('visitor::visit.admin.show', $this->data);
     }
 
     /**
@@ -56,7 +58,7 @@ class VisitController extends Controller
      */
     public function edit(Visit $visit)
     {
-        return view('visitor::admin.visit.edit', $this->data);
+        return view('visitor::visit.admin.edit', $this->data);
     }
 
     /**

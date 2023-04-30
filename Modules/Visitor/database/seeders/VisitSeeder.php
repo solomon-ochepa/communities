@@ -5,7 +5,7 @@ namespace Modules\Visitor\database\seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class VisitorSeederTableSeeder extends Seeder
+class VisitSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,8 +14,6 @@ class VisitorSeederTableSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
-
-        // $this->call("OthersTableSeeder");
+        //
     }
 }
