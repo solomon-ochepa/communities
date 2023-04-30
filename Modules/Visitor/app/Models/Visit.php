@@ -23,7 +23,9 @@ class Visit extends Model
 
     protected $casts = [
         'arrived_at'    => 'datetime',
-        'expired_at'    => 'datetime'
+        'expired_at'    => 'datetime',
+        'checked_in_at' => 'datetime',
+        'checked_out_at'    => 'datetime'
     ];
 
     public function visitable()

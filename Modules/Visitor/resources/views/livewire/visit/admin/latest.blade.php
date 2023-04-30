@@ -75,7 +75,6 @@
                                 <th>{{ __('Visiting') }}</th>
                                 <th class="text-center">{{ __('Arrival') }}</th>
                                 <th class="text-center">{{ __('Expiry Date') }}</th>
-                                <th>{{ __('Checkin') }}</th>
                                 <th class="text-end"></th>
                             </tr>
                         </thead>
@@ -107,7 +106,7 @@
                                             @endif
                                         </div>
 
-                                        <div class="border-top border-default border-dashed">
+                                        <div class="pt-1 mt-1 border-top _border-default _border-dashed">
                                             @if ($visit->visitable->room)
                                                 <small>
                                                     <i class="fa-solid fa-door-open me-1"></i>
@@ -123,19 +122,46 @@
                                     </td>
 
                                     <td class="text-center">
-                                        <span class="fw-bold">{{ $visit->arrived_at->format('h:i A') }}</span>
-                                        <small class="d-block text-muted">
-                                            {{ $visit->arrived_at->format('M d, Y') }}
-                                        </small>
+                                        <div>
+                                            <i class="fas fa-clock text-muted me-1"></i>
+                                            <span class="fw-bold me-1">{{ $visit->arrived_at->format('h:i A') }}</span>
+                                            <small class="text-muted">
+                                                {{ $visit->arrived_at->format('D, M d, Y') }}
+                                            </small>
+                                        </div>
+
+                                        {{-- checked_in_at --}}
+                                        <div class="pt-1 mt-1 border-top _border-default _border-dashed"
+                                            title="Checked In" data-bs-toggle="tooltip">
+                                            <i class="fas fa-person-walking fa-beat-fade text-muted me-1"></i>
+                                            <span
+                                                class="fw-bold me-1">{{ $visit->checked_in_at ? $visit->checked_in_at->format('h:i A') : '--:-- --' }}</span>
+                                            <small class="text-muted">
+                                                {{ $visit->checked_in_at ? $visit->checked_in_at->format('D, M d, Y') : '---, --- --, ----' }}
+                                            </small>
+                                        </div>
                                     </td>
 
                                     <td class="text-center">
-                                        <span class="fw-bold">{{ $visit->expired_at->format('h:i A') }}</span>
-                                        <small class="d-block text-muted">
-                                            {{ $visit->expired_at->format('M d, Y') }}
-                                        </small>
+                                        <div>
+                                            <i class="fas fa-clock text-muted me-1"></i>
+                                            <span class="fw-bold me-1">{{ $visit->expired_at->format('h:i A') }}</span>
+                                            <small class="text-muted">
+                                                {{ $visit->expired_at->format('D, M d, Y') }}
+                                            </small>
+                                        </div>
+
+                                        {{-- checked_out_at --}}
+                                        <div class="pt-1 mt-1 border-top _border-default _border-dashed"
+                                            title="Checked Out" data-bs-toggle="tooltip">
+                                            <i class="fas fa-house-lock fa-beat-fade text-muted me-1"></i>
+                                            <span
+                                                class="fw-bold me-1">{{ $visit->checked_out_at ? $visit->checked_out_at->format('h:i A') : '--:-- --' }}</span>
+                                            <small class="text-muted">
+                                                {{ $visit->checked_out_at ? $visit->checked_out_at->format('D, M d, Y') : '---, --- --, ----' }}
+                                            </small>
+                                        </div>
                                     </td>
-                                    <td> ... </td>
 
                                     {{-- Actions --}}
                                     <td>
