@@ -26,7 +26,7 @@ class TenantController extends Controller
      */
     public function index()
     {
-        $this->data['head']['title']    = __('Tenants');
+        $this->data['head']['title']    = __('Tenants Management');
 
         return view('tenant::admin.index', $this->data);
     }
