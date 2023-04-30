@@ -5,7 +5,7 @@ namespace Modules\GatePass\database\seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class GatepassSeederTableSeeder extends Seeder
+class GatepassSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,8 +14,14 @@ class GatepassSeederTableSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        $gatepasses = [
+            [
+                'user_id'   => ''
+            ]
+        ];
 
-        // $this->call("OthersTableSeeder");
+        foreach ($gatepasses as $key => $gatepass) {
+            # code...
+        }
     }
 }

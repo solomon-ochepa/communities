@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\GatePass\app\Http\Controllers;
+namespace Modules\GatePass\app\Http\Controllers\Admin;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class GatePassController extends Controller
      */
     public function index()
     {
-        return view('gatepass::index', $this->data);
+        return view('gatepass::admin.index', $this->data);
     }
 
     /**
@@ -25,7 +25,7 @@ class GatePassController extends Controller
      */
     public function create()
     {
-        return view('gatepass::create', $this->data);
+        return view('gatepass::admin.create', $this->data);
     }
 
     /**
@@ -45,7 +45,7 @@ class GatePassController extends Controller
      */
     public function show($id)
     {
-        return view('gatepass::show', $this->data);
+        return view('gatepass::admin.show', $this->data);
     }
 
     /**
@@ -55,7 +55,7 @@ class GatePassController extends Controller
      */
     public function edit($id)
     {
-        return view('gatepass::edit', $this->data);
+        return view('gatepass::admin.edit', $this->data);
     }
 
     /**

@@ -16,6 +16,8 @@ class GatePassDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $this->call([
+            GatepassSeeder::class
+        ]);
     }
 }

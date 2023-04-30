@@ -14,9 +14,19 @@ return new class extends Migration
     public function up()
     {
         Schema::create('gatepasses', function (Blueprint $table) {
-            $table->id();
-
+            $table->uuid('id')->primary();
+            $table->boolean('active')->default(1);
+            $table->foreignUuid('visit_id');
+            $table->string('code');
+            $table->timestamp('checked_in_at')->nullable();
+            $table->foreignUuid('checked_in_by')->nullable();
+            $table->timestamp('checked_out_at')->nullable();
+            $table->foreignUuid('checked_out_by')->nullable();
+            // $table->foreignUuid('checkpoint_id');
+            $table->foreignUuid('status_code')->default(1);
             $table->timestamps();
+
+            $table->unique(['visit_id', 'code'], 'gatepass');
         });
     }
 

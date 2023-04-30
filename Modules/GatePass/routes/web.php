@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\GatePass\app\Http\Controllers\GatePassController;
+use Modules\GatePass\app\Http\Controllers\Admin\GatePassController;
 
 /*
     |--------------------------------------------------------------------------
