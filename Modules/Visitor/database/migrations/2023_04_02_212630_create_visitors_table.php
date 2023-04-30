@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('visitors', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->boolean('active')->default(1);
             $table->foreignUuid('user_id')->unique();
             $table->timestamps();
             $table->softDeletes();
