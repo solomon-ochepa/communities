@@ -1,3 +1,17 @@
-<div>
-    <h3>The <code>Index</code> livewire component is loaded from the <code>Visitor</code> module.</h3>
+<div class="card-body">
+    <x-page-search class="mb-4" />
+
+    <section class="row gy-3">
+        @forelse ($visitors ?? [] as $visitor)
+            @if ($visitor->user)
+                <x-visitor::admin.visitor :visitor="$visitor" />
+            @endif
+        @empty
+            <p class="text-center py-4">No record found.</p>
+        @endforelse
+
+        @if ($visitors)
+            {{ $visitors->links() }}
+        @endif
+    </section>
 </div>
