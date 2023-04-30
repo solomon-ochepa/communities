@@ -109,13 +109,13 @@
                                         <div class="pt-1 mt-1 border-top _border-default _border-dashed">
                                             @if ($visit->visitable->room)
                                                 <small>
-                                                    <i class="fa-solid fa-door-open me-1"></i>
+                                                    <i class="fa-solid fa-door-open text-muted me-1"></i>
                                                     {{ $visit->visitable->room->name }}
                                                 </small>
                                                 &rightarrow;
                                             @endif
                                             <small>
-                                                <i class="fa-solid fa-building small me-1"></i>
+                                                <i class="fa-solid fa-building text-muted small me-1"></i>
                                                 {{ $visit->visitable->apartment->name }}
                                             </small>
                                         </div>
