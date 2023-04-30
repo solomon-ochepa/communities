@@ -11,13 +11,24 @@ class VisitorController extends Controller
 {
     public $data = [];
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware(['permission:visitor.index'])->only('index');
+        $this->middleware(['permission:visitor.create'])->only('create', 'store');
+        $this->middleware(['permission:visitor.edit'])->only('edit', 'update');
+        $this->middleware(['permission:visitor.delete'])->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
     public function index()
     {
-        return view('visitor::index', $this->data);
+        $this->data['head']['title']    = __('Visitor Management');
+
+        return view('visitor::admin.index', $this->data);
     }
 
     /**
@@ -26,7 +37,7 @@ class VisitorController extends Controller
      */
     public function create()
     {
-        return view('visitor::create', $this->data);
+        return view('visitor::admin.create', $this->data);
     }
 
     /**
@@ -46,7 +57,7 @@ class VisitorController extends Controller
      */
     public function show(Visitor $visitor)
     {
-        return view('visitor::show', $this->data);
+        return view('visitor::admin.show', $this->data);
     }
 
     /**
@@ -56,7 +67,7 @@ class VisitorController extends Controller
      */
     public function edit(Visitor $visitor)
     {
-        return view('visitor::edit', $this->data);
+        return view('visitor::admin.edit', $this->data);
     }
 
     /**
