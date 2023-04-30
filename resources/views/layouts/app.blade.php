@@ -63,7 +63,7 @@
         <div class="overlay"></div>
         <div class="search-overlay"></div>
 
-        <livewire:menu::sidebar />
+        <livewire:menu::admin.sidebar />
 
         <!-- Page Content -->
         <div id="content" class="main-content">
