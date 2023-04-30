@@ -22,8 +22,8 @@ class Visit extends Model
     protected $fillable = ['active', 'visitor_id', 'reason', 'note', 'requested_by', 'approved_by', 'arrived_at', 'expired_at', 'checked_in_at', 'checked_out_at', 'visitable_type', 'visitable_id', 'status_code'];
 
     protected $casts = [
-        'arrived_at'    => 'date',
-        'expired_at'    => 'date'
+        'arrived_at'    => 'timestamp',
+        'expired_at'    => 'timestamp'
     ];
 
     public function visitable()
