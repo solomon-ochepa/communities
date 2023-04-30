@@ -99,6 +99,7 @@ class MenuController extends Controller
         if ($menu->child->count()) {
             session()->flash('status', 'You cannot delete a parent menu with sub-menus.');
         }
+
         $menu->delete();
 
         session()->flash('status', 'Menu deleted successfully.');

@@ -10,29 +10,19 @@ class Edit extends Component
 {
     public $menu;
     public $parents;
-    public $edit = true;
 
     protected $listeners = ['refresh' => '$refresh'];
 
-    public function mount()
-    {
-        if (!$this->menu) {
-            $this->menu = new Menu();
-            $this->edit = false;
-        }
-    }
-
     public function render()
     {
-        $this->parents = Menu::whereNull('parent_id')->pluck('name', 'id')->toArray();
-        // dd($this->parents);
+        $this->parents = Menu::whereNull('parent_id')->whereNotIn('id', [$this->menu->id ?? null])->pluck('name', 'id')->toArray();
 
         return view('menu::livewire.admin.edit');
     }
 
     protected function rules()
     {
-        $request = new StoreMenuRequest();
+        $request = new StoreMenuRequest($this->menu->toArray());
         return $request->rules();
     }
 
@@ -46,14 +36,8 @@ class Edit extends Component
 
         $this->menu->save();
 
-        if ($this->edit) {
-            session()->flash('status', "Menu updated successfully.");
-
-            $this->emitUp('refresh');
-        } else {
-            session()->flash('status', "Menu created successfully.");
-
-            return redirect(route('admin.menu.index'));
-        }
+        session()->flash('status', "Menu updated successfully.");
+        cache()->forget('menu.admin.sidebar');
+        $this->emit('refresh_sidebar');
     }
 }

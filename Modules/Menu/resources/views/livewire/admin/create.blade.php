@@ -58,9 +58,16 @@
                     {{-- Icon --}}
                     <div class="col-md-6">
                         <label for="menu-icon" class="form-label">Icon</label>
-                        <input type="text" class="form-control" id="menu-icon"
-                            @error('menu.icon') is-invalid @enderror value="{{ old('menu.icon') }}"
-                            placeholder="fas fa-home" wire:model.lazy="menu.icon">
+                        <div class="input-group">
+                            @if ($menu->icon ?? '' or $menu->parent->icon ?? '')
+                                <span class="input-group-text">
+                                    <i class="{{ $menu->icon ?? $menu->parent->icon }}"></i>
+                                </span>
+                            @endif
+                            <input type="text" class="form-control" id="menu-icon"
+                                @error('menu.icon') is-invalid @enderror value="{{ old('menu.icon') }}"
+                                placeholder="fas fa-home" wire:model.lazy="menu.icon" />
+                        </div>
                         @error('menu.icon')
                             <div class="invalid-feedback form-text">
                                 {{ $message }}

@@ -44,7 +44,7 @@ class Create extends Component
         }
 
         $this->menu->save();
-        cache()->forget('menu.sidebar');
+        cache()->forget('menu.admin.sidebar');
 
         if ($this->edit) {
             session()->flash('status', "Menu updated successfully.");
@@ -54,7 +54,7 @@ class Create extends Component
             $this->emit('refresh_sidebar');
             $this->reset('menu');
 
-            return redirect(route('admin.menu.index'));
+            // return redirect(route('admin.menu.index'));
         }
     }
 }

@@ -7,6 +7,6 @@
     </x-slot>
 
     <section class="layout-top-spacing">
-        <livewire:menu::admin.create :menu="$menu" />
+        <livewire:menu::admin.edit :menu="$menu" />
     </section>
 </x-app-layout>

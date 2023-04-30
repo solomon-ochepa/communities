@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Menu\app\Http\Livewire;
+namespace Modules\Menu\app\Http\Livewire\Admin;
 
 use Livewire\Component;
 
@@ -32,73 +32,59 @@ class Sidebar extends Component
     {
         $this->data['menus'] = $this->menu();
 
-        return view('menu::livewire.sidebar', $this->data);
+        return view('menu::livewire.admin.sidebar', $this->data);
     }
 
     private function menu()
     {
-        $menus      = Cache::remember('menu.sidebar', 60, fn () => Menu::whereActive(1)->get()->toArray());
-        $menu_tree  = $this->menu_tree($menus);
-        $html       = '';
+        $menus      = Cache::remember(
+            'menu.admin.sidebar',
+            30,
+            fn () => Menu::with('child')
+                ->whereActive(1)
+                ->whereNull('parent_id')
+                ->orderBy('priority')->orderBy('name')
+                ->get()
+        );
 
-        $this->html($menu_tree, $html);
+        $html = '';
+        $this->html($menus, $html);
 
         return $html;
     }
 
-    private function menu_tree(array $menus)
+    private function html($menus, string &$html, $child = false)
     {
-        $menu_tree = [];
-
         foreach ($menus as $menu) {
-            if ($menu['url'] && !in_array($menu['url'], $this->submenus)) {
-                // permission
-                if (isset($menu['permission']) and $this->user->cannot($menu['permission'])) {
-                    continue;
-                }
-
-                if ($menu['parent_id']) {
-                    // Add child/sub-menu
-                    $menu_tree[$menu['parent_id']]['child'][$menu['id']] = $menu;
-                } else {
-                    // Top menu
-                    $menu_tree[$menu['id']] = $menu;
-                }
+            // Invalid & Empty parent menus
+            if (!$menu->url or in_array($menu->url, $this->submenus) or (Str::startsWith($menu->url, '#') and !$menu->child)) {
+                continue;
             }
-        }
 
-        $menu_tree = Arr::sort($menu_tree, ['priority']); // ? effect
-        return $menu_tree;
-    }
-
-    private function html(array $menus, string &$html, $child = false)
-    {
-        foreach ($menus as $menu) {
-            // Empty - dropdown menu
-            if (!isset($menu['url']) or (Str::startsWith($menu['url'], '#') && !isset($menu['child']))) {
+            // permissions
+            if ($menu->permissions ?? null and $this->user->cannot($menu->permissions)) {
                 continue;
             }
 
             $level          = 0;
             $this->active   = '';
-
-            $segment        = request()->segment(2);
-            $segments       = Request::segments();
-            $current_route  = Route::currentRouteName();
             $current_uri    = Request::fullUrl();
-
-            // Generate URL
-            $url = $this->url($menu['url']);
+            $url            = $this->url($menu->url);
 
             // Active
-            if (isset($menu['child'])) {
-                $level          = 1;
-                collect($menu['child'])->map(function ($child) use ($current_uri, $current_route, $segment) {
-                    // $route = Str::match("/('*.*.*')/i", $child['url']);
-                    $child_route = Str::contains($child['url'], '.') ? Str::beforeLast($child['url'], '.') . '.*' : '';
+            if ($menu->child->count()) {
+                $level = 1;
+                $menu->child->map(function ($child, $key) use ($menu, $current_uri) {
+                    if (!$child->active) {
+                        $menu->child->forget($key);
+                        return;
+                    }
+
+                    // $route = Str::match("/('*.*.*')/i", $child->url);
+                    $child_route = Str::contains($child->url, '.') ? Str::beforeLast($child->url, '.') . '.*' : '';
                     // dd($child_route ?? '');
 
-                    if (Str::contains($current_uri, $this->url($child['url']), true) or request()->routeIs($child_route)) {
+                    if (Str::contains($current_uri, $this->url($child->url), true) or request()->routeIs($child_route)) {
                         $this->active = 'active';
                     }
 
@@ -112,10 +98,8 @@ class Sidebar extends Component
                 }
             }
 
-            // dd($this->active);
-
             // Layout
-            $html .= "<!-- {$menu['name']} -->";
+            $html .= "<!-- {$menu->name} -->";
             $html .= '<li class="' . ($child ? '' : 'menu') . '' . ($this->active ? ' ' . $this->active : '') . '">';
             if ($level) {
                 $html .= "<a href='{$url}' data-bs-toggle='collapse' aria-expanded='" . ($this->active ? 'true' : 'false') . "' class='dropdown-toggle" . ($this->active ? '' : ' collapsed') . "' >";
@@ -129,10 +113,10 @@ class Sidebar extends Component
 
             // start: div
             $html .= "<div class=''>";
-            if ($menu['icon'] and !$child) {
-                $html .= "<i class='{$menu['icon']}'></i>";
+            if ($menu->icon and !$child) {
+                $html .= "<i class='{$menu->icon}'></i>";
             }
-            $html .= "<span>" . __(Str::title($menu['name'])) . "</span>";
+            $html .= "<span>" . __(Str::title($menu->name)) . "</span>";
             $html .= '</div>';
             // end: div
 
@@ -149,7 +133,7 @@ class Sidebar extends Component
 
             if ($level) {
                 $html .= '<ul class="submenu list-unstyled collapse' . ($this->active ? " show" : "") . '" id="' . Str::replaceFirst('#', '', $url) . '" data-bs-parent="#accordionExample">';
-                $this->html($menu['child'], $html, true);
+                $this->html($menu->child, $html, true);
                 $html .= "</ul>";
             }
 
