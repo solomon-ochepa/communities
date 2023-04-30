@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Option\app\Http\Controllers\OptionController;
 
 /*
     |--------------------------------------------------------------------------
