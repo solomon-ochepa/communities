@@ -15,15 +15,15 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'user.first_name'   => ['required', 'string', 'min:3', 'max:32'],
-            'user.last_name'    => ['required', 'string', 'min:3', 'max:32'],
-            'user.username'     => ['required', 'string', 'min:3', 'max:16', 'unique:users,username'],
-            'user.phone'        => ['required', 'numeric', 'max:16', 'unique:users,phone'],
-            'user.email'        => ['required', 'email', 'min:3', 'max:32', 'unique:users,email'],
-            'user.password'     => ['required', 'confirmed', 'string', Password::required()],
-            'user.address'      => ['nullable', 'string', 'max:160'],
-            'image'             => ['nullable', 'image', 'mimes:png,jpg,svg'],
-            'role_id'           => ['required', 'uuid'],
+            'user.first_name'   => ['bail', 'required', 'string', 'min:3', 'max:32'],
+            'user.last_name'    => ['bail', 'required', 'string', 'min:3', 'max:32'],
+            'user.username'     => ['bail', 'required', 'string', 'min:3', 'max:16', 'unique:users,username'],
+            'user.phone'        => ['bail', 'required', 'numeric', 'starts_with:+,234,0', 'unique:users,phone'],
+            'user.email'        => ['bail', 'required', 'email', 'min:3', 'max:32', 'unique:users,email'],
+            'user.address'      => ['bail', 'nullable', 'string', 'max:160'],
+            'password'          => ['bail', 'required', 'confirmed', Password::default()],
+            'image'             => ['bail', 'nullable', 'image', 'mimes:png,jpg,svg'],
+            'role'              => ['bail', 'nullable'],
         ];
     }
 

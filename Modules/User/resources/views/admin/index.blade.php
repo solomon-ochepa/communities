@@ -8,7 +8,7 @@
 
     <section class="layout-top-spacing">
         <div class="card">
-            @can('user.create')
+            @can('users.create')
                 <div class="card-header">
                     <!-- Create -->
                     <a type="button" class="btn btn-icon icon-left bg-transparent" data-bs-toggle="modal"
@@ -25,5 +25,6 @@
 
     @push('modals')
         <livewire:user::admin.create-modal />
+        <livewire:user::admin.edit-modal />
     @endpush
 </x-app-layout>

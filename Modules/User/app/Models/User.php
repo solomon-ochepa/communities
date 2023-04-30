@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Tenant\app\Models\Tenant;
 use Plank\Mediable\Mediable;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -51,6 +52,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $guard_name = 'web';
+
     /**
      * Get user full name
      */
@@ -60,5 +63,11 @@ class User extends Authenticatable
             get: fn ($value, $attributes) => $attributes['first_name'] . ' ' . $attributes['last_name'],
             // set: fn ($value, $attributes) => ''
         );
+    }
+
+    // Tenancies
+    public function tenancies()
+    {
+        return $this->hasMany(Tenant::class);
     }
 }

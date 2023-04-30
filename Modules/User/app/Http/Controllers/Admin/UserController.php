@@ -46,7 +46,7 @@ class UserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        //
+        // livewire
     }
 
     /**
@@ -79,47 +79,71 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Trash the specified resource from storage.
      */
     public function destroy(User $user): RedirectResponse
     {
-        if ($user->rooms) {
-            $user->rooms->each(fn ($room) => $room->delete());
+        // User Tenancies
+        if ($user->tenancies) {
+            $user->tenancies->each(fn ($tenancy) => $tenancy->delete());
         }
 
+        // User account
         $user->delete();
 
-        session()->flash('status', 'User deleted successfully.');
+        session()->flash('status', 'User trashed successfully.');
         return redirect(route('admin.user.index'));
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Restore the specified resource to the storage.
+     */
+    public function restore($user): RedirectResponse
+    {
+        // Get user object
+        $user = User::withTrashed()->find($user);
+
+        // User Tenancies
+        if ($user->tenancies()->withTrashed()->count()) {
+            $user->tenancies()->withTrashed()->each(fn ($tenancy) => $tenancy->restore());
+        }
+
+        // more relationships
+
+        $user->restore();
+
+        session()->flash('status', 'User has been restored successfully.');
+        return redirect(route('admin.user.index'));
+    }
+
+    /**
+     * Remove the specified resource from storage permanently.
      */
     public function permanent($user): RedirectResponse
     {
         $user = User::withTrashed()->find($user);
 
-        // relationship
+        // User Tenancies
+        if ($user->tenancies()->withTrashed()->count()) {
+            $user->tenancies()->withTrashed()->each(fn ($tenancy) => $tenancy->forceDelete());
+        }
 
+        // // Medias
+        // if ($user->media) {
+        //     foreach ($user->media->unique() as $media) {
+        //         dd($user->mediables);
+        //     }
+        //     dd('hi');
+        // }
+
+        // dd('...wait!');
+
+        // more relationships
+
+        // User account
         $user->forceDelete();
 
-        session()->flash('status', 'User has been deleted permanently.');
-        return redirect(route('admin.user.index'));
-    }
-
-    /**
-     * Restore the specified resource in storage.
-     */
-    public function restore($user): RedirectResponse
-    {
-        $user = User::withTrashed()->find($user);
-
-        // relationships
-
-        $user->restore();
-
-        session()->flash('status', 'User has been restored successfully.');
+        session()->flash('status', 'User has been deleted permanently from the system.');
         return redirect(route('admin.user.index'));
     }
 }

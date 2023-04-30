@@ -41,10 +41,15 @@
                                     @endcan
                                 @else
                                     @can('users.edit')
-                                        <a class="dropdown-item" href="{{ route('admin.user.edit', ['user' => $user->id]) }}">
-                                            <span>Edit</span>
+                                        <a class="dropdown-item" type="button" data-bs-toggle="modal"
+                                            data-bs-target="#user-edit-modal">
+                                            {{ __('Edit') }}
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                        {{-- <a class="" href="{{ route('admin.user.edit', ['user' => $user->id]) }}">
+                                            <span>Edit</span>
+                                            <i class="fas fa-edit"></i>
+                                        </a> --}}
                                     @endcan
                                     @can('users.delete')
                                         @if (!in_array($user->username, ['admin', 'super-admin']))
