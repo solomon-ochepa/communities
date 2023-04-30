@@ -73,6 +73,8 @@
                             <tr>
                                 <th>{{ __('Visitor') }}</th>
                                 <th>{{ __('Visiting') }}</th>
+                                <th class="text-center">{{ __('Arrival') }}</th>
+                                <th class="text-center">{{ __('Expiry Date') }}</th>
                                 <th>{{ __('Checkin') }}</th>
                                 <th class="text-end"></th>
                             </tr>
@@ -87,7 +89,7 @@
                                 @endphp
                                 <tr>
                                     <td>
-                                        <span>{{ optional($visit->visitor->user)->name }}</span>
+                                        <span class="fw-bold">{{ $visit->visitor->user->name }}</span>
                                         @if ($visit->active)
                                             <i class="fas fa-circle text-success fa-beat-fade"></i>
                                         @endif
@@ -97,24 +99,40 @@
                                             @if ($visit->status)
                                                 <i class="{{ $visit->status->icon }} {{ $visit->status->color }}"></i>
                                             @endif
-                                            <span>{{ $visit->visitable->user->name }}</span>
+                                            <span class="fw-bold">{{ $visit->visitable->user->name }}</span>
                                             @if (optional($visit->visitable)->status)
                                                 <i
                                                     class="{{ $visit->visitable->status->icon }} {{ $visit->visitable->status->color }} fa-beat-fade"></i>
                                             @endif
                                         </div>
 
-                                        <div class="">
-                                            <small>
-                                                <i class="fa-solid fa-door-open me-1"></i>
-                                                {{ $visit->visitable->room->name }}
-                                            </small>
-                                            &rightarrow;
+                                        <div class="border-top border-default border-dashed">
+                                            @if ($visit->visitable->room)
+                                                <small>
+                                                    <i class="fa-solid fa-door-open me-1"></i>
+                                                    {{ $visit->visitable->room->name }}
+                                                </small>
+                                                &rightarrow;
+                                            @endif
                                             <small>
                                                 <i class="fa-solid fa-building me-1 small"></i>
                                                 {{ $visit->visitable->apartment->name }}
                                             </small>
                                         </div>
+                                    </td>
+
+                                    <td class="text-center">
+                                        <span class="fw-bold">{{ $visit->arrived_at->format('H:i A') }}</span>
+                                        <small class="d-block text-muted">
+                                            {{ $visit->arrived_at->format('M d, Y') }}
+                                        </small>
+                                    </td>
+
+                                    <td class="text-center">
+                                        <span class="fw-bold">{{ $visit->expired_at->format('H:i A') }}</span>
+                                        <small class="d-block text-muted">
+                                            {{ $visit->expired_at->format('M d, Y') }}
+                                        </small>
                                     </td>
                                     <td> ... </td>
 

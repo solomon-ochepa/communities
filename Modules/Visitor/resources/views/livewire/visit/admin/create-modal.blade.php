@@ -64,7 +64,7 @@
                                     @enderror
                                 </div>
 
-                                {{-- arrival_date --}}
+                                {{-- arrived_at --}}
                                 <div class="col-md-12">
                                     <label for="">Expected date of arrival</label>
                                     <div class="input-group">
@@ -72,9 +72,9 @@
                                             <i class="fas fa-clock"></i>
                                         </span>
                                         <input type="datetime-local" class="form-control" aria-label="Arrival Date"
-                                            wire:model.lazy="visit.arrival_date" required />
+                                            wire:model.lazy="visit.arrived_at" required />
                                     </div>
-                                    @error('visit.arrival_date')
+                                    @error('visit.arrived_at')
                                         <div class="form-text text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>

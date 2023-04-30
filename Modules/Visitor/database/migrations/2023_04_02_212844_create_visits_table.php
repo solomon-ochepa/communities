@@ -22,7 +22,7 @@ return new class extends Migration
             $table->nullableUuidMorphs('visitable');
             $table->foreignUuid('requested_by');
             $table->foreignUuid('approved_by')->nullable();
-            $table->timestamp('arrival_date')->useCurrent(); // next visit should be 1 hour interval
+            $table->timestamp('arrived_at')->useCurrent(); // next visit should be 1 hour interval
             $table->timestamp('expired_at')->nullable();
             $table->timestamp('checked_in_at')->nullable();
             $table->timestamp('checked_out_at')->nullable();
@@ -30,7 +30,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['visitor_id', 'visitable_type', 'visitable_id', 'arrival_date'], 'visit');
+            $table->unique(['visitor_id', 'visitable_type', 'visitable_id', 'arrived_at'], 'visit');
         });
     }
 

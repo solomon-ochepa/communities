@@ -73,7 +73,7 @@ class CreateModal extends Component
         $this->visit['visitable_id'] = $this->form['tenant_id'];
 
         // Check for existing/duplicate record
-        $exists = Visit::where($this->visit->only(['visitor_id', 'visitable_type', 'visitable_id', 'arrival_date']))->count();
+        $exists = Visit::where($this->visit->only(['visitor_id', 'visitable_type', 'visitable_id', 'arrived_at']))->count();
         if ($exists) {
             session()->flash('error', 'This Visit Request already exists.');
             return;
