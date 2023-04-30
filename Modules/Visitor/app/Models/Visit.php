@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Status\app\Models\Status;
 use Modules\Timeline\app\Models\Timeline;
 
 class Visit extends Model
@@ -19,6 +20,16 @@ class Visit extends Model
      */
 
     protected $fillable = ['active', 'visitor_id', 'reason', 'note', 'requested_by', 'approved_by', 'arrival_date', 'expired_at', 'checked_in_at', 'checked_out_at', 'visitable_type', 'visitable_id', 'status_code'];
+
+    public function visitable()
+    {
+        return $this->morphTo();
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'status_code', 'code');
+    }
 
     public function visitor()
     {

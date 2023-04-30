@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="w-progress-stats mt-0">
-                    <div class="progress" title="Capacity" data-toggle="tooltip">
+                    <div class="progress" title="Active" data-toggle="tooltip">
                         <div class="progress-bar bg-gradient-secondary" role="progressbar"
                             style="width: {{ $active_visits_percentage }}%"
                             aria-valuenow="{{ $active_visits_percentage }}" aria-valuemin="0" aria-valuemax="100">
@@ -87,11 +87,21 @@
                                 @endphp
                                 <tr>
                                     <td>
-                                        <span class="me-1">{{ optional($visit->visitor->user)->name }}</span>
-                                        <i
-                                            class="fas fa-circle {{ $visit->active ? 'text-success fa-beat-fade' : 'text-muted' }}"></i>
+                                        <span>{{ optional($visit->visitor->user)->name }}</span>
+                                        @if ($visit->active)
+                                            <i class="fas fa-circle text-success fa-beat-fade"></i>
+                                        @endif
                                     </td>
-                                    <td> ... </td>
+                                    <td>
+                                        @if ($visit->status)
+                                            <i class="{{ $visit->status->icon }} {{ $visit->status->color }}"></i>
+                                        @endif
+                                        {{ $visit->visitable->user->name }}
+                                        @if (optional($visit->visitable)->status)
+                                            <i
+                                                class="{{ $visit->visitable->status->icon }} {{ $visit->visitable->status->color }} fa-beat-fade"></i>
+                                        @endif
+                                    </td>
                                     <td> ... </td>
 
                                     {{-- Actions --}}
