@@ -26,6 +26,8 @@ class ApartmentController extends Controller
      */
     public function index()
     {
+        $this->data['head']['title'] = 'Apartments Management';
+
         return view('apartment::admin.index', $this->data);
     }
 

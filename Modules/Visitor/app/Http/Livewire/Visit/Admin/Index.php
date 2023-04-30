@@ -3,47 +3,28 @@
 namespace Modules\Visitor\app\Http\Livewire\Visit\Admin;
 
 use Livewire\Component;
-use Livewire\WithPagination;
-use Modules\User\app\Models\User;
-use Modules\Visitor\app\Models\Visitor;
+use Modules\Visitor\app\Models\Visit;
 
 class Index extends Component
 {
-    use WithPagination;
-
-    public $search = "";
-    public $limit = 25;
-    public $page = 1;
-
-    protected $queryString = [
-        'search'    => ['except' => ''],
-        'page'      => ['except' => 1],
-    ];
+    public $data = [];
+    public $visitor;
 
     protected $listeners = ['refresh' => '$refresh'];
 
     public function render()
     {
-        $data = [];
-        if ($this->search) {
-            $data['visitors'] = Visitor::whereHas(\User::class, function ($user) {
-                $cols = ['users.first_name', 'users.last_name', 'users.username', 'users.phone', 'users.email'];
+        // dd($this->visitor);
 
-                foreach ($cols as $key => $col) {
-                    if ($key == 0)
-                        $user->where($col, 'like', '%' . $this->search . '%');
-                    else
-                        $user->orWhere($col, 'like', '%' . $this->search . '%');
-                }
+        $this->data['visits']           = Visit::with(['visitor', 'visitor.user', 'status', 'visitable', 'visitable.user', 'visitable.status', 'visitable.apartment', 'visitable.room'])
+            ->whereVisitorId($this->visitor->id)
+            ->get();
 
-                return $user;
-            })
-                ->whereActive(1)
-                ->paginate($this->limit);
-        } else {
-            $data['visitors'] = Visitor::with('visits')->whereActive(1)->paginate($this->limit);
-        }
+        $this->data['total_visits']     = $this->data['visits']->count();
+        $this->data['active_visits']    = $this->data['visits']->where('active', 1)->count();
+        $this->data['inactive_visits']  = $this->data['visits']->where('active', 0)->count();
+        $this->data['active_visits_percentage'] = $this->data['total_visits'] > 0 ? (100 / $this->data['total_visits']) * $this->data['active_visits'] : 0;
 
-        return view('visitor::livewire.visit.admin.index', $data);
+        return view('visitor::livewire.visit.admin.index', $this->data);
     }
 }

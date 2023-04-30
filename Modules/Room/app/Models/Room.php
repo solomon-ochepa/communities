@@ -6,6 +6,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Status\app\Models\Status;
 use Modules\Tenant\app\Models\Tenant;
 use Modules\Visitor\app\Models\Visit;
 use Modules\Visitor\app\Models\Visitor;
@@ -44,6 +45,11 @@ class Room extends Model
     public function getRouteKeyName()
     {
         return 'id';
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'status_code', 'code');
     }
 
     public function roomable()

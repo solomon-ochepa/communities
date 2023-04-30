@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Visitor\app\Http\Livewire\Visit\Admin;
+namespace Modules\Visitor\app\Http\Livewire\Admin\Visit;
 
 use Livewire\Component;
 use Modules\Tenant\app\Models\Tenant;
@@ -41,7 +41,7 @@ class CreateModal extends Component
 
     public function render()
     {
-        return view('visitor::livewire.visit.admin.create-modal', $this->data);
+        return view('visitor::livewire.admin.visit.create-modal', $this->data);
     }
 
     public function rules()

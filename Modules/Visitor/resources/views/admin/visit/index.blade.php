@@ -1,16 +1,30 @@
 <x-app-layout :data="$head ?? []">
     <x-slot name="header">
         <h2 class="h3 m-0">
-            <x-back :url="route('admin.visit.index')" />
+            <x-back :url="route('dashboard')" />
 
-            {!! __($head['title'] ?? '') !!}
+            {{ __($head['title'] ?? '') }}
             {{-- {{ Breadcrumbs::render('menus') }} --}}
         </h2>
     </x-slot>
 
     <div class="layout-top-spacing">
         <div class="card">
-            <livewire:visitor::visit.admin.index :visitor="$visitor" />
+            @can('visits.create')
+                <div class="card-header">
+                    <a type="button" class="btn btn-icon icon-left bg-transparent" data-bs-toggle="modal"
+                        data-bs-target="#visit-create-modal">
+                        <i class="fas fa-plus-circle"></i>
+                        {{ __('Create') }}
+                    </a>
+                </div>
+                @push('modals')
+                    <!-- Room: Create Modal -->
+                    <livewire:visitor::admin.visit.create-modal />
+                @endpush
+            @endcan
+
+            <livewire:visitor::admin.visit.index />
         </div>
     </div>
 

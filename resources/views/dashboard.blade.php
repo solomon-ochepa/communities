@@ -2,7 +2,7 @@
     <div class="section">
         <livewire:admin.dashboard.stats />
 
-        <livewire:visitor::visit.admin.active />
+        <livewire:visitor::admin.visit.active />
     </div>
 
     <!-- Modal -->

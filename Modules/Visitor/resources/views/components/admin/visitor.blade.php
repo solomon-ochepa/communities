@@ -52,11 +52,17 @@
                 </span>
             @endcanany
 
-            <img src="{{ $visitor->user->hasMedia(['image', 'profile'])? $visitor->user->media(['image', 'profile'])->first()->getUrl(): '/unknown.svg' }}"
-                class="card-img-top p-1" alt="{{ $visitor->user->name }}" />
+            <a href="{{ route('admin.visitor.visit.index', ['visitor' => $visitor->id]) }}">
+                <img src="{{ $visitor->user->hasMedia(['image', 'profile'])? $visitor->user->media(['image', 'profile'])->first()->getUrl(): '/unknown.svg' }}"
+                    class="card-img-top p-1" alt="{{ $visitor->user->name }}" />
+            </a>
 
             <div class="card-footer">
-                <h5 class="card-title fw-bold mb-0">{{ $visitor->user->name }}</h5>
+                <h5 class="card-title fw-bold mb-0">
+                    <a href="{{ route('admin.visitor.visit.index', ['visitor' => $visitor->id]) }}">
+                        {{ $visitor->user->name }}
+                    </a>
+                </h5>
                 {{-- <p class="card-text small">
                     <span title="{{ __('Apartment') }}" data-bs-toggle="tooltip"><i class="fas fa-building"></i></span>
                     <span>{{ $visitor->apartment->name }}</span>

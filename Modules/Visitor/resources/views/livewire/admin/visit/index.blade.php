@@ -1,5 +1,5 @@
 <div class="row" wire:poll.15s>
-    {{-- Visitors --}}
+    {{-- Visits --}}
     <div class="col-12 _layout-spacing">
         <div class="widget widget-card-four">
             <div class="widget-content">
@@ -68,7 +68,7 @@
                 </div>
 
                 <div class="table-responsive mt-3">
-                    <table class="table table-hover">
+                    <table class="table table-hover table-strip">
                         <thead>
                             <tr>
                                 <th>{{ __('Visitor') }}</th>
@@ -88,10 +88,13 @@
                                 @endphp
                                 <tr>
                                     <td>
-                                        <span class="fw-bold">{{ $visit->visitor->user->name }}</span>
-                                        @if ($visit->active)
-                                            <i class="fas fa-circle text-success fa-beat-fade ms-1"></i>
-                                        @endif
+                                        <a
+                                            href="{{ route('admin.visitor.visit.index', ['visitor' => $visit->visitor->id]) }}">
+                                            <span class="fw-bold">{{ $visit->visitor->user->name }}</span>
+                                            @if ($visit->active)
+                                                <i class="fas fa-circle text-success fa-beat-fade ms-1"></i>
+                                            @endif
+                                        </a>
                                     </td>
                                     <td>
                                         <div>

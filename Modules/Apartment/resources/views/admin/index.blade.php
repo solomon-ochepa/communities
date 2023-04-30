@@ -3,7 +3,7 @@
         <h2 class="h3 m-0">
             <x-back :url="route('dashboard')" />
 
-            {{ __('Apartments Management') }}
+            {!! __($head['title'] ?? '') !!}
             {{-- {{ Breadcrumbs::render('menus') }} --}}
         </h2>
     </x-slot>

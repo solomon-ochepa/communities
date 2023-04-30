@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Apartment\app\Models\Apartment;
 use Modules\Room\app\Models\Room;
+use Modules\Status\app\Models\Status;
 use Modules\User\app\Models\User;
 
 class Tenant extends Model
@@ -35,6 +36,11 @@ class Tenant extends Model
     protected $casts = [
         'moved_in'  => 'date',
     ];
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'status_code', 'code');
+    }
 
     public function user()
     {

@@ -5,6 +5,7 @@ namespace Modules\GatePass\app\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Status\app\Models\Status;
 use Plank\Mediable\Mediable;
 
 class Gatepass extends Model
@@ -18,4 +19,9 @@ class Gatepass extends Model
      */
 
     protected $fillable = ['active', 'visit_id', 'code', 'checked_in_at', 'checked_in_by', 'checked_out_at', 'checked_out_by', 'checkpoint_id', 'status_code'];
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'status_code', 'code');
+    }
 }

@@ -23,7 +23,7 @@
                 @endpush --}}
             @endcan
 
-            <livewire:visitor::visit.admin.index />
+            <livewire:visitor::admin.index />
         </div>
     </section>
 </x-app-layout>
