@@ -5,13 +5,14 @@ namespace Modules\Tenant\app\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Apartment\app\Models\Apartment;
 use Modules\Room\app\Models\Room;
 use Modules\User\app\Models\User;
 
 class Tenant extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

@@ -60,9 +60,10 @@ class Index extends Component
 
                     return $room;
                 })
+                ->whereActive(1)
                 ->paginate($this->limit);
         } else {
-            $data['tenants'] = Tenant::paginate($this->limit);
+            $data['tenants'] = Tenant::whereActive(1)->paginate($this->limit);
         }
 
         return view('tenant::livewire.admin.index', $data);

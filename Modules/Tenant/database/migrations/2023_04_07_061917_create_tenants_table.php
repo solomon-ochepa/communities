@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignUuid('status_code')->default(1)->nullable();
             $table->timestamp('moved_in')->nullable()->useCurrent();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->unique(['user_id', 'room_id'], 'tenant');
         });
