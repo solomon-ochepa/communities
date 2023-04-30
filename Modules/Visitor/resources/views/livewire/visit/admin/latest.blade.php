@@ -91,18 +91,19 @@
                                     <td>
                                         <span class="fw-bold">{{ $visit->visitor->user->name }}</span>
                                         @if ($visit->active)
-                                            <i class="fas fa-circle text-success fa-beat-fade"></i>
+                                            <i class="fas fa-circle text-success fa-beat-fade ms-1"></i>
                                         @endif
                                     </td>
                                     <td>
                                         <div>
                                             @if ($visit->status)
-                                                <i class="{{ $visit->status->icon }} {{ $visit->status->color }}"></i>
+                                                <i
+                                                    class="{{ $visit->status->icon }} {{ $visit->status->color }} me-1"></i>
                                             @endif
                                             <span class="fw-bold">{{ $visit->visitable->user->name }}</span>
                                             @if (optional($visit->visitable)->status)
                                                 <i
-                                                    class="{{ $visit->visitable->status->icon }} {{ $visit->visitable->status->color }} fa-beat-fade"></i>
+                                                    class="{{ $visit->visitable->status->icon }} {{ $visit->visitable->status->color }} fa-beat-fade ms-1"></i>
                                             @endif
                                         </div>
 
@@ -115,7 +116,7 @@
                                                 &rightarrow;
                                             @endif
                                             <small>
-                                                <i class="fa-solid fa-building me-1 small"></i>
+                                                <i class="fa-solid fa-building small me-1"></i>
                                                 {{ $visit->visitable->apartment->name }}
                                             </small>
                                         </div>
