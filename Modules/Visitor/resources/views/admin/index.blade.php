@@ -8,7 +8,7 @@
 
     <section class="layout-top-spacing">
         <div class="card">
-            @can('visitor.create')
+            {{-- @can('visitor.create')
                 <div class="card-header">
                     <!-- Create modal -->
                     <a type="button" class="btn btn-icon icon-left bg-transparent" data-bs-toggle="modal"
@@ -17,11 +17,11 @@
                         {{ __('Create') }}
                     </a>
                 </div>
-                {{-- @push('modals')
+                @push('modals')
                     <!-- Room: Create Modal -->
                     <livewire:tenant::admin.create-modal />
-                @endpush --}}
-            @endcan
+                @endpush
+            @endcan --}}
 
             <livewire:visitor::admin.index />
         </div>
