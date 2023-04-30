@@ -122,14 +122,14 @@
                                     </td>
 
                                     <td class="text-center">
-                                        <span class="fw-bold">{{ $visit->arrived_at->format('H:i A') }}</span>
+                                        <span class="fw-bold">{{ $visit->arrived_at->format('h:i A') }}</span>
                                         <small class="d-block text-muted">
                                             {{ $visit->arrived_at->format('M d, Y') }}
                                         </small>
                                     </td>
 
                                     <td class="text-center">
-                                        <span class="fw-bold">{{ $visit->expired_at->format('H:i A') }}</span>
+                                        <span class="fw-bold">{{ $visit->expired_at->format('h:i A') }}</span>
                                         <small class="d-block text-muted">
                                             {{ $visit->expired_at->format('M d, Y') }}
                                         </small>
