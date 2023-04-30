@@ -96,10 +96,10 @@
 
                                     {{-- Actions --}}
                                     <td>
-                                        <a href="{{ route('admin.visit.show', $visit->id) }}"
+                                        {{-- <a href="{{ route('admin.visit.show', $visit->id) }}"
                                             class="btn btn-sm btn-icon btn-primary">
                                             <i class="far fa-eye"></i>
-                                        </a>
+                                        </a> --}}
                                     </td>
                                 </tr>
                             @endforeach
