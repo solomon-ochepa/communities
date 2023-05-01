@@ -1,0 +1,11 @@
+{
+    "name": "UserContact",
+    "alias": "usercontact",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\UserContact\\app\\Providers\\UserContactServiceProvider"
+    ],
+    "files": []
+}
