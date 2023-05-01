@@ -100,12 +100,14 @@
                                         <div>
                                             @if ($visit->status)
                                                 <i
-                                                    class="{{ $visit->status->icon }} {{ $visit->status->color }} me-1"></i>
+                                                    class="{{ $visit->status->icon }} {{ $visit->status->color }} fa-beat-fade me-1"></i>
                                             @endif
                                             <span class="fw-bold">{{ $visit->visitable->user->name }}</span>
                                             @if (optional($visit->visitable)->status)
-                                                <i
-                                                    class="{{ $visit->visitable->status->icon }} {{ $visit->visitable->status->color }} fa-beat-fade ms-1"></i>
+                                                <sup>
+                                                    <i class="fas fa-circle {{ $visit->visitable->status->color }} ms-1"
+                                                        style="width: 10px;"></i>
+                                                </sup>
                                             @endif
                                         </div>
 
