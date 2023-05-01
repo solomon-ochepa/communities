@@ -22,5 +22,7 @@
     "Option": true,
     "Notice": true,
     "Timeline": true,
-    "Vehicle": true
+    "Vehicle": true,
+    "Contact": true,
+    "UserContact": true
 }
