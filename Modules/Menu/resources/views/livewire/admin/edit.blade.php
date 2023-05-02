@@ -86,6 +86,19 @@
                         @enderror
                     </div>
 
+                    {{-- permissions --}}
+                    <div class="col-md-12">
+                        <label for="permissions" class="form-label">Permissions <span
+                                class="text-danger">*</span></label>
+                        <textarea class="form-control" id="permissions" @error('menu.permissions') is-invalid @enderror
+                            value="{{ old('menu.permissions') }}" placeholder="users.create" required wire:model.lazy="menu.permissions"></textarea>
+                        @error('menu.permissions')
+                            <div class="invalid-feedback form-text">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
                     {{-- Active? --}}
                     <div class="col-12">
                         <div class="form-check">

@@ -149,6 +149,7 @@ class Sidebar extends Component
         } else {
             // is Route
             if (Route::has($url)) {
+                // tags
                 return route($url);
             } else {
                 return 'javascript://' . $url;

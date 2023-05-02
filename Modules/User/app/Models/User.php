@@ -55,6 +55,16 @@ class User extends Authenticatable
     protected $guard_name = 'web';
 
     /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
+
+    /**
      * Get user full name
      */
     public function name(): Attribute
