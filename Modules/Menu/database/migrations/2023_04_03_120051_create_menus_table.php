@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('url');
             $table->string('icon')->nullable()->default('fa fa-home');
             $table->integer('priority')->nullable()->default(1);
+            $table->json('permissions')->nullable();
             $table->timestamps();
 
             $table->unique(['parent_id', 'name'], 'menu');
