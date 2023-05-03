@@ -13,6 +13,6 @@ class VehicleDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call([]);
+        $this->call([VehicleSeederTableSeeder::class]);
     }
 }

@@ -9,7 +9,7 @@
         </svg>
     </div>
 
-    <livewire:message::contacts :conversations="$conversations" />
+    <livewire:message::conversations :conversations="$conversations" />
 
     <div class="chat-box">
         <div class="chat-not-selected">
@@ -119,10 +119,30 @@
 
             <div class="chat-conversation-box">
                 <div id="chat-conversation-box-scroll" class="chat-conversation-box-scroll">
-                    @foreach ($conversations ?? [] as $key => $conversation)
-                        {{-- @dd($conversation) --}}
+                    <div class="chat" data-chat="{{ $chat_id ?? 'chat' }}">
+                        <!-- list:start -->
+                        <div class="conversation-start">
+                            <span>Today, {{ now() }} 6:48 AM</span>
+                        </div>
+                        <div class="bubble you">
+                            Hello,
+                        </div>
+                        <div class="bubble you">
+                            It's me.
+                        </div>
+                        <div class="bubble me">
+                            Hi.
+                        </div>
+                        <div class="bubble you">
+                            I have a question regarding the project.
+                        </div>
+                        <!-- list:end -->
+                    </div>
+
+                    {{-- @foreach ($conversations ?? [] as $key => $conversation)
                         @forelse ($user->messages ?? [] as $message)
-                            <div class="chat" data-chat="person{{ $user->id }}">
+                            <div class="chat" data-chat="person{{ $key + 1 }}">
+                                <!-- list -->
                                 <div class="conversation-start">
                                     <span>Today, {{ now() }} 6:48 AM</span>
                                 </div>
@@ -135,6 +155,7 @@
                                 <div class="bubble you">
                                     I have a question regarding project.
                                 </div>
+                                <!-- end:list -->
                             </div>
                         @empty
                             <div class="chat" data-chat="person{{ $user->id }}">
@@ -151,18 +172,9 @@
                                         <i class="mx-3">... no messages.</i>
                                     </span>
                                 </div>
-                                {{-- <div class="bubble you">
-                                    Hello,
-                                </div>
-                                <div class="bubble you">
-                                    It's me.
-                                </div>
-                                <div class="bubble you">
-                                    I have a question regarding project.
-                                </div> --}}
                             </div>
                         @endforelse
-                    @endforeach
+                    @endforeach --}}
                 </div>
             </div>
 

@@ -17,7 +17,7 @@ class VisitorDatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call([
-            VisitSeeder::class,
+            VisitSeeder::class, VisitorSeeder::class
         ]);
     }
 }

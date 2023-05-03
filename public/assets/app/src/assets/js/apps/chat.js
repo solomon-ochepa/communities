@@ -1,12 +1,12 @@
-$('.search > input').on('keyup', function() {
-  var rex = new RegExp($(this).val(), 'i');
+$('.search > input').on('keyup', function () {
+    var rex = new RegExp($(this).val(), 'i');
     $('.people .person').hide();
-    $('.people .person').filter(function() {
+    $('.people .person').filter(function () {
         return rex.test($(this).text());
     }).show();
 });
 
-$('.user-list-box .person').on('click', function(event) {
+$('.user-list-box .person').on('click', function (event) {
     if ($(this).hasClass('.active')) {
         return false;
     } else {
@@ -17,9 +17,9 @@ $('.user-list-box .person').on('click', function(event) {
         var showChatInnerContent = $(this).parents('.chat-system').find('.chat-box .chat-box-inner').show();
 
         if (window.innerWidth <= 767) {
-          $('.chat-box .current-chat-user-name .name').html(personName.split(' ')[0]);
+            $('.chat-box .current-chat-user-name .name').html(personName.split(' ')[0]);
         } else if (window.innerWidth > 767) {
-          $('.chat-box .current-chat-user-name .name').html(personName);
+            $('.chat-box .current-chat-user-name .name').html(personName);
         }
         $('.chat-box .current-chat-user-name img').attr('src', personImage);
         $('.chat').removeClass('active-chat');
@@ -28,29 +28,29 @@ $('.user-list-box .person').on('click', function(event) {
         $('.chat-box .overlay-phone-call').css('display', 'block');
         $('.chat-box .overlay-video-call').css('display', 'block');
         $(this).addClass('active');
-        $('.chat[data-chat = '+findChat+']').addClass('active-chat');
+        $('.chat[data-chat = ' + findChat + ']').addClass('active-chat');
     }
     if ($(this).parents('.user-list-box').hasClass('user-list-box-show')) {
-      $(this).parents('.user-list-box').removeClass('user-list-box-show');
+        $(this).parents('.user-list-box').removeClass('user-list-box-show');
     }
     $('.chat-meta-user').addClass('chat-active');
     $('.chat-box').css('height', 'calc(100vh - 158px)');
     $('.chat-footer').addClass('chat-active');
 
-  const ps = new PerfectScrollbar('.chat-conversation-box', {
-    suppressScrollX : true
-  });
+    const ps = new PerfectScrollbar('.chat-conversation-box', {
+        suppressScrollX: true
+    });
 
-  const getScrollContainer = document.querySelector('.chat-conversation-box');
-  getScrollContainer.scrollTop = 0;
+    const getScrollContainer = document.querySelector('.chat-conversation-box');
+    getScrollContainer.scrollTop = 0;
 });
 
 const ps = new PerfectScrollbar('.people', {
-  suppressScrollX : true
+    suppressScrollX: true
 });
 
-$('.mail-write-box').on('keydown', function(event) {
-    if(event.key === 'Enter') {
+$('.mail-write-box').on('keydown', function (event) {
+    if (event.key === 'Enter') {
         var chatInput = $(this);
         var chatMessageValue = chatInput.val();
         if (chatMessageValue === '') { return; }
@@ -62,6 +62,6 @@ $('.mail-write-box').on('keydown', function(event) {
     }
 })
 
-$('.hamburger, .chat-system .chat-box .chat-not-selected p').on('click', function(event) {
-  $(this).parents('.chat-system').find('.user-list-box').toggleClass('user-list-box-show')
+$('.hamburger, .chat-system .chat-box .chat-not-selected p').on('click', function (event) {
+    $(this).parents('.chat-system').find('.user-list-box').toggleClass('user-list-box-show')
 })

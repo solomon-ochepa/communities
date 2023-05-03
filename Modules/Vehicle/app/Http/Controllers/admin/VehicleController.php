@@ -15,11 +15,11 @@ class VehicleController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware(['permission:vehicle.list'])->only('index');
-        $this->middleware(['permission:vehicle.show'])->only('show');
-        $this->middleware(['permission:vehicle.create'])->only('create', 'store');
-        $this->middleware(['permission:vehicle.edit'])->only('edit', 'update');
-        $this->middleware(['permission:vehicle.delete'])->only('destroy');
+        $this->middleware(['permission:admin.vehicle.index'])->only('index');
+        $this->middleware(['permission:admin.vehicle.show'])->only('show');
+        $this->middleware(['permission:admin.vehicle.create'])->only('create', 'store');
+        $this->middleware(['permission:admin.vehicle.edit'])->only('edit', 'update');
+        $this->middleware(['permission:admin.vehicle.delete'])->only('destroy');
     }
 
     /**
@@ -29,7 +29,7 @@ class VehicleController extends Controller
     {
         $this->data['head']['title'] = '';
 
-        return response(view('vehicle::index', $this->data));
+        return response(view('vehicle::admin.index', $this->data));
     }
 
     /**
@@ -39,7 +39,7 @@ class VehicleController extends Controller
     {
         $this->data['head']['title'] = '';
 
-        return response(view('vehicle::create', $this->data));
+        return response(view('vehicle::admin.create', $this->data));
     }
 
     /**
@@ -59,7 +59,7 @@ class VehicleController extends Controller
     {
         $this->data['head']['title'] = '';
 
-        return response(view('vehicle::show', $this->data));
+        return response(view('vehicle::admin.show', $this->data));
     }
 
     /**
@@ -69,7 +69,7 @@ class VehicleController extends Controller
     {
         $this->data['head']['title'] = '';
 
-        return response(view('vehicle::edit', $this->data));
+        return response(view('vehicle::admin.edit', $this->data));
     }
 
     /**

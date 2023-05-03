@@ -13,6 +13,6 @@ class NoticeDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call([]);
+        $this->call([NoticeSeeder::class]);
     }
 }

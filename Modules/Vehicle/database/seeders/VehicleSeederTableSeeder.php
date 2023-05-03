@@ -3,6 +3,7 @@
 namespace Modules\Vehicle\database\seeders;
 
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
 
 class VehicleSeederTableSeeder extends Seeder
 {
@@ -13,6 +14,11 @@ class VehicleSeederTableSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call([]);
+        // Permissions
+        $namespaces = collect(['admin.vehicle']);
+        $permissions = collect(['index', 'show', 'create', 'edit', 'delete']);
+        foreach ($namespaces as $namespace) {
+            $permissions->each(fn ($permission) => Permission::firstOrCreate(['name' => "{$namespace}.{$permission}"]));
+        }
     }
 }

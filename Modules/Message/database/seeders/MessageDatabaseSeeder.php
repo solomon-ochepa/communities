@@ -16,6 +16,6 @@ class MessageDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $this->call([MessageSeeder::class]);
     }
 }

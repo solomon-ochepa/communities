@@ -5,6 +5,7 @@ namespace Modules\Room\database\seeders;
 use Illuminate\Database\Seeder;
 use Modules\Apartment\app\Models\Apartment;
 use Modules\Room\app\Models\Room;
+use Spatie\Permission\Models\Permission;
 
 class RoomSeeder extends Seeder
 {
@@ -15,6 +16,13 @@ class RoomSeeder extends Seeder
      */
     public function run()
     {
+        // Permissions
+        $namespaces = collect(['admin.room']);
+        $permissions = collect(['index', 'show', 'create', 'edit', 'delete']);
+        foreach ($namespaces as $namespace) {
+            $permissions->each(fn ($permission) => Permission::firstOrCreate(['name' => "{$namespace}.{$permission}"]));
+        }
+
         $apartment = Apartment::first();
         $total = 4;
 
