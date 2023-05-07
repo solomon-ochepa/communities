@@ -25,5 +25,6 @@
     "Contact": true,
     "UserContact": true,
     "Guestbook": true,
-    "AccessLog": true
+    "AccessLog": true,
+    "Gatepass": true
 }
