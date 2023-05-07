@@ -13,7 +13,6 @@
     "Menu": true,
     "Tenant": true,
     "Room": true,
-    "Gatepass": true,
     "Message": true,
     "GateRequest": true,
     "Comment": true,
