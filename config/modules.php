@@ -217,7 +217,7 @@ return [
         'vendor' => 'solomon-ochepa',
         'author' => [
             'name' => 'Solomon Ochepa',
-            'email' => 'solomon-ochepa@gmail.com',
+            'email' => 'solomonochepa@gmail.com',
         ],
         'composer-output' => false,
     ],

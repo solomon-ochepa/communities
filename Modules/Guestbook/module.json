@@ -1,0 +1,11 @@
+{
+    "name": "Guestbook",
+    "alias": "guestbook",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Guestbook\\app\\Providers\\GuestbookServiceProvider"
+    ],
+    "files": []
+}

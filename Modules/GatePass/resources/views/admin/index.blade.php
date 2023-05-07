@@ -8,23 +8,23 @@
 
     <section class="layout-top-spacing">
         <div class="card">
-            @can('users.create')
+            @can('admin.gatepass.create')
                 <div class="card-header">
                     <!-- Create -->
                     <a type="button" class="btn btn-icon icon-left bg-transparent" data-bs-toggle="modal"
-                        data-bs-target="#user-create-modal">
+                        data-bs-target="#gatepass-create-modal">
                         <i class="fas fa-plus-circle"></i>
                         {{ __('Create') }}
                     </a>
                 </div>
             @endcan
 
-            <livewire:user::admin.index />
+            <livewire:gatepass::admin.index />
         </div>
     </section>
 
     @push('modals')
-        <livewire:user::admin.create-modal />
-        <livewire:user::admin.edit-modal />
+        <livewire:gatepass::admin.create-modal />
+        <livewire:gatepass::admin.edit-modal />
     @endpush
 </x-app-layout>

@@ -13,7 +13,7 @@
     "Menu": true,
     "Tenant": true,
     "Room": true,
-    "GatePass": true,
+    "Gatepass": true,
     "Message": true,
     "GateRequest": true,
     "Comment": true,
@@ -24,5 +24,7 @@
     "Timeline": true,
     "Vehicle": true,
     "Contact": true,
-    "UserContact": true
+    "UserContact": true,
+    "Guestbook": true,
+    "AccessLog": true
 }

@@ -10,17 +10,22 @@
 
     <div class="layout-top-spacing">
         <div class="card">
-            @can('apartment.create')
+            @can('admin.vehicle.create')
                 <div class="card-header">
-                    <!-- Create modal -->
-                    <a href="{{ route('admin.apartment.create') }}" class="btn btn-icon icon-left">
-                        <i class="fas fa-plus"></i>
-                        {{ __('Create') }}
+                    <a type="button" class="btn btn-icon icon-left bg-transparent" data-bs-toggle="modal"
+                        data-bs-target="#vehicle-create-modal">
+                        <i class="fas fa-plus-circle"></i>
+                        {{ __('Add Vehicle') }}
                     </a>
                 </div>
             @endcan
 
-            <livewire:apartment::admin.index />
+            <livewire:vehicle::admin.index />
         </div>
     </div>
+
+    @push('modals')
+        <livewire:vehicle::admin.create-modal />
+        <livewire:vehicle::admin.edit-modal />
+    @endpush
 </x-app-layout>

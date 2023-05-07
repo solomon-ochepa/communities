@@ -19,7 +19,7 @@ class Category extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'parent_id', 'name', 'slug', 'description'
+        'parent_id', 'name', 'slug', 'icon', 'description'
     ];
 
     /**
@@ -54,5 +54,10 @@ class Category extends Model
     public function child()
     {
         return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    public function categorizables()
+    {
+        return $this->morphToMany(Category::class, 'categorizable', Categorizable::class);
     }
 }

@@ -4,21 +4,20 @@
     "description": "Users - Laravel module.",
     "keywords": [
         "user-module",
-        "laravel-module",
+        "laravel-modules",
         "solomon-ochepa",
         "oki technologies ltd"
     ],
     "authors": [
         {
             "name": "Solomon Ochepa",
-            "email": "solomon-ochepa@gmail.com"
+            "email": "solomonochepa@gmail.com"
         }
     ],
     "license": "MIT",
     "require": {
         "nwidart/laravel-modules": "*",
         "joshbrw/laravel-module-installer": "*",
-        "mhmiton/laravel-modules-livewire": "*",
         "solomon-ochepa/status-module": "*",
         "plank/laravel-mediable": "^5.9",
         "spatie/laravel-permission": "^5.9"

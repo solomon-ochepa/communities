@@ -1,16 +1,16 @@
 <?php
 
-namespace Modules\GatePass\app\Providers;
+namespace Modules\Gatepass\app\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 
-class GatePassServiceProvider extends ServiceProvider
+class GatepassServiceProvider extends ServiceProvider
 {
     /**
      * @var string $moduleName
      */
-    protected $moduleName = 'GatePass';
+    protected $moduleName = 'Gatepass';
 
     /**
      * @var string $moduleNameLower
@@ -51,7 +51,8 @@ class GatePassServiceProvider extends ServiceProvider
             module_path($this->moduleName, 'config/config.php') => config_path($this->moduleNameLower . '.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            module_path($this->moduleName, 'config/config.php'), $this->moduleNameLower
+            module_path($this->moduleName, 'config/config.php'),
+            $this->moduleNameLower
         );
     }
 

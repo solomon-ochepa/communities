@@ -1,0 +1,11 @@
+{
+    "name": "AccessLog",
+    "alias": "accesslog",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AccessLog\\app\\Providers\\AccessLogServiceProvider"
+    ],
+    "files": []
+}

@@ -27,7 +27,7 @@ class VehicleController extends Controller
      */
     public function index(): Response
     {
-        $this->data['head']['title'] = '';
+        $this->data['head']['title'] = 'Vehicles Management';
 
         return response(view('vehicle::admin.index', $this->data));
     }

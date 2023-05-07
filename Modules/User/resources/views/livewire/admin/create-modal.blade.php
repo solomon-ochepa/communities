@@ -13,7 +13,7 @@
 
             <form x-data wire:submit.prevent="store" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
-                    <x-alert />
+                    {{-- <x-alert /> --}}
 
                     <div class="row">
                         <section class="col-md-9">

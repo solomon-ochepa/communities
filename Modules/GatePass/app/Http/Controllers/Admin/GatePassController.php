@@ -1,12 +1,13 @@
 <?php
 
-namespace Modules\GatePass\app\Http\Controllers\Admin;
+namespace Modules\Gatepass\app\Http\Controllers\Admin;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Gatepass\app\Models\Gatepass;
 
-class GatePassController extends Controller
+class GatepassController extends Controller
 {
     public $data = [];
 
@@ -16,6 +17,8 @@ class GatePassController extends Controller
      */
     public function index()
     {
+        $this->data['head']['title'] = 'Gatepass Management';
+
         return view('gatepass::admin.index', $this->data);
     }
 
@@ -25,6 +28,8 @@ class GatePassController extends Controller
      */
     public function create()
     {
+        $this->data['head']['title'] = '';
+
         return view('gatepass::admin.create', $this->data);
     }
 
@@ -45,6 +50,8 @@ class GatePassController extends Controller
      */
     public function show($id)
     {
+        $this->data['head']['title'] = '';
+
         return view('gatepass::admin.show', $this->data);
     }
 
@@ -55,6 +62,8 @@ class GatePassController extends Controller
      */
     public function edit($id)
     {
+        $this->data['head']['title'] = '';
+
         return view('gatepass::admin.edit', $this->data);
     }
 
@@ -74,8 +83,21 @@ class GatePassController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy(Gatepass $gatepass)
     {
-        //
+        // Categories
+        $gatepass->categorizables->each(function ($categorizable) {
+            $categorizable->delete();
+        });
+
+        // Access Logs
+        $gatepass->access_logs->each(function ($log) {
+            $log->delete();
+        });
+
+        $gatepass->delete();
+
+        session()->flash('status', 'Gatepass deleted successfully.');
+        return redirect(route('admin.gatepass.index'));
     }
 }

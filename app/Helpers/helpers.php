@@ -5,6 +5,7 @@ use Modules\Setting\app\Models\Setting;
 use Modules\Status\app\Models\Status;
 use Modules\User\app\Models\User;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 if (!function_exists('setting')) {
@@ -137,6 +138,50 @@ if (!function_exists('number_format_k')) {
             return "{$number}k";
         } else {
             return number_format($number);
+        }
+    }
+}
+
+include __DIR__ . '/barcode/barcode.php';
+
+if (!function_exists('barcode')) {
+    function barcode($data, $path = '', $symbology = 'qr', $options = ['f' => 'svg'])
+    {
+        $path = storage_path($path);
+
+        /**
+         * f - Format. One of:
+            png
+            gif
+            jpeg
+            svg
+         */
+
+        /**
+         * s - Symbology (type of barcode). One of:
+            upc-a          code-39         qr     dmtx
+            upc-e          code-39-ascii   qr-l   dmtx-s
+            ean-8          code-93         qr-m   dmtx-r
+            ean-13         code-93-ascii   qr-q   gs1-dmtx
+            ean-13-pad     code-128        qr-h   gs1-dmtx-s
+            ean-13-nopad   codabar                gs1-dmtx-r
+            ean-128        itf
+         */
+
+        $generator = new barcode_generator();
+
+        if (isset($options['f']) and $options['f'] === 'svg') {
+            /* Generate SVG markup and write to file. */
+            $svg = $generator->render_svg($symbology, $data, $options);
+
+            return $svg;
+        } else {
+            /* Create bitmap image and write to file. */
+            $image = $generator->render_image($symbology, $data, $options);
+            // imagepng($image, $path);
+            // imagedestroy($image);
+
+            return $image;
         }
     }
 }

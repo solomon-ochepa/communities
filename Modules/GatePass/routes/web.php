@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\GatePass\app\Http\Controllers\Admin\GatePassController;
+use Modules\Gatepass\app\Http\Controllers\Admin\GatepassController;
 
 /*
     |--------------------------------------------------------------------------
@@ -15,7 +15,7 @@ use Modules\GatePass\app\Http\Controllers\Admin\GatePassController;
 */
 
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('gatepass', GatePassController::class)->except(['index'])->names('gatepass');
-    Route::get('gatepasses', [GatePassController::class, 'index'])->name('gatepass.index');
+    Route::resource('gatepass', GatepassController::class)->except(['index'])->names('gatepass');
+    Route::get('gatepasses', [GatepassController::class, 'index'])->name('gatepass.index');
     Route::get('gatepass', fn () => redirect()->route('admin.gatepass.index'));
 });

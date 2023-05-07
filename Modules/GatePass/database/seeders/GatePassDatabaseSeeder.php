@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\GatePass\database\seeders;
+namespace Modules\Gatepass\database\seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class GatePassDatabaseSeeder extends Seeder
+class GatepassDatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.

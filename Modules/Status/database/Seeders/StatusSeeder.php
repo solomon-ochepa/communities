@@ -32,7 +32,7 @@ class StatusSeeder extends Seeder
                 'icon'  => 'fas fa-times',
             ],
             [
-                'name'  => 'Vacant',
+                'name'  => 'Pending',
                 'code'  => 1,
                 'color' => 'text-primary',
                 'icon'  => 'fas fa-rotate',
@@ -44,7 +44,7 @@ class StatusSeeder extends Seeder
                 'icon'  => 'fas fa-rotate fa-spin',
             ],
             [
-                'name'  => 'Successful',
+                'name'  => 'Approved',
                 'code'  => 3,
                 'color' => 'text-success',
                 'icon'  => 'fas fa-check',
