@@ -16,10 +16,11 @@ class VisitSeeder extends Seeder
     public function run()
     {
         // Permissions
-        $namespaces = collect(['admin.visit']);
-        $permissions = collect(['index', 'show', 'create', 'edit', 'delete']);
-        foreach ($namespaces as $namespace) {
-            $permissions->each(fn ($permission) => Permission::firstOrCreate(['name' => "{$namespace}.{$permission}"]));
+        $permissions = collect([
+            'admin.visit' => collect(['index', 'show', 'create', 'edit', 'delete'])
+        ]);
+        foreach ($permissions as $namespace => $permission) {
+            $permission->each(fn ($item) => Permission::firstOrCreate(['name' => "{$namespace}.{$item}"]));
         }
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Vehicle\database\seeders;
+namespace Modules\GatepassRequest\database\seeders;
 
 use Illuminate\Database\Seeder;
 
-class VehicleModelSeederTableSeeder extends Seeder
+class GatepassRequestDatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Gatepass\app\Models\Gatepass;
 use Modules\Tenant\app\Models\Tenant;
 use Plank\Mediable\Mediable;
 use Spatie\Permission\Traits\HasRoles;
@@ -74,6 +75,11 @@ class User extends Authenticatable
             get: fn ($value, $attributes) => $attributes['first_name'] . ' ' . $attributes['last_name'],
             // set: fn ($value, $attributes) => ''
         );
+    }
+
+    public function gatepass()
+    {
+        return $this->morphOne(Gatepass::class, 'model');
     }
 
     // Tenancies

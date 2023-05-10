@@ -27,7 +27,8 @@
                     <x-alert />
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div
+                            class="col-md-6{{ (isset($form['user_id']) and $form['user_id']) ? '' : ' offset-md-3 mx-auto' }}">
                             <div class="row gy-3">
                                 {{-- user_id --}}
                                 <div class="col-md-12">
@@ -49,84 +50,98 @@
                                     @enderror
                                 </div>
 
-                                {{-- reason --}}
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <span class="input-group-text" title="Reason for visiting"
-                                            data-bs-toggle="tooltip">
-                                            <i class="fas fa-edit"></i>
-                                        </span>
-                                        <textarea class="form-control" placeholder="Reason(s) for visiting" rows="2" maxlength="840"
-                                            aria-label="Reason for visiting" wire:model.lazy="visit.reason" required></textarea>
+                                @if (isset($form['tenant_id']) and $form['tenant_id'])
+                                    {{-- reason --}}
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-text" title="Reason for visiting"
+                                                data-bs-toggle="tooltip">
+                                                <i class="fas fa-edit"></i>
+                                            </span>
+                                            <textarea class="form-control" placeholder="Reason(s) for visiting" rows="2" maxlength="840"
+                                                aria-label="Reason for visiting" wire:model.lazy="visit.reason" required></textarea>
+                                        </div>
+                                        @error('visit.reason')
+                                            <div class="form-text text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                    @error('visit.reason')
-                                        <div class="form-text text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
 
-                                {{-- arrived_at --}}
-                                <div class="col-md-12">
-                                    <label for="">Expected time of arrival</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text" title="Arrival Date" data-bs-toggle="tooltip">
-                                            <i class="fas fa-clock"></i>
-                                        </span>
-                                        <input type="datetime-local" class="form-control" aria-label="Arrival Date"
-                                            wire:model.defer="visit.arrived_at" required />
+                                    {{-- arrived_at --}}
+                                    <div class="col-md-12">
+                                        <label for="">Expected time of arrival</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" title="Arrival Date"
+                                                data-bs-toggle="tooltip">
+                                                <i class="fas fa-clock"></i>
+                                            </span>
+                                            <input type="datetime-local" class="form-control" aria-label="Arrival Date"
+                                                wire:model.defer="visit.arrived_at" required />
+                                        </div>
+                                        @error('visit.arrived_at')
+                                            <div class="form-text text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                    @error('visit.arrived_at')
-                                        <div class="form-text text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
 
-                                {{-- expired_at --}}
-                                <div class="col-md-12">
-                                    <label for="">Expiry date</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text" title="Visit expiration date"
-                                            data-bs-toggle="tooltip">
-                                            <i class="fas fa-clock"></i>
-                                        </span>
-                                        <input type="datetime-local" class="form-control"
-                                            aria-label="Visit expiration date" wire:model.defer="visit.expired_at"
-                                            required />
+                                    {{-- expired_at --}}
+                                    <div class="col-md-12">
+                                        <label for="">Expiry date</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" title="Visit expiration date"
+                                                data-bs-toggle="tooltip">
+                                                <i class="fas fa-clock"></i>
+                                            </span>
+                                            <input type="datetime-local" class="form-control"
+                                                aria-label="Visit expiration date" wire:model.defer="visit.expired_at"
+                                                required />
+                                        </div>
+                                        @error('visit.expired_at')
+                                            <div class="form-text text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                    @error('visit.expired_at')
-                                        <div class="form-text text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                @endif
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="row gy-3">
-                                {{-- Visitable (Tenant ID) --}}
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <span class="input-group-text" title="Tenant" data-bs-toggle="tooltip">
-                                            <i class="fas fa-user-tie"></i>
-                                        </span>
-                                        <select class="form-control" aria-label="Tenant"
-                                            wire:model.lazy="form.tenant_id" required>
-                                            <option value="">{{ __('Choose Tenant') }}</option>
-                                            @foreach ($tenants ?? [] as $item)
-                                                <option value="{{ $item['id'] }}">
-                                                    {{ $item['user']['first_name'] }} {{ $item['user']['last_name'] }}
-                                                    &rightarrow;
-                                                    @if ($item['room'])
-                                                        {{ $item['room']['name'] }} &rightarrow;
-                                                    @endif
-                                                    {{ $item['apartment']['name'] }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                        @if (isset($form['user_id']) and $form['user_id'])
+                            <div class="col-md-6">
+                                <div class="row gy-3">
+                                    {{-- Visitable (Tenant ID) --}}
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-text" title="Tenant" data-bs-toggle="tooltip">
+                                                <i class="fas fa-user-tie"></i>
+                                            </span>
+                                            <select class="form-control" aria-label="Tenant"
+                                                wire:model.lazy="form.tenant_id" required>
+                                                <option value="">{{ __('Choose Tenant') }}</option>
+                                                @foreach ($tenants ?? [] as $item)
+                                                    <option value="{{ $item['id'] }}">
+                                                        {{ $item['user']['first_name'] }}
+                                                        {{ $item['user']['last_name'] }}
+                                                        &rightarrow;
+                                                        @if ($item['room'])
+                                                            {{ $item['room']['name'] }} &rightarrow;
+                                                        @endif
+                                                        {{ $item['apartment']['name'] }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        @error('form.tenant_id')
+                                            <div class="form-text text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                    @error('form.tenant_id')
-                                        <div class="form-text text-danger">{{ $message }}</div>
-                                    @enderror
+
+                                    <div class="switch form-switch-custom switch-inline form-switch-success">
+                                        <input type="checkbox" class="switch-input" role="switch" checked
+                                            id="gatepass" wire:model.lazy="form.gatepass" />
+                                        <label class="switch-label" for="gatepass">
+                                            Request <strong>Gatepass</strong>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
 

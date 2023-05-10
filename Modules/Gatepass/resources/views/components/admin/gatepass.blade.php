@@ -91,7 +91,11 @@
         </div>
 
         <div class="card-body text-center">
-            <h5 class="card-title fw-bold mb-0">{{ optional($gatepass->user)->name }}</h5>
+            <h5 class="card-title fw-bold mb-0">
+                <a href="{{ route('admin.gatepass.request.index', ['gatepass' => $gatepass->id]) }}">
+                    {{ optional($gatepass->user)->name }}
+                </a>
+            </h5>
             {{-- <h5 class="card-subtitle fw-normal mb-1">{{ $gatepass->code }}</h5> --}}
         </div>
 

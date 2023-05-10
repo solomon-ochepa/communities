@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Modules\Menu\app\Models\Menu;
+use Spatie\Permission\Models\Permission;
 
 class MenuSeeder extends Seeder
 {
@@ -16,6 +17,14 @@ class MenuSeeder extends Seeder
      */
     public function run()
     {
+        // Permissions
+        $permissions = collect([
+            'admin.menu' => collect(['index', 'show', 'create', 'edit', 'delete'])
+        ]);
+        foreach ($permissions as $namespace => $permission) {
+            $permission->each(fn ($item) => Permission::firstOrCreate(['name' => "{$namespace}.{$item}"]));
+        }
+
         $menus = array(
             array('id' => '97a5ba25-e90d-4278-a115-2dc3dc9d39c2', 'active' => 1, 'parent_id' => NULL, 'name' => 'Dashboard', 'slug' => 'dashboard', 'url' => 'dashboard', 'icon' => 'fas fa-laptop', 'priority' => '0'),
             array('id' => '97a5ba25-f162-4459-b19e-dbbc851b0d5c', 'parent_id' => NULL, 'name' => 'Manage Staff', 'slug' => 'manage_staff', 'url' => '#manage-staff', 'icon' => 'fas fa-archive', 'priority' => '80'),

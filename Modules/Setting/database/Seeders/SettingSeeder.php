@@ -16,10 +16,11 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         // Permissions
-        $namespaces = collect(['admin.setting']);
-        $permissions = collect(['index', 'show', 'create', 'edit', 'delete']);
-        foreach ($namespaces as $namespace) {
-            $permissions->each(fn ($permission) => Permission::firstOrCreate(['name' => "{$namespace}.{$permission}"]));
+        $permissions = collect([
+            'admin.setting' => collect(['index', 'show', 'create', 'edit', 'delete'])
+        ]);
+        foreach ($permissions as $namespace => $permission) {
+            $permission->each(fn ($item) => Permission::firstOrCreate(['name' => "{$namespace}.{$item}"]));
         }
 
         foreach (config()->all() as $key => $config) {

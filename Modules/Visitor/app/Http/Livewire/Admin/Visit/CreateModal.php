@@ -3,6 +3,8 @@
 namespace Modules\Visitor\app\Http\Livewire\Admin\Visit;
 
 use Livewire\Component;
+use Illuminate\Support\Str;
+use Modules\GatepassRequest\app\Models\GatepassRequest;
 use Modules\Tenant\app\Models\Tenant;
 use Modules\User\app\Models\User;
 use Modules\Visitor\app\Http\Requests\StoreVisitRequest;
@@ -69,7 +71,7 @@ class CreateModal extends Component
         $this->validate(['visit.visitor_id' => ['required', 'uuid']]);
 
         // Who/what are you visiting? (Visitable)
-        $this->visit['visitable_type'] = Tenant::class;
+        $this->visit['visitable_type'] = Tenant::class; // dynamic
         $this->visit['visitable_id'] = $this->form['tenant_id'];
 
         // Check for existing/duplicate record
@@ -80,6 +82,20 @@ class CreateModal extends Component
         }
 
         $this->visit->save();
+
+        // Gatepass
+        $gatepass = Visitor::find($this->visit['visitor_id'])->user->gatepass;
+
+        // Gatepass Request
+        if (isset($this->form['gatepass'])) {
+            GatepassRequest::firstOrCreate([
+                'gatepass_id'       => $gatepass->id,
+                'requestable_type'  => get_class($this->visit),
+                'requestable_id'    => $this->visit->id,
+            ], [
+                'code'              => Str::random(6),
+            ]);
+        }
 
         $this->emit('refresh');
         $this->init();

@@ -1,0 +1,11 @@
+{
+    "name": "GatepassRequest",
+    "alias": "gatepassrequest",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\GatepassRequest\\app\\Providers\\GatepassRequestServiceProvider"
+    ],
+    "files": []
+}

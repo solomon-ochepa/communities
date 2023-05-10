@@ -28,4 +28,9 @@ class Visitor extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // public function gatepass()
+    // {
+    //     # code...
+    // }
 }
