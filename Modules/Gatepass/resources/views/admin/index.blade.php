@@ -10,11 +10,17 @@
         <div class="card">
             @can('admin.gatepass.create')
                 <div class="card-header">
-                    <!-- Create -->
+                    {{-- <!-- Create -->
                     <a type="button" class="btn btn-icon icon-left bg-transparent" data-bs-toggle="modal"
                         data-bs-target="#gatepass-create-modal">
                         <i class="fas fa-plus-circle"></i>
                         {{ __('Create') }}
+                    </a> --}}
+
+                    <a type="button" class="btn btn-icon icon-left bg-transparent" data-bs-toggle="modal"
+                        data-bs-target="#gatepass-update-modal">
+                        <i class="fas fa-rotate fa-spin"></i>
+                        {{ __('Update') }}
                     </a>
                 </div>
             @endcan
@@ -25,6 +31,7 @@
 
     @push('modals')
         <livewire:gatepass::admin.create-modal />
+        <livewire:gatepass::admin.update-modal />
         <livewire:gatepass::admin.edit-modal />
     @endpush
 </x-app-layout>

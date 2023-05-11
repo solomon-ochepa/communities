@@ -34,20 +34,18 @@
                                         </a> --}}
                                     @endcan
 
-                                    @role('super-admin')
-                                        @if (!in_array($gatepass->username, ['admin', 'super-admin']))
-                                            <form action="{{ route('admin.gatepass.destroy', ['gatepass' => $gatepass->id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
+                                    @if (!in_array($gatepass->username, ['admin', 'super-admin']))
+                                        <form action="{{ route('admin.gatepass.destroy', ['gatepass' => $gatepass->id]) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
 
-                                                <button type="submit" class="dropdown-item text-danger">
-                                                    <span>Delete</span>
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        @endif
-                                    @endrole
+                                            <button type="submit" class="dropdown-item text-danger">
+                                                <span>Delete</span>
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    @endif
                                 </div>
                             </div>
                         </div>
