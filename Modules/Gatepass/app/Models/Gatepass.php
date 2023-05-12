@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\AccessLog\app\Models\AccessLog;
 use Modules\Category\app\Models\Categorizable;
 use Modules\Category\app\Models\Category;
+use Modules\GatepassRequest\app\Models\GatepassRequest;
 use Modules\Status\app\Models\Status;
 use Plank\Mediable\Mediable;
 
@@ -46,5 +47,10 @@ class Gatepass extends Model
     public function user()
     {
         return $this->morphTo('model');
+    }
+
+    public function requests()
+    {
+        return $this->hasMany(GatepassRequest::class);
     }
 }

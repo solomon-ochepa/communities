@@ -1,8 +1,11 @@
 <div class="col-md-3">
     <div class="card style-6" href="javascript://">
         <div class="card-body">
-            @canany(['edit', 'delete', 'transfer', 'restore', 'delete.permanent'], $gatepass)
-                <span class="badge">
+            <div class="badge d-flex justify-content-between gap-3">
+                @if ($gatepass->requests->count())
+                    <div class="text-primary">{{ $gatepass->requests->count() }}</div>
+                @endif
+                @canany(['edit', 'delete', 'transfer', 'restore', 'delete.permanent'], $gatepass)
                     <div class="d-flex justify-content-between gap-4">
                         {{-- Actions dropdown --}}
                         <div class="task-action">
@@ -50,8 +53,8 @@
                             </div>
                         </div>
                     </div>
-                </span>
-            @endcanany
+                @endcanany
+            </div>
 
             <section class="row">
                 <div class="col-md-12 text-center">
@@ -91,7 +94,10 @@
         <div class="card-body text-center">
             <h5 class="card-title fw-bold mb-0">
                 <a href="{{ route('admin.gatepass.request.index', ['gatepass' => $gatepass->id]) }}">
-                    {{ optional($gatepass->user)->name }}
+                    @if ($gatepass->requests->count())
+                        <i class="fas fa-person-walking fa-beat-fade text-success"></i>
+                    @endif
+                    <span>{{ optional($gatepass->user)->name }}</span>
                 </a>
             </h5>
             {{-- <h5 class="card-subtitle fw-normal mb-1">{{ $gatepass->code }}</h5> --}}

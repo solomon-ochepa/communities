@@ -39,6 +39,8 @@ class CreateModal extends Component
         /** get list of eligeble users */
         $this->data['users'] = User::get()->toArray();
         $this->data['tenants'] = [];
+
+        $this->form['gatepass'] = true;
     }
 
     public function render()
