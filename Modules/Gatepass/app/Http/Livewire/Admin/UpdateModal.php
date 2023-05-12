@@ -85,7 +85,7 @@ class UpdateModal extends Component
 
             // Generate Barcode
             $barcode = barcode($gatepass->code, "{$gatepass->code}", 'ean-128', [
-                'f' => 'svg', 'h' => '32px', 'ph' => '0px', 'pv'=>0
+                'f' => 'svg', 'h' => '40px', 'pt'=>'2px', 'ph'=>'2px'
             ]);
 
             // Upload barcode

@@ -25,10 +25,6 @@
             integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
     @else
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-            crossorigin="anonymous" referrerpolicy="no-referrer" />
-
         <link rel="stylesheet" href="//cdn.test/font-awesome/6.4.0/css/all.min.css">
     @endproduction
 
@@ -69,18 +65,13 @@
         <div id="content" class="main-content">
             <div class="layout-px-spacing">
                 <div class="middle-content container-xxl p-0">
-                    <x-layouts.app.breadcrumbs />
-
-                    <!-- Page Heading -->
-                    @if (isset($header))
-                        <header class="container -fluid mt-3 py-2 rounded shadow-sm">
-                            <div class="row">
-                                <div class="col-sm-12 border-start border-5">
-                                    {{ $header }}
-                                </div>
-                            </div>
-                        </header>
-                    @endif
+                    {{-- <x-layouts.app.breadcrumbs data=["title" => "Hi"] /> --}}
+                    @component('components.layouts.app.breadcrumbs', [
+                        'title' => $title ?? '',
+                        'breadcrumb' => $breadcrumb ?? '',
+                        'menu' => $menu ?? '',
+                    ])
+                    @endcomponent
 
                     {{ $slot }}
                 </div>

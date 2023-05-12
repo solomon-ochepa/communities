@@ -65,7 +65,7 @@ file_put_contents($filename, $svg);
 ```
 
 `s` - Symbology (type of barcode). One of:
-```
+``` 
     upc-a          code-39         qr     dmtx
     upc-e          code-39-ascii   qr-l   dmtx-s
     ean-8          code-93         qr-m   dmtx-r

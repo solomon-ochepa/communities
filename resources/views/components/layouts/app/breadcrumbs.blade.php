@@ -1,8 +1,7 @@
 <div class="secondary-nav">
-    <div class="breadcrumbs-container" data-page-heading="Analytics">
+    <div class="breadcrumbs-container" data-page-heading="{{ $title ?? '' }}">
         <header class="header navbar navbar-expand-sm">
-            <a href="javascript:void(0);" class="btn-toggle sidebarCollapse" data-placement="bottom"
-                aria-label="Toggle menu">
+            <a href="javascript://;" class="btn-toggle sidebarCollapse" data-placement="bottom" aria-label="Toggle menu">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="feather feather-menu">
@@ -11,23 +10,27 @@
                     <line x1="3" y1="18" x2="21" y2="18"></line>
                 </svg>
             </a>
+
             <div class="d-flex breadcrumb-content">
                 <div class="page-header">
-                    <!-- Title -->
-                    <div class="page-title"></div>
+                    {{-- <!-- Title -->
+                    <div class="page-title">{{ $title ?? '' }}</div> --}}
 
                     <!-- Breadcrumb -->
                     <nav class="breadcrumb-style-one" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('dashboard') }}">Dashboard</a>
-                            </li>
-                            <li class="breadcrumb-item active" aria-current="page">
-                                {{ config('app.name') }}
-                            </li>
-                        </ol>
+                        @if ($breadcrumb)
+                            {{ $breadcrumb }}
+                        @else
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ $title ?? config('app.name', '') }}
+                                </li>
+                            </ol>
+                        @endif
                     </nav>
-
                 </div>
             </div>
 

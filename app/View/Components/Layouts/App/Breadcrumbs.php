@@ -8,12 +8,14 @@ use Illuminate\View\Component;
 
 class Breadcrumbs extends Component
 {
+    public $data;
+
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(array $data = [])
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -21,6 +23,6 @@ class Breadcrumbs extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.layouts.app.breadcrumbs');
+        return view('components.layouts.app.breadcrumbs', $this->data);
     }
 }

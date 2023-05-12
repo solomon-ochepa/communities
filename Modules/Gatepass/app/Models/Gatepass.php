@@ -9,7 +9,6 @@ use Modules\AccessLog\app\Models\AccessLog;
 use Modules\Category\app\Models\Categorizable;
 use Modules\Category\app\Models\Category;
 use Modules\Status\app\Models\Status;
-use Modules\User\app\Models\User;
 use Plank\Mediable\Mediable;
 
 class Gatepass extends Model
