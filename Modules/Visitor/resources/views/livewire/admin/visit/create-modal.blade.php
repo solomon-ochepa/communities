@@ -147,10 +147,10 @@
 
                 <div class="modal-footer">
                     <button
-                        class="btn btn-light-danger mt-2 mb-2 btn-no-effect _effect--ripple waves-effect waves-light"
+                        class="btn btn-light-danger btn-no-effect _effect--ripple waves-effect waves-light mt-2 mb-2"
                         data-bs-dismiss="modal">{{ __('Close') }}</button>
                     <button type="submit"
-                        class="btn btn-primary mt-2 mb-2 btn-no-effect _effect--ripple waves-effect waves-light">{{ __('Submit') }}</button>
+                        class="btn btn-primary btn-no-effect _effect--ripple waves-effect waves-light mt-2 mb-2">{{ __('Submit') }}</button>
                 </div>
 
                 @csrf
