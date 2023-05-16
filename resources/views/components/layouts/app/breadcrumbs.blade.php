@@ -19,14 +19,14 @@
                     <!-- Breadcrumb -->
                     <nav class="breadcrumb-style-one" aria-label="breadcrumb">
                         @if ($breadcrumb)
-                            {{ $breadcrumb }}
+                            {!! $breadcrumb !!}
                         @else
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
                                     <a href="{{ route('dashboard') }}">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    {{ $title ?? config('app.name', '') }}
+                                    {!! $title ?? config('app.name', '') !!}
                                 </li>
                             </ol>
                         @endif

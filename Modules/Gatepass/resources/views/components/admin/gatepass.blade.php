@@ -1,5 +1,5 @@
 <div class="col-md-3">
-    <div class="card style-6" href="javascript://">
+    <div class="card style-6{{ $gatepass->requests->count() ? ' bg-light-success' : '' }}" href="javascript://">
         <div class="card-body">
             <div class="badge d-flex justify-content-between gap-3">
                 @if ($gatepass->requests->count())
@@ -58,11 +58,11 @@
 
             <section class="row">
                 <div class="col-md-12 text-center">
-                    <p class="m-0 fw-bold uppercase text-dark">{{ config('app.name') }}</p>
+                    <p class="fw-bold text-dark m-0 uppercase">{{ config('app.name') }}</p>
                     @if ($gatepass->categories->count())
-                        <p class="m-0 fw-normal uppercase text-dark">{{ __($gatepass->categories->first()->name) }}</p>
+                        <p class="fw-normal text-dark m-0 uppercase">{{ __($gatepass->categories->first()->name) }}</p>
                     @else
-                        <p class="m-0 fw-normal uppercase text-dark">{{ __('Gatepass') }}</p>
+                        <p class="fw-normal text-dark m-0 uppercase">{{ __('Gatepass') }}</p>
                     @endif
                 </div>
             </section>
@@ -76,7 +76,6 @@
                     ->getUrl();
             @endphp
         @elseif($gatepass->user and $gatepass->user->hasMedia(['image', 'profile']))
-            {{-- @dd($gatepass->user) --}}
             @php
                 $image = $gatepass->user
                     ->media(['image', 'profile'])

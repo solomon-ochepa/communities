@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\AccessLog\app\Models\AccessLog;
 use Modules\Category\app\Models\Categorizable;
 use Modules\Category\app\Models\Category;
-use Modules\GatepassRequest\app\Models\GatepassRequest;
+use Modules\Gatepass\app\Models\GatepassRequest;
 use Modules\Status\app\Models\Status;
 use Plank\Mediable\Mediable;
 

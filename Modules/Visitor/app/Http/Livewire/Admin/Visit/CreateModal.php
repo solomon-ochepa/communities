@@ -4,7 +4,7 @@ namespace Modules\Visitor\app\Http\Livewire\Admin\Visit;
 
 use Livewire\Component;
 use Illuminate\Support\Str;
-use Modules\GatepassRequest\app\Models\GatepassRequest;
+use Modules\Gatepass\app\Models\GatepassRequest;
 use Modules\Tenant\app\Models\Tenant;
 use Modules\User\app\Models\User;
 use Modules\Visitor\app\Http\Requests\StoreVisitRequest;
