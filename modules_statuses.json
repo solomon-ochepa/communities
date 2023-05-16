@@ -14,7 +14,6 @@
     "Tenant": true,
     "Room": true,
     "Message": true,
-    "GateRequest": true,
     "Comment": true,
     "View": true,
     "Like": true,
@@ -26,6 +25,5 @@
     "UserContact": true,
     "Guestbook": true,
     "AccessLog": true,
-    "Gatepass": true,
-    "GatepassRequest": true
+    "Gatepass": true
 }
