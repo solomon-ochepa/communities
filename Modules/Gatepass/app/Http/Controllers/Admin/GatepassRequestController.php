@@ -16,19 +16,20 @@ class GatepassRequestController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware(['permission:gatepassrequest.index'])->only('index');
-        $this->middleware(['permission:gatepassrequest.show'])->only('show');
-        $this->middleware(['permission:gatepassrequest.create'])->only('create', 'store');
-        $this->middleware(['permission:gatepassrequest.edit'])->only('edit', 'update');
-        $this->middleware(['permission:gatepassrequest.delete'])->only('destroy');
+        $this->middleware(['permission:gatepass.request.index'])->only('index');
+        $this->middleware(['permission:gatepass.request.show'])->only('show');
+        $this->middleware(['permission:gatepass.request.create'])->only('create', 'store');
+        $this->middleware(['permission:gatepass.request.edit'])->only('edit', 'update');
+        $this->middleware(['permission:gatepass.request.delete'])->only('destroy');
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(Gatepass $gatepass): Response
     {
         $this->data['head']['title'] = 'Gatepass Requests Management';
+        $this->data['gatepass'] = $gatepass;
 
         return response(view('gatepass::request.admin.index', $this->data));
     }

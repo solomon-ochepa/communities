@@ -86,14 +86,10 @@
             integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @else
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
-            integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
         <script src="//cdn.test/font-awesome/6.4.0/js/all.min.js"></script>
     @endproduction
 
-    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+    <!-- SCRIPTS -->
     <script src="/assets/app/src/plugins/src/global/vendors.min.js"></script>
 
     <script src="/assets/app/src/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -125,10 +121,7 @@
         const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, option))
     </script>
 
-    {{-- <script src="/assets/app/src/plugins/src/apex/apexcharts.min.js"></script> --}}
-    {{-- <script src="/assets/app/src/plugins/src/jquery-ui/jquery-ui.min.js"></script> --}}
-
-    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+    <!-- PAGE LEVEL SCRIPTS -->
     @stack('js')
 
     @livewireScripts
