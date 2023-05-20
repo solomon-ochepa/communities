@@ -47,7 +47,7 @@
                             </svg>
 
                             {{-- Display types --}}
-                            <div class="switch align-self-center">
+                            <div class="d-flex switch align-self-center">
                                 {{-- List display --}}
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -120,7 +120,7 @@
                         </div>
                     </div>
 
-                    {{-- List Body --}}
+                    {{-- List Items --}}
                     @forelse ($gatepass->requests ?? [] as $request)
                         {{-- @dd($request) --}}
                         {{-- @dd($request->requestable) --}}
@@ -162,7 +162,7 @@
                                         123-4567</p>
                                 </div>
 
-                                <div class="action-btn">
+                                <div class="action-btn d-flex">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round"
