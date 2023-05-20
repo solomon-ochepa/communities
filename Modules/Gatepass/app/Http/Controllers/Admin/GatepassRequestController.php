@@ -28,7 +28,7 @@ class GatepassRequestController extends Controller
      */
     public function index(Gatepass $gatepass): Response
     {
-        $this->data['head']['title'] = 'Gatepass Requests Management';
+        $this->data['head']['title'] = $gatepass->user->name . "'s " . 'Gatepass Requests';
         $this->data['gatepass'] = $gatepass;
 
         return response(view('gatepass::request.admin.index', $this->data));

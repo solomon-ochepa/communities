@@ -4,6 +4,9 @@
             <li class="breadcrumb-item">
                 <a href="{{ route('dashboard') }}">Dashboard</a>
             </li>
+            <li class="breadcrumb-item">
+                <a href="{{ route('admin.gatepass.index') }}">Gatepass</a>
+            </li>
             <li class="breadcrumb-item active" aria-current="page">
                 {{ $head['title'] ?? config('app.name', '') }}
             </li>
