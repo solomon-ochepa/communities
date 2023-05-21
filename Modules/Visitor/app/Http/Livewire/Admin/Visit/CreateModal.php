@@ -66,11 +66,9 @@ class CreateModal extends Component
         // Who's making the request?
         $this->visit['requested_by'] = auth()->user()->id;
 
-        // Get 'Visitor ID' via the provided User ID
-        $this->visit['visitor_id'] = Visitor::firstOrCreate(['user_id' => $this->form['user_id']], [])->value('id');
-
-        // Validate visitor_id
-        $this->validate(['visit.visitor_id' => ['required', 'uuid']]);
+        // Get 'visitor_id' via the provided User ID
+        $visitor = Visitor::firstOrCreate(['user_id' => $this->form['user_id']], []);
+        $this->visit['visitor_id'] = $visitor->id;
 
         // Who/what are you visiting? (Visitable)
         $this->visit['visitable_type'] = Tenant::class; // dynamic

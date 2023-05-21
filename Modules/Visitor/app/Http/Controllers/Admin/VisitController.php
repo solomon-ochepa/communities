@@ -38,7 +38,7 @@ class VisitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // livewire
     }
 
     /**
