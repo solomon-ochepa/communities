@@ -15,7 +15,12 @@ return new class extends Migration
     {
         Schema::create('checkpoints', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->boolean('active')->default(1);
+            $table->string('name')->unique();
+            $table->string('slug')->nullable();
+            $table->boolean('default')->unique()->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
         });
     }

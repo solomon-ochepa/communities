@@ -13,6 +13,8 @@ class CheckpointDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call([]);
+        $this->call([
+            CheckpointSeeder::class,
+        ]);
     }
 }
