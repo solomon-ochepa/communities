@@ -25,5 +25,6 @@
     "UserContact": true,
     "Guestbook": true,
     "AccessLog": true,
-    "Gatepass": true
+    "Gatepass": true,
+    "Checkpoint": true
 }

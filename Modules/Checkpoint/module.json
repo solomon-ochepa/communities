@@ -1,0 +1,11 @@
+{
+    "name": "Checkpoint",
+    "alias": "checkpoint",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Checkpoint\\app\\Providers\\CheckpointServiceProvider"
+    ],
+    "files": []
+}

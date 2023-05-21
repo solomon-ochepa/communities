@@ -8,7 +8,7 @@
                 <a href="{{ route('admin.gatepass.index') }}">Gatepass</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">
-                {{ $head['title'] ?? config('app.name', '') }}
+                {{ $gatepass->code }} &rightarrow; {{ $head['title'] ?? config('app.name', '') }}
             </li>
         </ol>
     </x-slot>
@@ -96,11 +96,11 @@
                             </div>
 
                             <div class="user-email">
-                                <h4>Arrival</h4>
+                                <h4 title="Expected Time of Arrival" data-bs-toggle="tooltip">From</h4>
                             </div>
 
                             <div class="user-location">
-                                <h4 style="margin-left: 0;">Location</h4>
+                                <h4 style="margin-left: 0;" title="Expiring date" data-bs-toggle="tooltip">To</h4>
                             </div>
 
                             <div class="user-phone">
@@ -131,6 +131,7 @@
                         {{-- @dd($request->requestable->visitable->user) --}}
                         <div class="items">
                             <div class="item-content">
+                                {{-- Name --}}
                                 <div class="user-profile">
                                     <div class="n-chk align-self-center text-center">
                                         <div class="form-check form-check-primary me-0 mb-0">
@@ -138,30 +139,55 @@
                                                 type="checkbox">
                                         </div>
                                     </div>
-                                    <img src="{{ asset('assets/app') }}/src/assets/img/profile-5.jpg" alt="avatar">
+
+                                    {{-- Image --}}
+                                    <img src="{{ $request->requestable->visitable->user->hasMedia(['profile', 'image'])
+                                        ? $request->requestable->visitable->user->media(['profile', 'image'])->first()->getUrl()
+                                        : asset('assets/app') . '/assets/img/profile-5.jpg' }}"
+                                        alt="avatar" />
+
+                                    {{-- Name & Request Code --}}
                                     <div class="user-meta-info">
                                         <p class="user-name"
                                             data-name="{{ $request->requestable->visitable->user->name }}">
                                             {{ $request->requestable->visitable->user->name }}</p>
-                                        <p class="user-work" data-occupation="Web Developer">Web
-                                            Developer</p>
+                                        <p class="user-work" data-occupation="Web Developer">
+                                            <code class="strong" title="Gatepass request code"
+                                                data-bs-toggle="tooltip"># {{ $request->code }}</code>
+                                        </p>
                                     </div>
                                 </div>
 
+                                {{--  --}}
                                 <div class="user-email">
-                                    <p class="info-title">Email: </p>
-                                    <p class="usr-email-addr" data-email="alan@mail.com">alan@mail.com
+                                    @php
+                                        $from = $request->requestable->arrived_at;
+                                    @endphp
+                                    <p class="info-title">From: </p>
+                                    <p class="usr-email-addr fw-normal"
+                                        data-email="{{ $from->format('h:iA - D, M d, y') }}">
+                                        <span
+                                            class="d-block">{{ $from->format('h:iA - D, M d') }}{{ $from->year !== now()->year ? ', ' . $from->format('y') : '' }}</span>
+                                        <code class="d-block">{{ $from->since() }}</code>
                                     </p>
                                 </div>
 
                                 <div class="user-location">
-                                    <p class="info-title">Location: </p>
-                                    <p class="usr-location" data-location="Boston, USA">Boston, USA</p>
+                                    @php
+                                        $to = $request->requestable->expired_at;
+                                    @endphp
+                                    <p class="info-title">To: </p>
+                                    <p class="usr-location fw-normal"
+                                        data-location="{{ $to->format('h:iA - D, M d, y') }}">
+                                        <span
+                                            class="d-block">{{ $to->format('h:iA - D, M d') }}{{ $to->year !== now()->year ? ', ' . $to->format('y') : '' }}</span>
+                                        <code class="d-block">{{ $to->since() }}</code>
+                                    </p>
                                 </div>
 
                                 <div class="user-phone">
                                     <p class="info-title">Phone: </p>
-                                    <p class="usr-ph-no" data-phone="+1 (070) 123-4567">+1 (070)
+                                    <p class="usr-ph-no fw-normal" data-phone="+1 (070) 123-4567">+1 (070)
                                         123-4567</p>
                                 </div>
 
@@ -234,6 +260,7 @@
                                                 <span class="validation-text"></span>
                                             </div>
                                         </div>
+
                                         <div class="col-md-6 mb-3">
                                             <div class="contact-email">
                                                 <input type="text" id="c-email" class="form-control"
@@ -241,9 +268,7 @@
                                                 <span class="validation-text"></span>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <div class="contact-occupation">
                                                 <input type="text" id="c-occupation" class="form-control"
@@ -258,9 +283,7 @@
                                                 <span class="validation-text"></span>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row">
                                         <div class="col-md-12">
                                             <div class="contact-location">
                                                 <input type="text" id="c-location" class="form-control"
@@ -273,6 +296,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="modal-footer">
                         <button id="btn-edit"
                             class="btn btn-success _effect--ripple waves-effect waves-light float-left">Save</button>
@@ -289,16 +313,15 @@
         </div>
     @endpush
     @push('css')
-        <link href="{{ asset('assets/app') }}/src/assets/css/light/components/modal.css" rel="stylesheet"
-            type="text/css">
-        <link href="{{ asset('assets/app') }}/src/assets/css/light/apps/contacts.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets') }}/app//css/light/components/modal.css" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assets') }}/app//css/light/apps/contacts.css" rel="stylesheet" type="text/css" />
 
-        <link href="{{ asset('assets/app') }}/src/assets/css/dark/components/modal.css" rel="stylesheet" type="text/css">
-        <link href="{{ asset('assets/app') }}/src/assets/css/dark/apps/contacts.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets') }}/app//css/dark/components/modal.css" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assets') }}/app//css/dark/apps/contacts.css" rel="stylesheet" type="text/css" />
     @endpush
     @push('js')
-        <script src="{{ asset('assets/app') }}/src/assets/js/custom.js"></script>
-        <script src="{{ asset('assets/app') }}/src/plugins/src/jquery-ui/jquery-ui.min.js"></script>
-        <script src="{{ asset('assets/app') }}/src/assets/js/apps/contact.js"></script>
+        <script src="{{ asset('assets') }}/app/plugins/src/jquery-ui/jquery-ui.min.js"></script>
+        <script src="{{ asset('assets') }}/app//js/apps/contact.js"></script>
+        <script src="{{ asset('assets') }}/app//js/custom.js"></script>
     @endpush
 </x-app-layout>
