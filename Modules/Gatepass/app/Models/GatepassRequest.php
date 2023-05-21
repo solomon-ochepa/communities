@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Gatepass\app\Models\Gatepass;
 use Modules\Status\app\Models\Status;
+use Modules\Timeline\app\Models\Timeline;
 
 // use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -52,5 +53,10 @@ class GatepassRequest extends Model
     public function status()
     {
         return $this->belongsTo(Status::class, 'status_code', 'code');
+    }
+
+    public function timeline()
+    {
+        return $this->morphMany(Timeline::class, 'timeable');
     }
 }

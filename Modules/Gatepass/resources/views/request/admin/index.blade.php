@@ -40,14 +40,14 @@
                         class="col-xl-8 col-lg-7 col-md-7 col-sm-5 text-sm-right layout-spacing align-self-center text-center">
                         <div class="d-flex justify-content-sm-end justify-content-center">
                             {{-- Add new record --}}
-                            <svg id="btn-add-contact" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            {{-- <svg id="btn-add-contact" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus">
                                 <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                                 <circle cx="8.5" cy="7" r="4"></circle>
                                 <line x1="20" y1="8" x2="20" y2="14"></line>
                                 <line x1="23" y1="11" x2="17" y2="11"></line>
-                            </svg>
+                            </svg> --}}
 
                             {{-- Display types --}}
                             <div class="d-flex switch align-self-center">
@@ -202,22 +202,26 @@
                                 </div> --}}
 
                                 <div class="action-btn d-flex">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    <span title="Check-in" data-bs-toggle="tooltip">
+                                        <i class="fas fa-user-check fa-xl edit"></i>
+                                    </span>
+
+                                    {{-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round"
                                         class="feather feather-edit-2 edit">
                                         <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z">
                                         </path>
-                                    </svg>
+                                    </svg> --}}
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    {{-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round"
                                         class="feather feather-user-minus delete">
                                         <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                                         <circle cx="8.5" cy="7" r="4"></circle>
                                         <line x1="23" y1="11" x2="17" y2="11"></line>
-                                    </svg>
+                                    </svg> --}}
                                 </div>
                             </div>
                         </div>
