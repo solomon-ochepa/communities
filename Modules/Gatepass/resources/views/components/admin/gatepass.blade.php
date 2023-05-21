@@ -5,7 +5,7 @@
                 @if ($gatepass->requests->count())
                     <div class="text-primary">{{ $gatepass->requests->count() }}</div>
                 @endif
-                @canany(['edit', 'delete', 'transfer', 'restore', 'delete.permanent'], $gatepass)
+                @canany(['edit', 'delete', 'restore', 'delete.permanent'], $gatepass)
                     <div class="d-flex justify-content-between gap-4">
                         {{-- Actions dropdown --}}
                         <div class="task-action">
@@ -37,7 +37,7 @@
                                         </a> --}}
                                     @endcan
 
-                                    @if (!in_array($gatepass->username, ['admin', 'super-admin']))
+                                    {{-- @if (!in_array($gatepass->username, ['admin', 'super-admin']))
                                         <form action="{{ route('admin.gatepass.destroy', ['gatepass' => $gatepass->id]) }}"
                                             method="POST">
                                             @csrf
@@ -48,7 +48,7 @@
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
-                                    @endif
+                                    @endif --}}
                                 </div>
                             </div>
                         </div>
@@ -68,6 +68,7 @@
             </section>
         </div>
 
+        {{-- Photo --}}
         @if ($gatepass->hasMedia(['image', 'profile']))
             @php
                 $image = $gatepass
@@ -85,11 +86,11 @@
         @else
             @php $image = '/unknown.svg'; @endphp
         @endif
-
         <div class="text-center">
             <img src="{{ $image }}" class="card-img-top" style="height: 150px" alt="{{ $gatepass->name }}" />
         </div>
 
+        {{-- User Name --}}
         <div class="card-body text-center">
             <h5 class="card-title fw-bold mb-0">
                 <a href="{{ route('admin.gatepass.request.index', ['gatepass' => $gatepass->id]) }}">

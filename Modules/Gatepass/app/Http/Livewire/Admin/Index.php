@@ -25,7 +25,7 @@ class Index extends Component
     {
         $data = [];
         if ($this->search) {
-            $data['gatepasses'] = Gatepass::with(['user', 'categories', 'status'])->latest()->where(function ($gatepass) {
+            $data['gatepasses'] = Gatepass::with(['categories', 'status'])->where(function ($gatepass) {
                 $cols = ['gatepasses.code'];
 
                 foreach ($cols as $key => $col) {
@@ -36,7 +36,7 @@ class Index extends Component
                 }
 
                 return $gatepass;
-            })->paginate($this->limit);
+            })->latest()->paginate($this->limit);
         } else {
             $data['gatepasses'] = Gatepass::with(['categories', 'status'])->latest()->paginate($this->limit);
         }

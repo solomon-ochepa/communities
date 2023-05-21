@@ -5,7 +5,7 @@
         @forelse ($gatepasses ?? [] as $gatepass)
             <x-gatepass::admin.gatepass :gatepass="$gatepass" />
         @empty
-            <p class="text-center py-4">No record found.</p>
+            <p class="py-4 text-center">No record found.</p>
         @endforelse
 
         @isset($gatepasses)

@@ -35,7 +35,7 @@
 
     @push('modals')
         <livewire:gatepass::admin.create-modal />
-        <livewire:gatepass::admin.update-modal />
-        <livewire:gatepass::admin.edit-modal />
+        {{-- <livewire:gatepass::admin.update-modal />
+        <livewire:gatepass::admin.edit-modal /> --}}
     @endpush
 </x-app-layout>
