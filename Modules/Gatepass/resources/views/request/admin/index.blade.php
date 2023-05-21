@@ -83,7 +83,7 @@
                     {{-- List Head --}}
                     <div class="items items-header-section">
                         <div class="item-content">
-                            <div class="d-inline-flex">
+                            <div class="user-profile d-inline-flex">
                                 {{-- Checkbox --}}
                                 <div class="n-chk align-self-center text-center">
                                     <div class="form-check form-check-primary me-0 mb-0">
@@ -92,23 +92,24 @@
                                     </div>
                                 </div>
 
-                                <h4>Name</h4>
+                                <h4 class="user-profile-head">Name</h4>
                             </div>
 
                             <div class="user-email">
-                                <h4 title="Expected Time of Arrival" data-bs-toggle="tooltip">From</h4>
+                                <h4 class="m-0" title="Expected Time of Arrival" data-bs-toggle="tooltip">From
+                                </h4>
                             </div>
 
                             <div class="user-location">
                                 <h4 style="margin-left: 0;" title="Expiring date" data-bs-toggle="tooltip">To</h4>
                             </div>
 
-                            <div class="user-phone">
+                            {{-- <div class="user-phone">
                                 <h4 style="margin-left: 3px;">Phone</h4>
-                            </div>
+                            </div> --}}
 
                             <div class="action-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                {{-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round"
                                     class="feather feather-trash-2 delete-multiple">
@@ -118,7 +119,7 @@
                                     </path>
                                     <line x1="10" y1="11" x2="10" y2="17"></line>
                                     <line x1="14" y1="11" x2="14" y2="17"></line>
-                                </svg>
+                                </svg> --}}
                             </div>
                         </div>
                     </div>
@@ -141,9 +142,10 @@
                                     </div>
 
                                     {{-- Image --}}
-                                    <img src="{{ $request->requestable->visitable->user->hasMedia(['profile', 'image'])
-                                        ? $request->requestable->visitable->user->media(['profile', 'image'])->first()->getUrl()
-                                        : asset('assets/app') . '/assets/img/profile-5.jpg' }}"
+                                    <img class="d-inline-block max-h-1.5"
+                                        src="{{ $request->requestable->visitable->user->hasMedia(['profile', 'image'])
+                                            ? $request->requestable->visitable->user->media(['profile', 'image'])->first()->getUrl()
+                                            : asset('assets/app') . '/src/assets/img/profile-5.jpg' }}"
                                         alt="avatar" />
 
                                     {{-- Name & Request Code --}}
@@ -166,8 +168,12 @@
                                     <p class="info-title">From: </p>
                                     <p class="usr-email-addr fw-normal"
                                         data-email="{{ $from->format('h:iA - D, M d, y') }}">
-                                        <span
-                                            class="d-block">{{ $from->format('h:iA - D, M d') }}{{ $from->year !== now()->year ? ', ' . $from->format('y') : '' }}</span>
+                                        <span class="d-block">
+                                            <span>{{ $from->format('h:iA') }}</span>
+                                            <span class="text-muted"> &middot; </span>
+                                            <small class="text-muted">{{ $from->format('D, M d') }}</small>
+                                            <span>{{ $from->year !== now()->year ? ', ' . $from->format('y') : '' }}</span>
+                                        </span>
                                         <code class="d-block">{{ $from->since() }}</code>
                                     </p>
                                 </div>
@@ -179,17 +185,21 @@
                                     <p class="info-title">To: </p>
                                     <p class="usr-location fw-normal"
                                         data-location="{{ $to->format('h:iA - D, M d, y') }}">
-                                        <span
-                                            class="d-block">{{ $to->format('h:iA - D, M d') }}{{ $to->year !== now()->year ? ', ' . $to->format('y') : '' }}</span>
+                                        <span class="d-block">
+                                            <span>{{ $to->format('h:iA') }}</span>
+                                            <span class="text-muted"> &middot; </span>
+                                            <small class="text-muted">{{ $to->format('D, M d') }}</small>
+                                            <span>{{ $to->year !== now()->year ? ', ' . $to->format('y') : '' }}</span>
+                                        </span>
                                         <code class="d-block">{{ $to->since() }}</code>
                                     </p>
                                 </div>
 
-                                <div class="user-phone">
+                                {{-- <div class="user-phone">
                                     <p class="info-title">Phone: </p>
                                     <p class="usr-ph-no fw-normal" data-phone="+1 (070) 123-4567">+1 (070)
                                         123-4567</p>
-                                </div>
+                                </div> --}}
 
                                 <div class="action-btn d-flex">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -313,15 +323,31 @@
         </div>
     @endpush
     @push('css')
-        <link href="{{ asset('assets') }}/app//css/light/components/modal.css" rel="stylesheet" type="text/css">
-        <link href="{{ asset('assets') }}/app//css/light/apps/contacts.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/app') }}/src/assets/css/light/components/modal.css" rel="stylesheet"
+            type="text/css">
+        <link href="{{ asset('assets/app') }}/src/assets/css/light/apps/contacts.css" rel="stylesheet"
+            type="text/css" />
 
-        <link href="{{ asset('assets') }}/app//css/dark/components/modal.css" rel="stylesheet" type="text/css">
-        <link href="{{ asset('assets') }}/app//css/dark/apps/contacts.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/app') }}/src/assets/css/dark/components/modal.css" rel="stylesheet"
+            type="text/css">
+        <link href="{{ asset('assets/app') }}/src/assets/css/dark/apps/contacts.css" rel="stylesheet" type="text/css" />
+        <style rel="stylesheet" type="text/css">
+            .searchable-container .searchable-items.grid .items .user-profile img {
+                height: 90px !important;
+            }
+
+            .searchable-container .searchable-items.list .items .user-profile {
+                width: 25%;
+            }
+
+            body.dark .searchable-container .searchable-items.list .items.items-header-section .user-profile-head {
+                margin-left: 72px !important;
+            }
+        </style>
     @endpush
     @push('js')
-        <script src="{{ asset('assets') }}/app/plugins/src/jquery-ui/jquery-ui.min.js"></script>
-        <script src="{{ asset('assets') }}/app//js/apps/contact.js"></script>
-        <script src="{{ asset('assets') }}/app//js/custom.js"></script>
+        <script src="{{ asset('assets/app') }}/src/assets/js/custom.js"></script>
+        <script src="{{ asset('assets/app') }}/src/plugins/src/jquery-ui/jquery-ui.min.js"></script>
+        <script src="{{ asset('assets/app') }}/src/assets/js/apps/contact.js"></script>
     @endpush
 </x-app-layout>

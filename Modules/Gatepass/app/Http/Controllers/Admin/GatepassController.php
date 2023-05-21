@@ -11,6 +11,16 @@ class GatepassController extends Controller
 {
     public $data = [];
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware(['permission:gatepass.index'])->only('index');
+        $this->middleware(['permission:gatepass.show'])->only('show');
+        $this->middleware(['permission:gatepass.create'])->only('create', 'store');
+        $this->middleware(['permission:gatepass.edit'])->only('edit', 'update');
+        $this->middleware(['permission:gatepass.delete'])->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
