@@ -17,7 +17,7 @@ class Timeline extends Model
      * @var array
      */
 
-    protected $fillable = [];
+    protected $fillable = ['name', 'description', 'timeable_type', 'timeable_id'];
 
     /**
      * Return the sluggable configuration array for this model.
@@ -32,15 +32,4 @@ class Timeline extends Model
             ]
         ];
     }
-
-    /**
-     * Get the route key for the model.
-     *
-     * @return string
-     */
-    public function getRouteKeyName()
-    {
-        return 'id';
-    }
-
 }
