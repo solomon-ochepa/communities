@@ -18,16 +18,15 @@
                         {{ __('Create') }}
                     </a>
                 </div>
-                @push('modals')
-                    <!-- Room: Create Modal -->
-                    <livewire:visitor::admin.visit.create-modal />
-                @endpush
             @endcan
 
             <livewire:visitor::admin.visit.index />
         </div>
     </div>
 
+    @push('modals')
+        <livewire:visitor::admin.visit.create-modal />
+    @endpush
     @push('css')
         <link href="/assets/app/src/plugins/src/apex/apexcharts.css" rel="stylesheet" type="text/css">
         <link href="/assets/app/src/assets/css/light/dashboard/dash_1.css" rel="stylesheet" type="text/css" />

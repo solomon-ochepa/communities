@@ -68,7 +68,7 @@
                 </div>
 
                 <div class="table-responsive mt-3">
-                    <table class="table table-hover table-strip">
+                    <table class="table-hover table-strip table">
                         <thead>
                             <tr>
                                 <th>{{ __('Visitor') }}</th>
@@ -92,43 +92,47 @@
                                             href="{{ route('admin.visitor.visit.index', ['visitor' => $visit->visitor->id]) }}">
                                             <span class="fw-bold">{{ $visit->visitor->user->name }}</span>
                                             @if ($visit->active)
-                                                <i class="fas fa-circle text-success fa-beat-fade ms-1"></i>
+                                                <i class="fas fa-circle text-success fa-beat-fade ms-1"
+                                                    style="height: 14px !important;"></i>
                                             @endif
                                         </a>
                                     </td>
                                     <td>
                                         <div>
                                             @if ($visit->status)
-                                                <i
-                                                    class="{{ $visit->status->icon }} {{ $visit->status->color }} fa-beat-fade me-1"></i>
+                                                <i class="{{ $visit->status->icon }} {{ $visit->status->color }} fa-beat-fade me-1"
+                                                    style="height: 14px !important;"></i>
                                             @endif
                                             <span class="fw-bold">{{ $visit->visitable->user->name }}</span>
                                             @if (optional($visit->visitable)->status)
                                                 <sup>
                                                     <i class="fas fa-circle {{ $visit->visitable->status->color }} ms-1"
-                                                        style="width: 10px;"></i>
+                                                        style="width: 10px; height: 12px !important;"></i>
                                                 </sup>
                                             @endif
                                         </div>
 
-                                        <div class="pt-1 mt-1 border-top _border-default _border-dashed">
-                                            @if ($visit->visitable->room)
-                                                <small>
-                                                    <i class="fa-solid fa-door-open text-muted me-1"></i>
-                                                    {{ $visit->visitable->room->name }}
-                                                </small>
-                                                &rightarrow;
-                                            @endif
+                                        <div class="text-muted border-top border-dashed">
                                             <small>
-                                                <i class="fa-solid fa-building text-muted small me-1"></i>
+                                                <i class="fa-solid fa-building text-muted me-1"
+                                                    style="height: 12px !important;"></i>
                                                 {{ $visit->visitable->apartment->name }}
                                             </small>
+                                            @if ($visit->visitable->room)
+                                                &rightarrow;
+                                                <small>
+                                                    <i class="fa-solid fa-door-open _fa-xs text-muted me-1"
+                                                        style="height: 12px !important;"></i>
+                                                    {{ $visit->visitable->room->name }}
+                                                </small>
+                                            @endif
                                         </div>
                                     </td>
 
                                     <td class="text-center">
                                         <div>
-                                            <i class="fas fa-clock text-muted me-1"></i>
+                                            <i class="fas fa-clock text-muted me-1"
+                                                style="height: 14px !important;"></i>
                                             <span class="fw-bold me-1">{{ $visit->arrived_at->format('h:i A') }}</span>
                                             <small class="text-muted">
                                                 {{ $visit->arrived_at->format('D, M d, Y') }}
@@ -136,9 +140,10 @@
                                         </div>
 
                                         {{-- checked_in_at --}}
-                                        <div class="pt-1 mt-1 border-top _border-default _border-dashed"
-                                            title="Checked In" data-bs-toggle="tooltip">
-                                            <i class="fas fa-person-walking fa-beat-fade text-muted me-1"></i>
+                                        <div class="border-top mt-1 border-dashed pt-1" title="Checked In"
+                                            data-bs-toggle="tooltip">
+                                            <i class="fas fa-person-walking fa-beat-fade text-muted me-1"
+                                                style="height: 14px !important;"></i>
                                             <span
                                                 class="fw-bold me-1">{{ $visit->checked_in_at ? $visit->checked_in_at->format('h:i A') : '--:-- --' }}</span>
                                             <small class="text-muted">
@@ -149,7 +154,8 @@
 
                                     <td class="text-center">
                                         <div>
-                                            <i class="fas fa-clock text-muted me-1"></i>
+                                            <i class="fas fa-clock text-muted me-1"
+                                                style="height: 12px !important;"></i>
                                             <span class="fw-bold me-1">{{ $visit->expired_at->format('h:i A') }}</span>
                                             <small class="text-muted">
                                                 {{ $visit->expired_at->format('D, M d, Y') }}
@@ -157,9 +163,10 @@
                                         </div>
 
                                         {{-- checked_out_at --}}
-                                        <div class="pt-1 mt-1 border-top _border-default _border-dashed"
-                                            title="Checked Out" data-bs-toggle="tooltip">
-                                            <i class="fas fa-house-lock fa-beat-fade text-muted me-1"></i>
+                                        <div class="border-top mt-1 border-dashed pt-1" title="Checked Out"
+                                            data-bs-toggle="tooltip">
+                                            <i class="fas fa-house-lock fa-beat-fade text-muted me-1"
+                                                style="height: 12px !important;"></i>
                                             <span
                                                 class="fw-bold me-1">{{ $visit->checked_out_at ? $visit->checked_out_at->format('h:i A') : '--:-- --' }}</span>
                                             <small class="text-muted">
@@ -171,9 +178,18 @@
                                     {{-- Actions --}}
                                     <td>
                                         {{-- <a href="{{ route('admin.visit.show', $visit->id) }}"
-                                            class="btn btn-sm btn-icon btn-primary">
-                                            <i class="far fa-eye"></i>
+                                            class="btn btn-sm btn-icon">
+                                            <i class="fas fa-eye"></i>
                                         </a> --}}
+                                        <form class="d-inline-block" method="POST"
+                                            action="{{ route('admin.visit.destroy', $visit->id) }}">
+                                            @method('DELETE')
+                                            @csrf
+                                            <a href="javascript://delete" onclick="$(this).parent().submit()"
+                                                class="btn btn-sm btn-icon">
+                                                <i class="fas fa-trash text-danger"></i>
+                                            </a>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -181,7 +197,7 @@
                     </table>
 
                     @empty($visits)
-                        <p class="text-center py-4">No record found.</p>
+                        <p class="py-4 text-center">No record found.</p>
                     @endempty
                 </div>
             </div>

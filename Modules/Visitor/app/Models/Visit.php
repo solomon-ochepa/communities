@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Gatepass\app\Models\GatepassRequest;
 use Modules\Status\app\Models\Status;
 use Modules\Timeline\app\Models\Timeline;
 
@@ -46,5 +47,10 @@ class Visit extends Model
     public function timelines()
     {
         return $this->morphMany(Timeline::class, 'timeable');
+    }
+
+    public function gatepass_request()
+    {
+        return $this->morphOne(GatepassRequest::class, 'requestable');
     }
 }

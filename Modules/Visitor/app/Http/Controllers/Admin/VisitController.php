@@ -79,6 +79,16 @@ class VisitController extends Controller
      */
     public function destroy(Visit $visit)
     {
-        //
+        // delete relationships
+
+        // Gatepass Requests
+        $visit->gatepass_request->delete();
+
+        // delete record
+        $visit->delete();
+
+        session()->flash('status', 'Visit request deleted successfully!');
+
+        return redirect(route('admin.visit.index'));
     }
 }
