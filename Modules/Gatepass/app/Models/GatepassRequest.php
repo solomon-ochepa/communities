@@ -5,6 +5,7 @@ namespace Modules\Gatepass\app\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\AccessLog\app\Models\AccessLog;
 use Modules\Gatepass\app\Models\Gatepass;
 use Modules\Status\app\Models\Status;
 use Modules\Timeline\app\Models\Timeline;
@@ -21,18 +22,14 @@ class GatepassRequest extends Model
      *
      * @var array
      */
-
     protected $fillable = ['active', 'gatepass_id', 'code', 'requestable_type', 'requestable_id', 'status_code'];
 
     /**
-     * Get the route key for the model.
+     * The relationships that are eagerly loaded.
      *
-     * @return string
+     * @var array
      */
-    public function getRouteKeyName()
-    {
-        return 'code';
-    }
+    protected $with = ['gatepass', 'timeline', 'status'];
 
     /**
      * Get the model that made this request
@@ -58,5 +55,10 @@ class GatepassRequest extends Model
     public function timeline()
     {
         return $this->morphMany(Timeline::class, 'timeable');
+    }
+
+    public function access_logs()
+    {
+        return $this->morphMany(AccessLog::class, 'accessor');
     }
 }
