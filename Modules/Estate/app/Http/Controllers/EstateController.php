@@ -29,7 +29,7 @@ class EstateController extends Controller
     {
         $this->data['head']['title'] = 'Estate Management';
 
-        return response(view('estate::index', $this->data));
+        return response(view('estate::admin.index', $this->data));
     }
 
     /**
