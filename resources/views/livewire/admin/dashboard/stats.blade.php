@@ -8,7 +8,7 @@
                         {{-- Title --}}
                         <div class="w-info">
                             <h6 class="value">
-                                <a href="{{ route('admin.apartment.index') }}">
+                                <a href="{{ route('admin.estate.index') }}">
                                     {{ __('Estates') }}
                                     <x-link-icon />
                                 </a>
