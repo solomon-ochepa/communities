@@ -20,4 +20,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('user/{user}/restore', [UserController::class, 'restore'])->name('user.restore');
     Route::delete('user/{user}/permanent', [UserController::class, 'permanent'])->name('user.destroy.permanent');
     Route::get('user', fn () => redirect(route('admin.user.index')));
+
 });
+
+Route::get('user/{user}/get', [UserController::class, 'get'])->name('user.get');

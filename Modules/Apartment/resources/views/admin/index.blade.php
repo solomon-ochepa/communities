@@ -1,11 +1,13 @@
 <x-app-layout :data="$head ?? []">
-    <x-slot name="header">
-        <h2 class="h3 m-0">
-            <x-back :url="route('dashboard')" />
-
-            {!! __($head['title'] ?? '') !!}
-            {{-- {{ Breadcrumbs::render('menus') }} --}}
-        </h2>
+    <x-slot name="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ route('dashboard') }}">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                {{ $head['title'] ?? config('app.name', '') }}
+            </li>
+        </ol>
     </x-slot>
 
     <div class="layout-top-spacing">

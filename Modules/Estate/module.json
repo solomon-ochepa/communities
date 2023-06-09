@@ -1,0 +1,11 @@
+{
+    "name": "Estate",
+    "alias": "estate",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Estate\\app\\Providers\\EstateServiceProvider"
+    ],
+    "files": []
+}

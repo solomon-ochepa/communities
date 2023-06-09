@@ -13,10 +13,10 @@
 
             <form x-data wire:submit.prevent="store" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
-                    {{-- <x-alert /> --}}
+                    <x-alert />
 
                     <div class="row">
-                        <section class="col-md-9">
+                        <section class="col-md-9" id="left">
                             <div class="row gy-3">
                                 {{-- first_name --}}
                                 <div class="col-md-6">
@@ -26,7 +26,7 @@
                                             <i class="fas fa-user"></i>
                                         </span>
                                         <input type="text" name="user[first_name]"
-                                            class="form-control @error('user.first_name') is-invalid @enderror"
+                                            class="form-control first_name @error('user.first_name') is-invalid @enderror"
                                             value="{{ old('user.first_name') }}" aria-label="{{ __('First Name') }}"
                                             placeholder="{{ __('First Name') }}" wire:model.lazy="user.first_name"
                                             required>
@@ -44,7 +44,7 @@
                                             <i class="fas fa-user"></i>
                                         </span>
                                         <input type="text" name="user[last_name]"
-                                            class="form-control @error('user.last_name') is-invalid @enderror"
+                                            class="form-control last_name @error('user.last_name') is-invalid @enderror"
                                             value="{{ old('user.last_name') }}" aria-label="{{ __('Last Name') }}"
                                             placeholder="{{ __('Last Name') }}" wire:model.lazy="user.last_name"
                                             required>
@@ -62,7 +62,7 @@
                                             <i class="fas fa-user-tie"></i>
                                         </span>
                                         <input type="tel" name="user[username]"
-                                            class="form-control @error('user.username') is-invalid @enderror"
+                                            class="form-control username @error('user.username') is-invalid @enderror"
                                             value="{{ old('user.username') }}" aria-label="{{ __('Username') }}"
                                             placeholder="{{ __('Username') }}" wire:model.lazy="user.username"
                                             required>
@@ -80,7 +80,7 @@
                                             <i class="fas fa-phone"></i>
                                         </span>
                                         <input type="tel" name="user[phone]"
-                                            class="form-control @error('user.phone') is-invalid @enderror"
+                                            class="form-control phone @error('user.phone') is-invalid @enderror"
                                             value="{{ old('user.phone') }}" aria-label="{{ __('Phone') }}"
                                             placeholder="{{ __('Phone') }}" wire:model.lazy="user.phone" required>
                                     </div>
@@ -97,7 +97,7 @@
                                             <i class="fas fa-envelope"></i>
                                         </span>
                                         <input type="email" name="user[email]"
-                                            class="form-control @error('user.email') is-invalid @enderror"
+                                            class="form-control email @error('user.email') is-invalid @enderror"
                                             value="{{ old('user.email') }}" aria-label="{{ __('Email') }}"
                                             placeholder="{{ __('Email') }}" wire:model.lazy="user.email" required>
                                     </div>
@@ -107,14 +107,14 @@
                                 </div>
 
                                 {{-- password --}}
-                                <div class="col-md-6">
+                                <div class="col-md-6 password">
                                     <div class="input-group">
                                         <span class="input-group-text" title="{{ __('Password') }}"
                                             data-bs-toggle="tooltip">
                                             <i class="fas fa-user-lock"></i>
                                         </span>
                                         <input type="password" name="password"
-                                            class="form-control @error('password') is-invalid @enderror"
+                                            class="form-control password @error('password') is-invalid @enderror"
                                             value="{{ old('password') }}" aria-label="{{ __('Password') }}"
                                             placeholder="{{ __('Password') }}" wire:model.lazy="password" required>
                                     </div>
@@ -124,14 +124,14 @@
                                 </div>
 
                                 {{-- password_confirmation --}}
-                                <div class="col-md-6">
+                                <div class="col-md-6 password_confirmation-field">
                                     <div class="input-group">
                                         <span class="input-group-text" title="{{ __('Confirm Password') }}"
                                             data-bs-toggle="tooltip">
                                             <i class="fas fa-user-lock"></i>
                                         </span>
                                         <input type="password" name="password_confirmation"
-                                            class="form-control @error('password_confirmation') is-invalid @enderror"
+                                            class="form-control password_confirmation @error('password_confirmation') is-invalid @enderror"
                                             value="{{ old('password_confirmation') }}"
                                             aria-label="{{ __('Confirm Password') }}"
                                             placeholder="{{ __('Confirm Password') }}"
@@ -149,8 +149,8 @@
                                             data-bs-toggle="tooltip">
                                             <i class="fas fa-home"></i>
                                         </span>
-                                        <textarea name="user[address]" class="form-control small-textarea-height" id="user-address" placeholder="Address"
-                                            _rows="1" wire:model.lazy="user.address">{{ old('user.address') }}</textarea>
+                                        <textarea name="user[address]" class="form-control address small-textarea-height" id="user-address"
+                                            placeholder="Address" _rows="1" wire:model.lazy="user.address">{{ old('user.address') }}</textarea>
                                         @error('user.address')
                                             <div class="invalid-feedback form-text">
                                                 {{ __($message) }}
@@ -161,16 +161,16 @@
                             </div>
                         </section>
 
-                        <section class="col-md-3">
+                        <section class="col-md-3" id="right">
                             <div class="row gy-3">
                                 {{-- image --}}
                                 <div class="col-md-12">
                                     {{-- Image Preview --}}
                                     @if ($image)
-                                        <img class="img-thumbnail d-block image-width mb-3" id="previewImage"
+                                        <img class="img-thumbnail image d-block image-width mb-3" id="previewImage"
                                             src="{{ $image->temporaryUrl() }}" alt="Profile Image" />
                                     @else
-                                        <img class="img-thumbnail d-block image-width mb-3" id="previewImage"
+                                        <img class="img-thumbnail image d-block image-width mb-3" id="previewImage"
                                             src="{{ asset('unknown.svg') }}" alt="Profile Image" />
                                     @endif
 
@@ -222,10 +222,10 @@
 
                 <div class="modal-footer">
                     <button
-                        class="btn btn-light-danger mt-2 mb-2 btn-no-effect _effect--ripple waves-effect waves-light"
+                        class="btn btn-light-danger btn-no-effect _effect--ripple waves-effect waves-light mt-2 mb-2"
                         data-bs-dismiss="modal">{{ __('Cancel') }}</button>
                     <button type="submit"
-                        class="btn btn-primary mt-2 mb-2 btn-no-effect _effect--ripple waves-effect waves-light">{{ __('Submit') }}</button>
+                        class="submit btn btn-primary btn-no-effect _effect--ripple waves-effect waves-light mt-2 mb-2">{{ __('Submit') }}</button>
                 </div>
 
                 @csrf

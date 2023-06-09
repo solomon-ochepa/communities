@@ -119,6 +119,11 @@
         // Enable Toast
         const toastElList = document.querySelectorAll('.toast')
         const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, option))
+
+        // Sweet Alert - Delete Confirmation
+        function confirm_delete(form){
+            alert('hi');
+        }
     </script>
 
     <!-- PAGE LEVEL SCRIPTS -->

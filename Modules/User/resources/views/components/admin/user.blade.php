@@ -41,8 +41,7 @@
                                     @endcan
                                 @else
                                     @can('users.edit')
-                                        <a class="dropdown-item" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#user-edit-modal">
+                                        <a class="dropdown-item edit" data-id="{{$user->username}}" type="button">
                                             {{ __('Edit') }}
                                             <i class="fas fa-edit"></i>
                                         </a>

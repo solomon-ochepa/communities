@@ -152,7 +152,7 @@ function addContact() {
     deleteContact();
     editContact();
     checkall('contact-check-all', 'contact-chkbox');
-  });  
+  });
 }
 
 $('#addContactModal').on('hidden.bs.modal', function (e) {
@@ -248,7 +248,7 @@ function editContact() {
 }
 
 $(".delete-multiple").on("click", function() {
-    var inboxCheckboxParents = $(".contact-chkbox:checked").parents('.items');   
+    var inboxCheckboxParents = $(".contact-chkbox:checked").parents('.items');
       inboxCheckboxParents.remove();
 });
 

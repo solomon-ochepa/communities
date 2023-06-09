@@ -128,7 +128,7 @@
                                 </div>
 
                                 {{-- Image --}}
-                                <img class="d-inline-block max-h-1.5"
+                                <img class="d-inline-block"
                                     src="{{ $request->requestable->visitable->user->hasMedia(['profile', 'image'])
                                         ? $request->requestable->visitable->user->media(['profile', 'image'])->first()->getUrl()
                                         : asset('assets/app') . '/src/assets/img/profile-5.jpg' }}"

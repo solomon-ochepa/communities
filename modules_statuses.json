@@ -26,5 +26,6 @@
     "Guestbook": true,
     "AccessLog": true,
     "Gatepass": true,
-    "Checkpoint": true
+    "Checkpoint": true,
+    "Estate": true
 }

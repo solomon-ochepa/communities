@@ -11,7 +11,6 @@
                     <div class="input-group">
                         <label for="apartment-name" class="input-group-text m-0">
                             <i class="fas fa-edit"></i>
-                            <span class="text-danger">*</span>
                         </label>
                         <input type="text" class="form-control" id="apartment-name"
                             @error('apartment.name') is-invalid @enderror value="{{ old('apartment.name') }}" required

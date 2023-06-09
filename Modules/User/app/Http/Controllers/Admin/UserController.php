@@ -3,10 +3,12 @@
 namespace Modules\User\app\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\User\app\Models\User;
+use stdClass;
 
 class UserController extends Controller
 {
@@ -57,6 +59,19 @@ class UserController extends Controller
         $this->data['head']['title']    = $user->name;
 
         return response(view('user::admin.show', $this->data));
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function get(User $user): JsonResponse
+    {
+        $json = new stdClass;
+        $json->status = "ok";
+        $json->message = "success";
+        $json->data = $user;
+
+        return response()->json($json);
     }
 
     /**

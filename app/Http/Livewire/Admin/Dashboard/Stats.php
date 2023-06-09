@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Dashboard;
 
 use Livewire\Component;
 use Modules\Apartment\app\Models\Apartment;
+use Modules\Estate\app\Models\Estate;
 use Modules\Room\app\Models\Room;
 use Modules\Tenant\app\Models\Tenant;
 
@@ -13,6 +14,12 @@ class Stats extends Component
 
     public function render()
     {
+        $this->data['estates']           = Estate::all();
+        $this->data['total_estates']     = $this->data['estates']->count();
+        $this->data['active_estates']    = $this->data['estates']->where('active', 1)->count();
+        $this->data['inactive_estates']  = $this->data['estates']->where('active', 0)->count();
+        $this->data['active_estates_percentage'] = $this->data['total_estates'] > 0 ? (100 / $this->data['total_estates']) * $this->data['active_estates'] : 0;
+
         $this->data['apartments']           = Apartment::all();
         $this->data['total_apartments']     = $this->data['apartments']->count();
         $this->data['active_apartments']    = $this->data['apartments']->where('active', 1)->count();

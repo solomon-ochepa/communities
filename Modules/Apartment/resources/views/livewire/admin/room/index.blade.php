@@ -3,7 +3,7 @@
     <x-page-search />
 
     <div class="table-responsive">
-        <table class="table table-hover">
+        <table class="table-hover table">
             <thead>
                 <tr>
                     <th>{{ __('Name') }}</th>
@@ -60,8 +60,9 @@
                                     @csrf
 
                                     <button type="submit"
-                                        class="btn btn-sm bg-transparent px-2 action-btn btn-delete bs-tooltip"
-                                        data-toggle="tooltip" data-placement="top" title="Delete">
+                                        class="btn btn-sm action-btn btn-delete bs-tooltip bg-transparent px-2"
+                                        data-toggle="tooltip" data-placement="top" title="Delete"
+                                        onclick="return confirm_delete($(this).parent())">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </form>
@@ -76,6 +77,6 @@
     @if (isset($rooms) and $rooms->count())
         {{ $rooms->links() }}
     @else
-        <p class="text-center py-4">No record found.</p>
+        <p class="py-4 text-center">No record found.</p>
     @endif
 </div>
