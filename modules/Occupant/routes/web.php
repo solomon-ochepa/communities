@@ -3,17 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Occupant\App\Http\Controllers\OccupantController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::group([], function () {
-    Route::resource('occupant', OccupantController::class)->names('occupant');
+Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('occupants', OccupantController::class)->except(['index'])->names('occupants');
+    Route::get('occupants', [OccupantController::class, 'index'])->name('occupants.index');
 });
