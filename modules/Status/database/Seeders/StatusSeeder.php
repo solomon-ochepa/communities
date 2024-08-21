@@ -6,7 +6,6 @@ use Modules\Status\app\Models\Status;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
-use Spatie\Permission\Models\Permission;
 
 class StatusSeeder extends Seeder
 {
@@ -17,14 +16,6 @@ class StatusSeeder extends Seeder
      */
     public function run()
     {
-        // Permissions
-        $permissions = collect([
-            'admin.status' => collect(['index', 'show', 'create', 'edit', 'delete'])
-        ]);
-        foreach ($permissions as $namespace => $permission) {
-            $permission->each(fn ($item) => Permission::firstOrCreate(['name' => "{$namespace}.{$item}"]));
-        }
-
         $statuses = [
             [
                 'name'  => 'Cancelled',
@@ -45,7 +36,7 @@ class StatusSeeder extends Seeder
                 'icon'  => 'fas fa-rotate fa-spin',
             ],
             [
-                'name'  => 'Approved',
+                'name'  => 'Successful',
                 'code'  => 3,
                 'color' => 'text-success',
                 'icon'  => 'fas fa-check',

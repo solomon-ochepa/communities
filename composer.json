@@ -17,7 +17,7 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^2.12",
         "mhmiton/laravel-modules-livewire": "^1.6",
-        "nwidart/laravel-modules": "^10.0",
+        "nwidart/laravel-modules": "11.0.10",
         "plank/laravel-mediable": "^5.9",
         "spatie/laravel-permission": "^5.9"
     },
@@ -71,6 +71,11 @@
     "extra": {
         "laravel": {
             "dont-discover": []
+        },
+        "merge-plugin": {
+            "include": [
+                "modules/*/composer.json"
+            ]
         }
     },
     "config": {
@@ -79,7 +84,9 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "wikimedia/composer-merge-plugin": true,
+            "joshbrw/laravel-module-installer": true
         }
     },
     "minimum-stability": "stable",

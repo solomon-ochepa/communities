@@ -20,5 +20,4 @@ yarn-error.log
 /src
 *.zip
 *.7z
-/stubs
 /old
