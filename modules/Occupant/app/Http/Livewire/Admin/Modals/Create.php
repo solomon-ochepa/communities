@@ -65,7 +65,7 @@ class Create extends Component
         }
 
         if (! $this->apartment) {
-            $apartments_with_single_occupant = Occupant::whereDoesntHave(Room::class)->pluck('apartment_id')->toArray();
+            $apartments_with_single_occupant = Occupant::whereDoesntHave('room')->pluck('apartment_id')->toArray();
 
             $this->data['apartments'] = Apartment::whereNotIn('id', $apartments_with_single_occupant)->pluck('name', 'id')->toArray();
         }
