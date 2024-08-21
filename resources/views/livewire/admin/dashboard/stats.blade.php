@@ -1,6 +1,6 @@
 <div class="row mt-4">
-    @isset($total_estates)
-        {{-- Estate --}}
+    @isset($total_communities)
+        {{-- Community --}}
         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
             <div class="widget widget-card-four">
                 <div class="widget-content">
@@ -8,8 +8,8 @@
                         {{-- Title --}}
                         <div class="w-info">
                             <h6 class="value">
-                                <a href="{{ route('admin.estate.index') }}">
-                                    {{ __('Estates') }}
+                                <a href="{{ route('admin.community.index') }}">
+                                    {{ __('Communities') }}
                                     <x-link-icon />
                                 </a>
                             </h6>
@@ -46,9 +46,9 @@
                         <div class="w-info">
                             <p class="value">
                                 {{-- Count --}}
-                                {{ $total_estates }}
+                                {{ $total_communities }}
                                 <span class="text-muted" title="Inactive apartments" data-toggle="tooltip">
-                                    - {{ $inactive_estates }}
+                                    - {{ $inactive_communities }}
                                 </span>
                                 {{-- Period --}}
                                 {{-- <span>this week</span> --}}
@@ -67,14 +67,14 @@
                     <div class="w-progress-stats mt-0">
                         <div class="progress" title="Capacity" data-toggle="tooltip">
                             <div class="progress-bar bg-gradient-secondary" role="progressbar"
-                                style="width: {{ $active_estates_percentage }}%"
-                                aria-valuenow="{{ $active_estates_percentage }}" aria-valuemin="0" aria-valuemax="100">
+                                style="width: {{ $active_communities_percentage }}%"
+                                aria-valuenow="{{ $active_communities_percentage }}" aria-valuemin="0" aria-valuemax="100">
                             </div>
                         </div>
 
                         <div class="">
                             <div class="w-icon">
-                                <p>{{ $active_estates_percentage }}%</p>
+                                <p>{{ $active_communities_percentage }}%</p>
                             </div>
                         </div>
 
