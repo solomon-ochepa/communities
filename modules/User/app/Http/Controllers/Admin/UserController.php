@@ -56,7 +56,7 @@ class UserController extends Controller
      */
     public function show(User $user): Response
     {
-        $this->data['head']['title']    = $user->name;
+        $this->data['head']['title'] = $user->name;
 
         return response(view('user::admin.show', $this->data));
     }
@@ -67,8 +67,8 @@ class UserController extends Controller
     public function get(User $user): JsonResponse
     {
         $json = new stdClass;
-        $json->status = "ok";
-        $json->message = "success";
+        $json->status = 'ok';
+        $json->message = 'success';
         $json->data = $user;
 
         return response()->json($json);
@@ -79,8 +79,8 @@ class UserController extends Controller
      */
     public function edit(User $user): Response
     {
-        $this->data['head']['title']    = "Edit: {$user->name}";
-        $this->data['user']        = $user;
+        $this->data['head']['title'] = "Edit: {$user->name}";
+        $this->data['user'] = $user;
 
         return response(view('user::admin.edit', $this->data));
     }
@@ -107,6 +107,7 @@ class UserController extends Controller
         $user->delete();
 
         session()->flash('status', 'User trashed successfully.');
+
         return redirect(route('admin.user.index'));
     }
 
@@ -128,6 +129,7 @@ class UserController extends Controller
         $user->restore();
 
         session()->flash('status', 'User has been restored successfully.');
+
         return redirect(route('admin.user.index'));
     }
 
@@ -159,6 +161,7 @@ class UserController extends Controller
         $user->forceDelete();
 
         session()->flash('status', 'User has been deleted permanently from the system.');
+
         return redirect(route('admin.user.index'));
     }
 }

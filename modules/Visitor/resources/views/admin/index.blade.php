@@ -19,7 +19,7 @@
                 </div>
                 @push('modals')
                     <!-- Room: Create Modal -->
-                    <livewire:tenant::admin.create-modal />
+                    <livewire:occupant::admin.modals.create />
                 @endpush
             @endcan --}}
 

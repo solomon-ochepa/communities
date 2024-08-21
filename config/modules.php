@@ -177,9 +177,9 @@ return [
     |
     */
     'commands' => ConsoleServiceProvider::defaultCommands()
-    ->merge([
-        // New commands go here
-    ])->toArray(),
+        ->merge([
+            // New commands go here
+        ])->toArray(),
 
     /*
     |--------------------------------------------------------------------------

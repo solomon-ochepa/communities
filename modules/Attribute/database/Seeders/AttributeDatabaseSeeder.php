@@ -16,7 +16,7 @@ class AttributeDatabaseSeeder extends Seeder
         $this->call([
             AttributeSeeder::class,
             AttributeOptionSeeder::class,
-            AttributableSeeder::class
+            AttributableSeeder::class,
         ]);
     }
 }

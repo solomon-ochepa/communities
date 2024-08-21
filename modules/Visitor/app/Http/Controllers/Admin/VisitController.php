@@ -13,17 +13,19 @@ class VisitController extends Controller
 
     /**
      * Display a listing of the resource.
+     *
      * @return Renderable
      */
     public function index()
     {
-        $this->data['head']['title'] = "Visits Management";
+        $this->data['head']['title'] = 'Visits Management';
 
         return view('visitor::admin.visit.index', $this->data);
     }
 
     /**
      * Show the form for creating a new resource.
+     *
      * @return Renderable
      */
     public function create()
@@ -33,7 +35,7 @@ class VisitController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
+     *
      * @return Renderable
      */
     public function store(Request $request)
@@ -43,7 +45,7 @@ class VisitController extends Controller
 
     /**
      * Show the specified resource.
-     * @param Visit $visit
+     *
      * @return Renderable
      */
     public function show(Visit $visit)
@@ -53,7 +55,7 @@ class VisitController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param Visit $visit
+     *
      * @return Renderable
      */
     public function edit(Visit $visit)
@@ -63,8 +65,7 @@ class VisitController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
-     * @param Visit $visit
+     *
      * @return Renderable
      */
     public function update(Request $request, Visit $visit)
@@ -74,7 +75,7 @@ class VisitController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Visit $visit
+     *
      * @return Renderable
      */
     public function destroy(Visit $visit)

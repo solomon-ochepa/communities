@@ -2,16 +2,16 @@
 
 namespace App\Http\Livewire\Property\Admin\Edit;
 
-use Modules\Attribute\app\Models\Attributable;
 use Illuminate\Support\Arr;
 use Livewire\Component;
+use Modules\Attribute\app\Models\Attributable;
 
 class Attributes extends Component
 {
     public $property;
 
     public $attributes = [
-        ['attribute' => '', 'option' => '']
+        ['attribute' => '', 'option' => ''],
     ];
 
     protected $listerners = ['refresh' => '$refresh'];

@@ -13,6 +13,7 @@ class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
      * @return Renderable
      */
     public function index()
@@ -22,6 +23,7 @@ class CategoryController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
      * @return Renderable
      */
     public function create()
@@ -31,7 +33,8 @@ class CategoryController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
+     *
+     * @param  Request  $request
      * @return Renderable
      */
     public function store(StoreCategoryRequest $request)
@@ -39,6 +42,7 @@ class CategoryController extends Controller
         $category = Category::where(['name' => $request->category['name']])->first();
         if ($category) {
             session()->flash('status', 'Category already exists.');
+
             return redirect(route('admin.category.index'))->withInput();
         }
 
@@ -55,11 +59,13 @@ class CategoryController extends Controller
         }
 
         session()->flash('status', "Category ({$category->name}) created successfully.");
+
         return redirect(route('admin.category.index'));
     }
 
     /**
      * Show the specified resource.
+     *
      * @param int Category $category
      * @return Renderable
      */
@@ -70,6 +76,7 @@ class CategoryController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
      * @param int Category $category
      * @return Renderable
      */
@@ -80,7 +87,7 @@ class CategoryController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
+     *
      * @param int Category $category
      * @return Renderable
      */
@@ -91,6 +98,7 @@ class CategoryController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @param int Category $category
      * @return Renderable
      */
@@ -99,6 +107,7 @@ class CategoryController extends Controller
         $category->delete();
 
         session()->flash('status', "Category ({$category->name}) deleted successfully.");
+
         return redirect(route('admin.category.index'));
     }
 }

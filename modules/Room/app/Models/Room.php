@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\Room\app\Models;
+namespace Modules\Room\App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Occupant\App\Models\Occupant;
 use Modules\Status\app\Models\Status;
-use Modules\Tenant\app\Models\Tenant;
 use Modules\Visitor\app\Models\Visit;
 use Modules\Visitor\app\Models\Visitor;
 
@@ -20,20 +20,17 @@ class Room extends Model
      *
      * @var array
      */
-
     protected $fillable = ['active', 'name', 'slug', 'roomable_type', 'roomable_id', 'status_code', 'created_at'];
 
     /**
      * Return the sluggable configuration array for this model.
-     *
-     * @return array
      */
     public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'name'
-            ]
+                'source' => 'name',
+            ],
         ];
     }
 
@@ -57,9 +54,9 @@ class Room extends Model
         return $this->morphTo();
     }
 
-    public function tenants()
+    public function occupants()
     {
-        return $this->hasMany(Tenant::class);
+        return $this->hasMany(Occupant::class);
     }
 
     public function visitors()

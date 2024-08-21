@@ -14,11 +14,11 @@ class StoreVisitRequest extends FormRequest
     public function rules()
     {
         return [
-            'visit.reason'  => ['required', 'string'],
-            'visit.arrived_at'  => ['required', 'date', 'after_or_equal:' . now()],
-            'visit.expired_at'  => ['required', 'date', 'after:visit.arrived_at'],
+            'visit.reason' => ['required', 'string'],
+            'visit.arrived_at' => ['required', 'date', 'after_or_equal:'.now()],
+            'visit.expired_at' => ['required', 'date', 'after:visit.arrived_at'],
             'form.user_id' => ['required', 'uuid'],
-            'form.tenant_id' => ['required', 'uuid'],
+            'form.occupant_id' => ['required', 'uuid'],
         ];
     }
 

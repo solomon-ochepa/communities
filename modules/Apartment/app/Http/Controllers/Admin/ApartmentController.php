@@ -22,6 +22,7 @@ class ApartmentController extends Controller
 
     /**
      * Display a listing of the resource.
+     *
      * @return Renderable
      */
     public function index()
@@ -33,6 +34,7 @@ class ApartmentController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
      * @return Renderable
      */
     public function create()
@@ -44,7 +46,7 @@ class ApartmentController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
+     *
      * @return Renderable
      */
     public function store(Request $request)
@@ -54,14 +56,14 @@ class ApartmentController extends Controller
 
     /**
      * Show the specified resource.
-     * @param Apartment $apartment
+     *
      * @return Renderable
      */
     public function show(Apartment $apartment)
     {
-        $this->data['head']['title']    = $apartment->name;
+        $this->data['head']['title'] = $apartment->name;
 
-        $this->data['apartment']        = $apartment;
+        $this->data['apartment'] = $apartment;
         $this->data['active_rooms'] = $apartment->rooms()->whereActive(1)->count();
         $this->data['inactive_rooms'] = $apartment->rooms()->whereActive(0)->count();
         $this->data['total_rooms'] = $apartment->rooms()->count();
@@ -80,21 +82,20 @@ class ApartmentController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param Apartment $apartment
+     *
      * @return Renderable
      */
     public function edit(Apartment $apartment)
     {
-        $this->data['head']['title']    = "Edit: {$apartment->name}";
-        $this->data['apartment']        = $apartment;
+        $this->data['head']['title'] = "Edit: {$apartment->name}";
+        $this->data['apartment'] = $apartment;
 
         return view('apartment::admin.edit', $this->data);
     }
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
-     * @param Apartment $apartment
+     *
      * @return Renderable
      */
     public function update(Request $request, Apartment $apartment)
@@ -104,7 +105,7 @@ class ApartmentController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Apartment $apartment
+     *
      * @return Renderable
      */
     public function destroy(Apartment $apartment)
@@ -116,6 +117,7 @@ class ApartmentController extends Controller
         $apartment->delete();
 
         session()->flash('status', 'Apartment deleted successfully.');
+
         return redirect(route('admin.apartment.index'));
     }
 }

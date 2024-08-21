@@ -3,10 +3,10 @@
 namespace Modules\Attribute\app\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Modules\Attribute\app\Models\AttributeOption;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Modules\Attribute\app\Models\AttributeOption;
 
 class AttributeOptionController extends Controller
 {

@@ -8,6 +8,7 @@ use Modules\User\app\Models\User;
 class Conversations extends Component
 {
     public $conversations;
+
     public $search = '';
 
     public function render()
@@ -15,9 +16,9 @@ class Conversations extends Component
         $data = [];
 
         if ($this->search) {
-            $data['searches']['contacts'] = User::where('username', 'like', '%' . $this->search . '%')
-                ->orWhere('phone', 'like', '%' . $this->search . '%')
-                ->orWhere('email', 'like', '%' . $this->search . '%')
+            $data['searches']['contacts'] = User::where('username', 'like', '%'.$this->search.'%')
+                ->orWhere('phone', 'like', '%'.$this->search.'%')
+                ->orWhere('email', 'like', '%'.$this->search.'%')
                 ->get()
                 ->except(auth()->id());
 

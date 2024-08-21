@@ -13,9 +13,12 @@ class Index extends Component
 
     public $data = [];
 
-    public $search = "";
+    public $search = '';
+
     public $limit = 25;
+
     public $page = 1;
+
     protected $queryString = [
         'search' => ['except' => ''],
         'page' => ['except' => 1],
@@ -27,7 +30,7 @@ class Index extends Component
     {
         if ($this->search) {
             $this->data['rooms'] = $this->apartment->rooms()
-                ->where('name', 'like', '%' . $this->search . '%')
+                ->where('name', 'like', '%'.$this->search.'%')
                 ->orderBy('name')
                 ->paginate($this->limit);
         } else {

@@ -30,15 +30,15 @@
             </div>
         </div>
 
-        {{-- Tenants --}}
+        {{-- Occupants --}}
         <div class="card mb-3">
             <div class="card-header d-flex">
-                <h3 class="col m-0">{{ __('Tenants') }} ({{ $room->tenants->count() }})</h3>
+                <h3 class="col m-0">{{ __('Occupants') }} ({{ $room->occupants->count() }})</h3>
 
-                @can('tenant.create')
+                @can('occupant.create')
                     <!-- Create modal -->
                     <button type="button" class="col-auto btn btn-icon icon-left" data-bs-toggle="modal"
-                        data-bs-target="#tenant-create-modal">
+                        data-bs-target="#occupant-create-modal">
                         <i class="fas fa-plus"></i>
                         {{ __('Create') }}
                     </button>
@@ -47,8 +47,8 @@
 
             <div class="card-body">
                 <div class="row gy-3">
-                    @forelse ($room->tenants as $tenant)
-                        <x-tenant::admin.tenant :tenant="$tenant" />
+                    @forelse ($room->occupants as $occupant)
+                        <x-occupant::admin.occupant :occupant="$occupant" />
                     @empty
                         <p class="text-center py-4">No record found.</p>
                     @endforelse
@@ -59,6 +59,6 @@
 
     @push('modals')
         <!-- Modal -->
-        <livewire:tenant::admin.create-modal :room="$room" />
+        <livewire:occupant::admin.modals.create :room="$room" />
     @endpush
 </x-app-layout>

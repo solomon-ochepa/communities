@@ -2,8 +2,8 @@
 
 namespace Modules\Visitor\database\seeders;
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 
 class VisitorDatabaseSeeder extends Seeder
 {
@@ -17,7 +17,7 @@ class VisitorDatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call([
-            VisitSeeder::class, VisitorSeeder::class
+            VisitSeeder::class, VisitorSeeder::class,
         ]);
     }
 }

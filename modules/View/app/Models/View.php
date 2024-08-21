@@ -15,7 +15,6 @@ class View extends Model
      *
      * @var array
      */
-
     protected $fillable = ['user_id', 'read', 'views', 'viewable_type', 'viewable_id'];
 
     /**

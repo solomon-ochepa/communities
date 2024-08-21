@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Apartment\app\Models\Apartment;
-use Modules\Room\app\Models\Room;
+use Modules\Room\App\Models\Room;
 use Modules\Status\app\Models\Status;
 
 class Occupant extends Model

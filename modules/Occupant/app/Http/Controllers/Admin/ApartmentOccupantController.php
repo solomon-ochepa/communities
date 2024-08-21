@@ -23,7 +23,7 @@ class ApartmentOccupantController extends Controller
      */
     public function index(Apartment $apartment)
     {
-        $data['head']['title'] = __('Occupants') . ' - ' . $apartment->name;
+        $data['head']['title'] = __('Occupants').' - '.$apartment->name;
         $data['apartment'] = $apartment;
 
         return view('apartment::admin.occupant.index', $data);
@@ -34,7 +34,7 @@ class ApartmentOccupantController extends Controller
      */
     public function create(Apartment $apartment)
     {
-        $data['head']['title'] = __('Create Occupant') . ' - ' . $apartment->name;
+        $data['head']['title'] = __('Create Occupant').' - '.$apartment->name;
         $data['apartment'] = $apartment;
 
         return view('apartment::admin.occupant.create', $data);

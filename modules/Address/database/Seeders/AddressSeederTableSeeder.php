@@ -2,8 +2,8 @@
 
 namespace Modules\Address\database\Seeders;
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 
 class AddressSeederTableSeeder extends Seeder
 {

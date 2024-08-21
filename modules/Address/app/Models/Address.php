@@ -11,19 +11,19 @@ class Address extends Model
     use HasUuids;
 
     protected $fillable = [
-        'description', 'number', 'street', 'area', 'town', 'city', 'state', 'country'
+        'description', 'number', 'street', 'area', 'town', 'city', 'state', 'country',
     ];
 
     public function address(): Attribute
     {
         return Attribute::get(function ($value, $attributes) {
             $address = '';
-            $address    .= $attributes['number'] ? $attributes['number'] . ' ' : '';
-            $address    .= $attributes['description'] ? $attributes['description'] . ' ' : '';
-            $address    .= $attributes['area'] ? ' (' . $attributes['area'] . ')' : '';
+            $address .= $attributes['number'] ? $attributes['number'].' ' : '';
+            $address .= $attributes['description'] ? $attributes['description'].' ' : '';
+            $address .= $attributes['area'] ? ' ('.$attributes['area'].')' : '';
 
-            $address    .= $address ? ', ' : '';
-            $address    .= $attributes['city'] . ', ' . $attributes['state'] . ', ' . $attributes['country'] . '.';
+            $address .= $address ? ', ' : '';
+            $address .= $attributes['city'].', '.$attributes['state'].', '.$attributes['country'].'.';
 
             return $address;
         });

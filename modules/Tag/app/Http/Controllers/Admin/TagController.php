@@ -3,10 +3,10 @@
 namespace Modules\Tag\app\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Modules\Tag\app\Models\Tag;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Modules\Tag\app\Models\Tag;
 
 class TagController extends Controller
 {

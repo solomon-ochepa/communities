@@ -4,11 +4,11 @@ namespace Modules\Apartment\app\Http\Livewire\Admin\Room;
 
 use Livewire\Component;
 use Modules\Apartment\app\Http\Requests\UpdateApartmentRoomRequest;
-use Modules\Room\app\Models\Room;
+use Modules\Room\App\Models\Room;
 
 class Edit extends Component
 {
-    /** @var Room $room room to be created */
+    /** @var Room room to be created */
     public $room;
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -19,6 +19,7 @@ class Edit extends Component
     protected function rules()
     {
         $request = new UpdateApartmentRoomRequest($this->room->toArray());
+
         return $request->rules();
     }
 

@@ -7,48 +7,48 @@ use Livewire\Component;
 use Modules\Apartment\app\Models\Apartment;
 use Modules\Occupant\App\Http\Requests\StoreOccupantRequest;
 use Modules\Occupant\App\Models\Occupant;
-use Modules\Room\app\Models\Room;
+use Modules\Room\App\Models\Room;
 
 class Create extends Component
 {
     // /** @var User $user Seleted user to be added as occupant */
     // public $user;
 
-    /** @var Occupant $occupant The occupant to be created */
+    /** @var Occupant The occupant to be created */
     public $occupant;
 
-    /** @var Room $room The room that occupant will be assigned. Can be null if the occupant is occupying the whole apartment. */
+    /** @var Room The room that occupant will be assigned. Can be null if the occupant is occupying the whole apartment. */
     public $room;
 
-    /** @var Apartment $apartment The apartment that occupant will be assigned */
+    /** @var Apartment The apartment that occupant will be assigned */
     public $apartment;
 
-    /** @var array $data meta data */
+    /** @var array meta data */
     public array $data = [];
 
-    /** @var array $form meta data */
+    /** @var array meta data */
     public array $form = [];
 
-    /** @var array $tenants List of existing tenants. */
-    public array $tenants = [];
+    /** @var array List of existing occupants. */
+    public array $occupants = [];
 
     protected $listeners = ['refresh' => '$refresh'];
 
     public function mount()
     {
-        $this->reset_tenant();
+        $this->reset_occupant();
     }
 
     public function render()
     {
-        $this->data['users'] = User::/*whereNotIn('id', $this->tenants)->*/get();
+        $this->data['users'] = User::/*whereNotIn('id', $this->occupants)->*/ get();
 
         return view('occupant::livewire.admin.modals.create', $this->data);
     }
 
-    protected function reset_tenant()
+    protected function reset_occupant()
     {
-        $this->occupant = new Occupant();
+        $this->occupant = new Occupant;
 
         $this->occupant->active = true;
         $this->occupant->status_code = 1;
@@ -57,34 +57,34 @@ class Create extends Component
             $this->occupant->apartment_id = $this->room->roomable->id; // required
             $this->occupant->room_id = $this->room->id; // nullable
 
-            $this->tenants = $this->room->tenants->pluck('user_id')->toArray(); // update on 'room_id' changed!
+            $this->occupants = $this->room->occupants->pluck('user_id')->toArray(); // update on 'room_id' changed!
         } elseif ($this->apartment) {
             $this->occupant->apartment_id = $this->apartment->id; // required
 
-            $this->tenants = $this->apartment->tenants->pluck('user_id')->toArray(); // update on 'room_id' changed!
+            $this->occupants = $this->apartment->occupants->pluck('user_id')->toArray(); // update on 'room_id' changed!
         }
 
-        if (!$this->apartment) {
-            $apartments_with_single_tenant = Occupant::whereDoesntHave(Room::class)->pluck('apartment_id')->toArray();
+        if (! $this->apartment) {
+            $apartments_with_single_occupant = Occupant::whereDoesntHave(Room::class)->pluck('apartment_id')->toArray();
 
-            $this->data['apartments'] = Apartment::whereNotIn('id', $apartments_with_single_tenant)->pluck('name', 'id')->toArray();
+            $this->data['apartments'] = Apartment::whereNotIn('id', $apartments_with_single_occupant)->pluck('name', 'id')->toArray();
         }
     }
 
-    public function updatedTenantApartmentID($id, $key = null)
+    public function updatedOccupantApartmentID($id, $key = null)
     {
         $this->apartment = Apartment::find($id);
 
         $this->data['rooms'] = $this->apartment ? $this->apartment->rooms->WhereNotIn('id', $this->data['user']['rooms'] ?? [])->pluck('name', 'id')->toArray() : [];
     }
 
-    public function updatedTenantRoomID($id, $key = null)
+    public function updatedOccupantRoomID($id, $key = null)
     {
         $this->room = Room::find($id);
-        // $this->tenants = $this->apartment->tenants->pluck('user_id')->toArray(); // update on 'room_id' changed!
+        // $this->occupants = $this->apartment->occupants->pluck('user_id')->toArray(); // update on 'room_id' changed!
     }
 
-    public function updatedTenantUserID($id, $key = null)
+    public function updatedOccupantUserID($id, $key = null)
     {
         if (isset($this->data['apartments'])) {
             $this->reset(['apartment']);
@@ -101,7 +101,8 @@ class Create extends Component
 
     public function rules()
     {
-        $request = new StoreOccupantRequest();
+        $request = new StoreOccupantRequest;
+
         return $request->rules();
     }
 
@@ -112,6 +113,7 @@ class Create extends Component
         $exists = Occupant::where($this->occupant->only('user_id', 'apartment_id', 'room_id'))->first();
         if ($exists) {
             session()->flash('error', 'This occupant already exists.');
+
             return;
         }
 
@@ -128,7 +130,7 @@ class Create extends Component
         }
 
         $this->emit('refresh');
-        $this->reset_tenant();
+        $this->reset_occupant();
 
         session()->flash('status', 'Occupant added successfully.');
     }

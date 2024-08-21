@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'name' => 'Media'
+    'name' => 'Media',
 ];

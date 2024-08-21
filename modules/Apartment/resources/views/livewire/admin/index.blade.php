@@ -35,9 +35,9 @@
                             </a>
                         </td>
                         <td>
-                            <a href="{{ route('admin.apartment.tenant.index', ['apartment' => $apartment->slug]) }}">
+                            <a href="{{ route('admin.apartment.occupant.index', ['apartment' => $apartment->slug]) }}">
                                 <i class="fas fa-users text-muted me-1"></i>
-                                {{ $apartment->tenants->count() }}
+                                {{ $apartment->occupants->count() }}
                             </a>
                         </td>
                         <td>

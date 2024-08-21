@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Room\app\Http\Requests;
+namespace Modules\Room\App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,10 +14,10 @@ class StoreRoomRequest extends FormRequest
     public function rules()
     {
         return [
-            'room.roomable_id'  => ['required', 'uuid'],
-            'room.roomable_type'  => ['required', 'string'],
-            'room.name'         => ['required', 'string', 'max:32'],
-            'room.active'       => ['nullable', 'boolean'],
+            'room.roomable_id' => ['required', 'uuid'],
+            'room.roomable_type' => ['required', 'string'],
+            'room.name' => ['required', 'string', 'max:32'],
+            'room.active' => ['nullable', 'boolean'],
         ];
     }
 

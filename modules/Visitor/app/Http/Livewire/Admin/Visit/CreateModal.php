@@ -2,10 +2,10 @@
 
 namespace Modules\Visitor\app\Http\Livewire\Admin\Visit;
 
-use Livewire\Component;
 use Illuminate\Support\Str;
+use Livewire\Component;
 use Modules\Gatepass\app\Models\GatepassRequest;
-use Modules\Tenant\app\Models\Tenant;
+use Modules\Occupant\App\Models\Occupant;
 use Modules\User\app\Models\User;
 use Modules\Visitor\app\Http\Requests\StoreVisitRequest;
 use Modules\Visitor\app\Models\Visit;
@@ -13,13 +13,12 @@ use Modules\Visitor\app\Models\Visitor;
 
 class CreateModal extends Component
 {
-    /** @var Visit $visit */
     public Visit $visit;
 
-    /** @var array $data meta data */
+    /** @var array meta data */
     public array $data = [];
 
-    /** @var array $form meta data */
+    /** @var array meta data */
     public array $form = [];
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -31,14 +30,14 @@ class CreateModal extends Component
 
     public function init()
     {
-        $this->visit = new Visit();
+        $this->visit = new Visit;
 
         $this->data = [];
         $this->form = [];
 
         /** get list of eligeble users */
         $this->data['users'] = User::get()->toArray();
-        $this->data['tenants'] = [];
+        $this->data['occupants'] = [];
 
         $this->form['gatepass'] = true;
     }
@@ -50,13 +49,14 @@ class CreateModal extends Component
 
     public function rules()
     {
-        $request = new StoreVisitRequest();
+        $request = new StoreVisitRequest;
+
         return $request->rules();
     }
 
     public function updatedFormUserID($id, $key = null)
     {
-        return $this->data['tenants'] = Tenant::with('user', 'room', 'apartment')->whereNotIn('user_id', [$id])->get()->toArray();
+        return $this->data['occupants'] = Occupant::with('user', 'room', 'apartment')->whereNotIn('user_id', [$id])->get()->toArray();
     }
 
     public function submit()
@@ -71,13 +71,14 @@ class CreateModal extends Component
         $this->visit['visitor_id'] = $visitor->id;
 
         // Who/what are you visiting? (Visitable)
-        $this->visit['visitable_type'] = Tenant::class; // dynamic
-        $this->visit['visitable_id'] = $this->form['tenant_id'];
+        $this->visit['visitable_type'] = Occupant::class; // dynamic
+        $this->visit['visitable_id'] = $this->form['occupant_id'];
 
         // Check for existing/duplicate record
         $exists = Visit::where($this->visit->only(['visitor_id', 'visitable_type', 'visitable_id', 'arrived_at']))->count();
         if ($exists) {
             session()->flash('error', 'This Visit Request already exists.');
+
             return;
         }
 
@@ -89,11 +90,11 @@ class CreateModal extends Component
         // Gatepass Request
         if (isset($this->form['gatepass'])) {
             GatepassRequest::firstOrCreate([
-                'gatepass_id'       => $gatepass->id,
-                'requestable_type'  => get_class($this->visit),
-                'requestable_id'    => $this->visit->id,
+                'gatepass_id' => $gatepass->id,
+                'requestable_type' => get_class($this->visit),
+                'requestable_id' => $this->visit->id,
             ], [
-                'code'              => Str::random(6),
+                'code' => Str::random(6),
             ]);
         }
 

@@ -32,7 +32,6 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('visitors/{visitor}/visits', [VisitorVisitController::class, 'index'])->name('visitor.visit.index');
     Route::get('visitor/{visitor}/visit', fn () => redirect(route('admin.visitor.visit.index')));
 
-
     // if module: apartment
 
     // // Apartment->Visitors

@@ -13,7 +13,7 @@ class CreateMediableTables extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('media')) {
+        if (! Schema::hasTable('media')) {
             Schema::create('media', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('disk', 32);
@@ -30,7 +30,7 @@ class CreateMediableTables extends Migration
             });
         }
 
-        if (!Schema::hasTable('mediables')) {
+        if (! Schema::hasTable('mediables')) {
             Schema::create('mediables', function (Blueprint $table) {
                 $table->integer('media_id')->unsigned();
                 $table->uuidMorphs('mediable');

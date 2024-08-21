@@ -3,7 +3,6 @@
 namespace Modules\Apartment\database\seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
 class ApartmentDatabaseSeeder extends Seeder
 {
@@ -16,7 +15,7 @@ class ApartmentDatabaseSeeder extends Seeder
     {
         $this->call(
             [
-                ApartmentSeeder::class
+                ApartmentSeeder::class,
             ]
         );
     }

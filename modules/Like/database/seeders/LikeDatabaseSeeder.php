@@ -3,7 +3,6 @@
 namespace Modules\Like\database\seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
 class LikeDatabaseSeeder extends Seeder
 {

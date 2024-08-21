@@ -20,11 +20,12 @@ class VisitorVisitController extends Controller
 
     /**
      * Display a listing of the resource.
+     *
      * @return Renderable
      */
     public function index(Visitor $visitor)
     {
-        $this->data['head']['title'] = __($visitor->user->name . '\'s Visits');
+        $this->data['head']['title'] = __($visitor->user->name.'\'s Visits');
         $this->data['visitor'] = $visitor;
 
         return view('visitor::visit.admin.index', $this->data);
@@ -32,7 +33,7 @@ class VisitorVisitController extends Controller
 
     /**
      * Show the specified resource.
-     * @param Visitor $visitor
+     *
      * @return Renderable
      */
     public function show(Visitor $visitor)
@@ -42,7 +43,7 @@ class VisitorVisitController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Visitor $visitor
+     *
      * @return Renderable
      */
     public function destroy(Visitor $visitor)

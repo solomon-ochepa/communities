@@ -21,20 +21,17 @@ class Guestbook extends Model
      *
      * @var array
      */
-
-    protected $fillable = ['user_id', 'first_name', 'last_name', 'username', 'phone', 'email',];
+    protected $fillable = ['user_id', 'first_name', 'last_name', 'username', 'phone', 'email'];
 
     /**
      * Return the sluggable configuration array for this model.
-     *
-     * @return array
      */
     public function sluggable(): array
     {
         return [
             'slug' => [
                 'source' => ['first_name', 'last_name'],
-            ]
+            ],
         ];
     }
 

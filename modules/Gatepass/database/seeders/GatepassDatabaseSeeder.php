@@ -2,8 +2,8 @@
 
 namespace Modules\Gatepass\database\seeders;
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 
 class GatepassDatabaseSeeder extends Seeder
 {
@@ -17,7 +17,7 @@ class GatepassDatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call([
-            GatepassSeeder::class
+            GatepassSeeder::class,
         ]);
     }
 }

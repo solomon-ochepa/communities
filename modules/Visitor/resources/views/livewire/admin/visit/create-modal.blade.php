@@ -50,7 +50,7 @@
                                     @enderror
                                 </div>
 
-                                @if (isset($form['tenant_id']) and $form['tenant_id'])
+                                @if (isset($form['occupant_id']) and $form['occupant_id'])
                                     {{-- reason --}}
                                     <div class="col-md-12">
                                         <div class="input-group">
@@ -105,16 +105,16 @@
                         @if (isset($form['user_id']) and $form['user_id'])
                             <div class="col-md-6">
                                 <div class="row gy-3">
-                                    {{-- Visitable (Tenant ID) --}}
+                                    {{-- Visitable (Occupant ID) --}}
                                     <div class="col-md-12">
                                         <div class="input-group">
-                                            <span class="input-group-text" title="Tenant" data-bs-toggle="tooltip">
+                                            <span class="input-group-text" title="Occupant" data-bs-toggle="tooltip">
                                                 <i class="fas fa-user-tie"></i>
                                             </span>
-                                            <select class="form-control" aria-label="Tenant"
-                                                wire:model.lazy="form.tenant_id" required>
-                                                <option value="">{{ __('Choose Tenant') }}</option>
-                                                @foreach ($tenants ?? [] as $item)
+                                            <select class="form-control" aria-label="Occupant"
+                                                wire:model.lazy="form.occupant_id" required>
+                                                <option value="">{{ __('Choose Occupant') }}</option>
+                                                @foreach ($occupants ?? [] as $item)
                                                     <option value="{{ $item['id'] }}">
                                                         {{ $item['user']['first_name'] }}
                                                         {{ $item['user']['last_name'] }}
@@ -127,7 +127,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        @error('form.tenant_id')
+                                        @error('form.occupant_id')
                                             <div class="form-text text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>

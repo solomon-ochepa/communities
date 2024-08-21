@@ -21,13 +21,13 @@
 
                                 <div class="dropdown-menu left" aria-labelledby="expenses"
                                     style="min-width: 0; will-change: transform;">
-                                    {{-- @can('tenants.edit')
-                                    <a class="dropdown-item" href="{{ route('admin.tenant.edit', ['tenant' => $visitor->id]) }}">
+                                    {{-- @can('occupants.edit')
+                                    <a class="dropdown-item" href="{{ route('admin.occupant.edit', ['occupant' => $visitor->id]) }}">
                                         <span>Edit</span>
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 @endcan --}}
-                                    {{-- @can('tenants.transfer')
+                                    {{-- @can('occupants.transfer')
                                     <a class="dropdown-item" href="javascript:void(0);">
                                         <span>Transfer</span>
                                         <i class="fas fa-walking"></i>

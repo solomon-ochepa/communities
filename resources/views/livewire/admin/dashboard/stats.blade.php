@@ -251,8 +251,8 @@
         </div>
     @endisset
 
-    @isset($total_tenants)
-        {{-- Tenants --}}
+    @isset($total_occupants)
+        {{-- Occupants --}}
         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
             <div class="widget widget-card-four">
                 <div class="widget-content">
@@ -260,9 +260,9 @@
                         {{-- Title --}}
                         <div class="w-info">
                             <h6 class="value">
-                                <a href="{{ route('admin.tenant.index') }}">
-                                    {{-- dmin.apartment.tenant.index --}}
-                                    {{ __('Tenants') }}
+                                <a href="{{ route('admin.occupants.index') }}">
+                                    {{-- dmin.apartment.occupant.index --}}
+                                    {{ __('Occupants') }}
                                     <x-link-icon />
                                 </a>
                             </h6>
@@ -300,7 +300,7 @@
                         <div class="w-info">
                             <p class="value">
                                 {{-- Count --}}
-                                {{ $total_tenants }}
+                                {{ $total_occupants }}
                                 {{-- Period --}}
                                 {{-- <span>this week</span> --}}
                                 {{-- Chart --}}

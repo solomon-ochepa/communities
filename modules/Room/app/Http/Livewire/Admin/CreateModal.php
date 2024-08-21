@@ -1,15 +1,16 @@
 <?php
 
-namespace Modules\Room\app\Http\Livewire\Admin;
+namespace Modules\Room\App\Http\Livewire\Admin;
 
 use Livewire\Component;
 use Modules\Apartment\app\Models\Apartment;
-use Modules\Room\app\Http\Requests\StoreRoomRequest;
-use Modules\Room\app\Models\Room;
+use Modules\Room\App\Http\Requests\StoreRoomRequest;
+use Modules\Room\App\Models\Room;
 
 class CreateModal extends Component
 {
     public $room;
+
     public $apartment;
 
     public array $data = [];
@@ -23,7 +24,7 @@ class CreateModal extends Component
 
     protected function reset_room()
     {
-        $this->room = new Room();
+        $this->room = new Room;
         $this->room->active = 1;
         $this->room->roomable_type = Apartment::class;
 
@@ -34,7 +35,7 @@ class CreateModal extends Component
 
     public function render()
     {
-        if (!$this->apartment) {
+        if (! $this->apartment) {
             $this->data['apartments'] = Apartment::all();
         }
 
@@ -43,7 +44,8 @@ class CreateModal extends Component
 
     public function rules()
     {
-        $request = new StoreRoomRequest();
+        $request = new StoreRoomRequest;
+
         return $request->rules();
     }
 
@@ -54,6 +56,7 @@ class CreateModal extends Component
         $exists = Room::where($this->room->only('name', 'roomable_type', 'roomable_id'))->first();
         if ($exists) {
             session()->flash('error', "<strong>\"{$this->room->name}\"</strong> already exists.");
+
             return;
         }
 

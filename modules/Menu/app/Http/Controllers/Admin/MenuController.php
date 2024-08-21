@@ -22,6 +22,7 @@ class MenuController extends Controller
 
     /**
      * Display a listing of the resource.
+     *
      * @return Renderable
      */
     public function index()
@@ -33,6 +34,7 @@ class MenuController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
      * @return Renderable
      */
     public function create()
@@ -44,7 +46,7 @@ class MenuController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
+     *
      * @return Renderable
      */
     public function store(Request $request)
@@ -54,7 +56,7 @@ class MenuController extends Controller
 
     /**
      * Show the specified resource.
-     * @param Menu $menu
+     *
      * @return Renderable
      */
     public function show(Menu $menu)
@@ -66,12 +68,12 @@ class MenuController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param Menu $menu
+     *
      * @return Renderable
      */
     public function edit(Menu $menu)
     {
-        $this->data['head']['title'] = 'Edit: ' . $menu->name;
+        $this->data['head']['title'] = 'Edit: '.$menu->name;
 
         $this->data['menu'] = $menu;
 
@@ -80,8 +82,7 @@ class MenuController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
-     * @param Menu $menu
+     *
      * @return Renderable
      */
     public function update(Request $request, Menu $menu)
@@ -91,7 +92,7 @@ class MenuController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Menu $menu
+     *
      * @return Renderable
      */
     public function destroy(Menu $menu)
@@ -103,6 +104,7 @@ class MenuController extends Controller
         $menu->delete();
 
         session()->flash('status', 'Menu deleted successfully.');
+
         return redirect(route('admin.menu.index'));
     }
 }

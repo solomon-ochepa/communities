@@ -2,10 +2,9 @@
 
 namespace Modules\Status\database\Seeders;
 
-use Modules\Status\app\Models\Status;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
+use Modules\Status\app\Models\Status;
 
 class StatusSeeder extends Seeder
 {
@@ -18,34 +17,34 @@ class StatusSeeder extends Seeder
     {
         $statuses = [
             [
-                'name'  => 'Cancelled',
-                'code'  => 0,
+                'name' => 'Cancelled',
+                'code' => 0,
                 'color' => 'text-muted',
-                'icon'  => 'fas fa-times',
+                'icon' => 'fas fa-times',
             ],
             [
-                'name'  => 'Pending',
-                'code'  => 1,
+                'name' => 'Pending',
+                'code' => 1,
                 'color' => 'text-primary',
-                'icon'  => 'fas fa-rotate',
+                'icon' => 'fas fa-rotate',
             ],
             [
-                'name'  => 'Processing',
-                'code'  => 2,
+                'name' => 'Processing',
+                'code' => 2,
                 'color' => 'text-primary',
-                'icon'  => 'fas fa-rotate fa-spin',
+                'icon' => 'fas fa-rotate fa-spin',
             ],
             [
-                'name'  => 'Successful',
-                'code'  => 3,
+                'name' => 'Successful',
+                'code' => 3,
                 'color' => 'text-success',
-                'icon'  => 'fas fa-check',
+                'icon' => 'fas fa-check',
             ],
         ];
 
         foreach ($statuses as $status) {
             $status = Status::firstOrCreate([
-                'name' => $status['name']
+                'name' => $status['name'],
             ], Arr::except($status, 'name'));
         }
     }

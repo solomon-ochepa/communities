@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('address')->group(function() {
+Route::prefix('address')->group(function () {
     Route::get('/', 'AddressController@index');
 });

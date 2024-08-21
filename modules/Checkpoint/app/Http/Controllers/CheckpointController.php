@@ -49,6 +49,7 @@ class CheckpointController extends Controller
     {
         //
         session()->flash('status', 'Record created successfully.');
+
         return redirect(route('dashboard'));
     }
 
@@ -79,6 +80,7 @@ class CheckpointController extends Controller
     {
         //
         session()->flash('status', 'Record updated successfully.');
+
         return redirect(route('dashboard'));
     }
 
@@ -89,6 +91,7 @@ class CheckpointController extends Controller
     {
         //
         session()->flash('status', 'Record deleted successfully.');
+
         return redirect(route('dashboard'));
     }
 }

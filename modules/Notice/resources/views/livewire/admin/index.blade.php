@@ -8,7 +8,7 @@
                     <th scope="col">{{ __('#') }}</th>
                     <th scope="col">{{ __('Name') }}</th>
                     <th scope="col">{{ __('Rooms') }}</th>
-                    <th scope="col">{{ __('Tenants') }}</th>
+                    <th scope="col">{{ __('Occupants') }}</th>
                     <th scope="col">{{ __('Active') }}</th>
                     <th scope="col"></th>
                 </tr>
@@ -33,9 +33,9 @@
                             </a>
                         </td>
                         <td>
-                            <a href="{{ route('admin.apartment.tenant.index', ['apartment' => $apartment->id]) }}">
+                            <a href="{{ route('admin.apartment.occupant.index', ['apartment' => $apartment->id]) }}">
                                 <i class="fas fa-users text-muted me-1"></i>
-                                {{ $apartment->tenants->count() }}
+                                {{ $apartment->occupants->count() }}
                             </a>
                         </td>
                         <td>

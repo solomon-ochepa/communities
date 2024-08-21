@@ -4,14 +4,14 @@ namespace Modules\Apartment\app\Http\Livewire\Admin\Room;
 
 use Livewire\Component;
 use Modules\Apartment\app\Http\Requests\StoreApartmentRoomRequest;
-use Modules\Room\app\Models\Room;
+use Modules\Room\App\Models\Room;
 
 class Create extends Component
 {
-    /** @var Apartment $apartment room's apartment */
+    /** @var Apartment room's apartment */
     public $apartment;
 
-    /** @var Room $room room to be created */
+    /** @var Room room to be created */
     public $room;
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -21,13 +21,14 @@ class Create extends Component
      **/
     protected function rules()
     {
-        $request = new StoreApartmentRoomRequest();
+        $request = new StoreApartmentRoomRequest;
+
         return $request->rules();
     }
 
     public function mount()
     {
-        $this->room = new Room();
+        $this->room = new Room;
     }
 
     public function render()
@@ -39,14 +40,16 @@ class Create extends Component
     {
         $this->validate();
 
-        if (!$this->apartment) {
-            session()->flash('error', "Apartment not valid.");
+        if (! $this->apartment) {
+            session()->flash('error', 'Apartment not valid.');
+
             return;
         }
 
         // Apartment has room
         if ($this->apartment->rooms()->where(['name' => $this->room->name])->count()) {
-            session()->flash('status', "Room already exists.");
+            session()->flash('status', 'Room already exists.');
+
             return;
         }
 

@@ -16,7 +16,7 @@ class NoticeSeeder extends Seeder
     {
         // Permissions
         $permissions = collect([
-            'admin.notice' => collect(['index', 'show', 'create', 'edit', 'delete'])
+            'admin.notice' => collect(['index', 'show', 'create', 'edit', 'delete']),
         ]);
         foreach ($permissions as $namespace => $permission) {
             $permission->each(fn ($item) => Permission::firstOrCreate(['name' => "{$namespace}.{$item}"]));

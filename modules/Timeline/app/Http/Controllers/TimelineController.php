@@ -13,6 +13,7 @@ class TimelineController extends Controller
 
     /**
      * Display a listing of the resource.
+     *
      * @return Renderable
      */
     public function index()
@@ -24,6 +25,7 @@ class TimelineController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
      * @return Renderable
      */
     public function create()
@@ -35,7 +37,7 @@ class TimelineController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
+     *
      * @return Renderable
      */
     public function store(Request $request)
@@ -45,7 +47,7 @@ class TimelineController extends Controller
 
     /**
      * Show the specified resource.
-     * @param Timeline $timeline
+     *
      * @return Renderable
      */
     public function show(Timeline $timeline)
@@ -57,7 +59,7 @@ class TimelineController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param Timeline $timeline
+     *
      * @return Renderable
      */
     public function edit(Timeline $timeline)
@@ -69,8 +71,7 @@ class TimelineController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
-     * @param Timeline $timeline
+     *
      * @return Renderable
      */
     public function update(Request $request, Timeline $timeline)
@@ -80,7 +81,7 @@ class TimelineController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Timeline $timeline
+     *
      * @return Renderable
      */
     public function destroy(Timeline $timeline)

@@ -3,7 +3,6 @@
 namespace Modules\Apartment\database\seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 use Modules\Apartment\app\Models\Apartment;
 
 class ApartmentSeeder extends Seeder
@@ -17,8 +16,8 @@ class ApartmentSeeder extends Seeder
     {
         $apartments = [
             [
-                'name' => 'Block A'
-            ]
+                'name' => 'Block A',
+            ],
         ];
 
         foreach ($apartments as $key => $apartment) {

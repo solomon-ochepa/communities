@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="occupant-create-modalLabel">
-                    {{ __('Add Tenant') }}
+                    {{ __('Add Occupant') }}
                     @if ($room)
                         &rightarrow; {{ $room->name }}
                         &middot; {{ $room->roomable->name }}

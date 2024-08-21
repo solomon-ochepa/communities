@@ -14,7 +14,7 @@ use Modules\Message\app\Http\Controllers\MessageController;
     |
 */
 
-Route::middleware(['auth', 'verified'])/*->name('admin.')*/->group(function () {
+Route::middleware(['auth', 'verified'])/*->name('admin.')*/ ->group(function () {
     Route::resource('message', MessageController::class)->except(['index'])->names('message');
     Route::get('messages', [MessageController::class, 'index'])->name('message.index');
     Route::get('message', fn () => redirect()->route('admin.message.index'));

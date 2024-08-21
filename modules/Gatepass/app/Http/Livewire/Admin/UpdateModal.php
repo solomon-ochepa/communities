@@ -2,25 +2,23 @@
 
 namespace Modules\Gatepass\app\Http\Livewire\Admin;
 
-use Modules\User\app\Models\User;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use Modules\Gatepass\app\Models\Gatepass;
-use Modules\User\app\Http\Requests\StoreUserRequest;
-use Plank\Mediable\Facades\MediaUploader;
-use Spatie\Permission\Models\Role;
-use Illuminate\Support\Str;
 use Modules\Category\app\Models\Categorizable;
 use Modules\Category\app\Models\Category;
+use Modules\Gatepass\app\Models\Gatepass;
+use Modules\User\app\Http\Requests\StoreUserRequest;
+use Modules\User\app\Models\User;
+use Plank\Mediable\Facades\MediaUploader;
 
 class UpdateModal extends Component
 {
     use WithFileUploads, WithPagination;
 
     public $user;
+
     public $image;
 
     public function mount()
@@ -45,7 +43,8 @@ class UpdateModal extends Component
 
     protected function rules()
     {
-        $request = new StoreUserRequest();
+        $request = new StoreUserRequest;
+
         return $request->rules();
     }
 
@@ -67,25 +66,25 @@ class UpdateModal extends Component
             }
 
             $gatepass = $model->gatepass()->create([
-                'code'  => str_ireplace([' ', '-', ',', '.', '+'], '', $code),
+                'code' => str_ireplace([' ', '-', ',', '.', '+'], '', $code),
             ]);
 
             // Category
-            // users [tenant, visitor, driver], guest [...]
+            // users [occupant, visitor, driver], guest [...]
             $category_name = Str::afterLast(get_class($model), '\\');
             $category = Category::firstOrCreate([
-                'name'  => $category_name
+                'name' => $category_name,
             ]);
 
             Categorizable::firstOrCreate([
-                'category_id'           => $category->id,
-                'categorizable_type'    => get_class($gatepass),
-                'categorizable_id'      => $gatepass->id
+                'category_id' => $category->id,
+                'categorizable_type' => get_class($gatepass),
+                'categorizable_id' => $gatepass->id,
             ]);
 
             // Generate Barcode
             $barcode = barcode($gatepass->code, "{$gatepass->code}", 'ean-128', [
-                'f' => 'svg', 'h' => '40px', 'pt'=>'2px', 'ph'=>'2px'
+                'f' => 'svg', 'h' => '40px', 'pt' => '2px', 'ph' => '2px',
             ]);
 
             // Upload barcode

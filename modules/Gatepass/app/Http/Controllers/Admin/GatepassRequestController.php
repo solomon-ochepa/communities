@@ -28,7 +28,7 @@ class GatepassRequestController extends Controller
      */
     public function index(Gatepass $gatepass): Response
     {
-        $this->data['head']['title'] = $gatepass->user->name . "'s " . 'Gatepass Requests';
+        $this->data['head']['title'] = $gatepass->user->name."'s ".'Gatepass Requests';
         $this->data['gatepass'] = $gatepass;
 
         return response(view('gatepass::request.admin.index', $this->data));
@@ -51,6 +51,7 @@ class GatepassRequestController extends Controller
     {
         //
         session()->flash('status', 'Record created successfully.');
+
         return redirect(route('dashboard'));
     }
 
@@ -81,6 +82,7 @@ class GatepassRequestController extends Controller
     {
         //
         session()->flash('status', 'Record updated successfully.');
+
         return redirect(route('dashboard'));
     }
 
@@ -91,6 +93,7 @@ class GatepassRequestController extends Controller
     {
         //
         session()->flash('status', 'Record deleted successfully.');
+
         return redirect(route('dashboard'));
     }
 }

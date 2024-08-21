@@ -18,7 +18,7 @@ class CheckpointSeeder extends Seeder
         $checkpoints = [
             [
                 'name' => 'Main Gate',
-                'default' => 1
+                'default' => 1,
             ],
             [
                 'name' => 'East Wing Gate',

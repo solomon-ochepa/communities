@@ -9,6 +9,7 @@ use Modules\Menu\app\Models\Menu;
 class Edit extends Component
 {
     public $menu;
+
     public $parents;
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -23,6 +24,7 @@ class Edit extends Component
     protected function rules()
     {
         $request = new StoreMenuRequest($this->menu->toArray());
+
         return $request->rules();
     }
 
@@ -30,13 +32,13 @@ class Edit extends Component
     {
         $this->validate();
 
-        if (!$this->menu->priority) {
+        if (! $this->menu->priority) {
             $this->menu->priority = 1;
         }
 
         $this->menu->save();
 
-        session()->flash('status', "Menu updated successfully.");
+        session()->flash('status', 'Menu updated successfully.');
         cache()->forget('menu.admin.sidebar');
         $this->emit('refresh_sidebar');
     }

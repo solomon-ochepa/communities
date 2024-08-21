@@ -6,9 +6,9 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Modules\Room\app\Models\Room;
+use Modules\Occupant\App\Models\Occupant;
+use Modules\Room\App\Models\Room;
 use Modules\Status\app\Models\Status;
-use Modules\Tenant\app\Models\Tenant;
 use Modules\Visitor\app\Models\Visit;
 
 class Apartment extends Model
@@ -20,22 +20,19 @@ class Apartment extends Model
      *
      * @var array
      */
-
     protected $fillable = [
-        'name', 'active'
+        'name', 'active',
     ];
 
     /**
      * Return the sluggable configuration array for this model.
-     *
-     * @return array
      */
     public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'name'
-            ]
+                'source' => 'name',
+            ],
         ];
     }
 
@@ -57,9 +54,9 @@ class Apartment extends Model
         return $this->morphMany(Room::class, 'roomable');
     }
 
-    public function tenants()
+    public function occupants()
     {
-        return $this->hasMany(Tenant::class);
+        return $this->hasMany(Occupant::class);
     }
 
     // public function visitors() //morph

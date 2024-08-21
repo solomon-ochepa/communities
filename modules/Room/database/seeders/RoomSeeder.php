@@ -4,7 +4,7 @@ namespace Modules\Room\database\seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\Apartment\app\Models\Apartment;
-use Modules\Room\app\Models\Room;
+use Modules\Room\App\Models\Room;
 use Spatie\Permission\Models\Permission;
 
 class RoomSeeder extends Seeder
@@ -18,7 +18,7 @@ class RoomSeeder extends Seeder
     {
         // Permissions
         $permissions = collect([
-            'admin.room' => collect(['index', 'show', 'create', 'edit', 'delete'])
+            'admin.room' => collect(['index', 'show', 'create', 'edit', 'delete']),
         ]);
         foreach ($permissions as $namespace => $permission) {
             $permission->each(fn ($item) => Permission::firstOrCreate(['name' => "{$namespace}.{$item}"]));
@@ -29,9 +29,9 @@ class RoomSeeder extends Seeder
 
         for ($i = 0; $i < $total; $i++) {
             Room::firstOrCreate([
-                'name'          => 'Room ' . $i,
+                'name' => 'Room '.$i,
                 'roomable_type' => Apartment::class,
-                'roomable_id'   => $apartment->id
+                'roomable_id' => $apartment->id,
             ]);
         }
     }

@@ -2,10 +2,10 @@
 
 namespace App\View\Components\Property\Guest;
 
-use Modules\Property\app\Models\Property;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Modules\Property\app\Models\Property;
 
 class Latest extends Component
 {

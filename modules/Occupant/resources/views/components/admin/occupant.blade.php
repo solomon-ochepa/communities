@@ -1,7 +1,7 @@
 <div class="col-md-3">
-    @if ($tenant->user)
+    @if ($occupant->user)
         <div class="card _border-0 style-6" href="javascript://">
-            @canany(['edit', 'delete', 'transfer'], $tenant)
+            @canany(['edit', 'delete', 'transfer'], $occupant)
                 <span class="badge">
                     <div class="d-flex justify-content-between gap-4">
                         {{-- Actions dropdown --}}
@@ -21,20 +21,20 @@
 
                                 <div class="dropdown-menu left" aria-labelledby="expenses"
                                     style="min-width: 0; will-change: transform;">
-                                    {{-- @can('tenants.edit')
-                                    <a class="dropdown-item" href="{{ route('admin.tenant.edit', ['tenant' => $tenant->id]) }}">
+                                    {{-- @can('occupants.edit')
+                                    <a class="dropdown-item" href="{{ route('admin.occupant.edit', ['occupant' => $occupant->id]) }}">
                                         <span>Edit</span>
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 @endcan --}}
-                                    {{-- @can('tenants.transfer')
+                                    {{-- @can('occupants.transfer')
                                     <a class="dropdown-item" href="javascript:void(0);">
                                         <span>Transfer</span>
                                         <i class="fas fa-walking"></i>
                                     </a>
                                 @endcan --}}
-                                    @can('tenants.delete')
-                                        <form action="{{ route('admin.tenant.destroy', ['tenant' => $tenant->id]) }}"
+                                    @can('occupants.delete')
+                                        <form action="{{ route('admin.occupant.destroy', ['occupant' => $occupant->id]) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -52,25 +52,25 @@
                 </span>
             @endcanany
 
-            {{-- @dd($tenant->user->hasMedia(['image', 'profile'])) --}}
+            {{-- @dd($occupant->user->hasMedia(['image', 'profile'])) --}}
 
-            <img src="{{ $tenant->user->hasMedia(['image', 'profile'])? $tenant->user->media(['image', 'profile'])->first()->getUrl(): '/unknown.svg' }}"
-                class="card-img-top p-1" alt="{{ $tenant->user->name }}" />
+            <img src="{{ $occupant->user->hasMedia(['image', 'profile'])? $occupant->user->media(['image', 'profile'])->first()->getUrl(): '/unknown.svg' }}"
+                class="card-img-top p-1" alt="{{ $occupant->user->name }}" />
 
             <div class="card-footer">
-                <h5 class="card-title fw-bold mb-0">{{ $tenant->user->name }}</h5>
+                <h5 class="card-title fw-bold mb-0">{{ $occupant->user->name }}</h5>
                 <p class="card-text small">
                     <span title="{{ __('Apartment') }}" data-bs-toggle="tooltip"><i class="fas fa-building"></i></span>
-                    <span>{{ $tenant->apartment->name }}</span>
+                    <span>{{ $occupant->apartment->name }}</span>
                 </p>
                 <p class="card-text small">
                     <span title="{{ __('Room') }}" data-bs-toggle="tooltip"><i class="fas fa-door-open"></i></span>
-                    <span>{{ $tenant->room ? $tenant->room->name : 'All' }}</span>
+                    <span>{{ $occupant->room ? $occupant->room->name : 'All' }}</span>
                 </p>
                 <p class="card-text small">
                     <span title="{{ __('Moved in') }}" data-bs-toggle="tooltip"><i
                             class="fas fa-person-walking"></i></span>
-                    <span>{{ $tenant->moved_in->format('D, M d, Y') }}</span>
+                    <span>{{ $occupant->moved_in->format('D, M d, Y') }}</span>
                 </p>
             </div>
         </div>

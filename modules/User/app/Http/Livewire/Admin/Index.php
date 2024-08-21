@@ -10,13 +10,15 @@ class Index extends Component
 {
     use WithPagination;
 
-    public $search = "";
+    public $search = '';
+
     public $limit = 25;
+
     public $page = 1;
 
     protected $queryString = [
-        'search'    => ['except' => ''],
-        'page'      => ['except' => 1],
+        'search' => ['except' => ''],
+        'page' => ['except' => 1],
     ];
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -29,10 +31,11 @@ class Index extends Component
                 $cols = ['users.first_name', 'users.last_name', 'users.username', 'users.phone', 'users.email'];
 
                 foreach ($cols as $key => $col) {
-                    if ($key == 0)
-                        $user->where($col, 'like', '%' . $this->search . '%');
-                    else
-                        $user->orWhere($col, 'like', '%' . $this->search . '%');
+                    if ($key == 0) {
+                        $user->where($col, 'like', '%'.$this->search.'%');
+                    } else {
+                        $user->orWhere($col, 'like', '%'.$this->search.'%');
+                    }
                 }
 
                 return $user;

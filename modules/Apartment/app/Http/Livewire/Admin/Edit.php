@@ -14,6 +14,7 @@ class Edit extends Component
     protected function rules()
     {
         $request = new UpdateApartmentRequest($this->apartment->toArray());
+
         return $request->rules();
     }
 
@@ -28,7 +29,7 @@ class Edit extends Component
 
         $this->apartment->update();
 
-        session()->flash('status', "Apartment updated successfully.");
+        session()->flash('status', 'Apartment updated successfully.');
         $this->emitUp('refresh');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
-define('APP_DIR', __DIR__ . '/../');
+define('APP_DIR', __DIR__.'/../');
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +17,7 @@ define('APP_DIR', __DIR__ . '/../');
 |
 */
 
-if (file_exists($maintenance = APP_DIR . 'storage/framework/maintenance.php')) {
+if (file_exists($maintenance = APP_DIR.'storage/framework/maintenance.php')) {
     require $maintenance;
 }
 
@@ -32,7 +32,7 @@ if (file_exists($maintenance = APP_DIR . 'storage/framework/maintenance.php')) {
 |
 */
 
-require APP_DIR . 'vendor/autoload.php';
+require APP_DIR.'vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +45,7 @@ require APP_DIR . 'vendor/autoload.php';
 |
 */
 
-$app = require_once APP_DIR . 'bootstrap/app.php';
+$app = require_once APP_DIR.'bootstrap/app.php';
 $app->bind('path.public', function () {
     return __DIR__;
 });

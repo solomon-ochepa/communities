@@ -9,19 +9,21 @@ use Modules\Apartment\app\Models\Apartment;
 class Create extends Component
 {
     public $apartment;
+
     public $rooms;
 
     protected $listeners = ['refresh' => '$refresh'];
 
     protected function rules()
     {
-        $request = new StoreApartmentRequest();
+        $request = new StoreApartmentRequest;
+
         return $request->rules();
     }
 
     public function mount()
     {
-        $this->apartment = new Apartment();
+        $this->apartment = new Apartment;
         $this->apartment->active = true;
     }
 
@@ -36,7 +38,8 @@ class Create extends Component
 
         $exists = Apartment::where('name', $this->apartment->name)->first();
         if ($exists) {
-            session()->flash('status', "Apartment already exists.");
+            session()->flash('status', 'Apartment already exists.');
+
             return;
         }
 
@@ -44,11 +47,11 @@ class Create extends Component
 
         if ($this->rooms) {
             for ($i = 0; $i < $this->rooms; $i++) {
-                $this->apartment->rooms()->create(['name' => 'Room ' . ($i + 1)]);
+                $this->apartment->rooms()->create(['name' => 'Room '.($i + 1)]);
             }
         }
 
-        session()->flash('status', "Apartment created successfully.");
+        session()->flash('status', 'Apartment created successfully.');
         $this->reset();
         $this->emitUp('refresh');
     }

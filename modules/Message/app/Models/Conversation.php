@@ -17,7 +17,6 @@ class Conversation extends Model
      *
      * @var array
      */
-
     protected $fillable = ['subject', 'creator_id', 'channel_id'];
 
     public function creator()

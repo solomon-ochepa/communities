@@ -12,6 +12,7 @@ class CreateModal extends Component
     use WithFileUploads;
 
     public $vehicle;
+
     public $image;
 
     public function mount()
@@ -21,7 +22,7 @@ class CreateModal extends Component
 
     public function init()
     {
-        $this->vehicle = new Vehicle();
+        $this->vehicle = new Vehicle;
     }
 
     public function render()
@@ -35,7 +36,8 @@ class CreateModal extends Component
 
     protected function rules()
     {
-        $request = new StoreVehicleRequest();
+        $request = new StoreVehicleRequest;
+
         return $request->rules();
     }
 
@@ -54,8 +56,9 @@ class CreateModal extends Component
         $this->vehicle->save();
         $this->vehicle->refresh();
 
-        if ($this->role)
+        if ($this->role) {
             $this->vehicle->syncRoles(2);
+        }
 
         if ($this->image) {
             $media = MediaUploader::fromSource($this->image)
@@ -63,8 +66,9 @@ class CreateModal extends Component
                 ->toDirectory('image')
                 ->upload();
 
-            if ($media)
+            if ($media) {
                 $this->vehicle->attachMedia($media, ['profile', 'image']);
+            }
         }
 
         event(new Registered($this->vehicle));

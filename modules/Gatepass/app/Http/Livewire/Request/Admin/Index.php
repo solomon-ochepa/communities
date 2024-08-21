@@ -4,7 +4,6 @@ namespace Modules\Gatepass\app\Http\Livewire\Request\Admin;
 
 use Livewire\Component;
 use Modules\Checkpoint\app\Models\Checkpoint;
-use Modules\Gatepass\app\Models\Gatepass;
 use Modules\Gatepass\app\Models\GatepassRequest;
 
 class Index extends Component
@@ -23,7 +22,8 @@ class Index extends Component
 
         // Pending checkout
         if ($log = $request->access_logs()->latest()->first() and $log->checked_out_at == null) {
-            session()->flash('status', "Already Checked-In, please Checkout before Checking-in again!");
+            session()->flash('status', 'Already Checked-In, please Checkout before Checking-in again!');
+
             return;
         }
 
@@ -38,10 +38,10 @@ class Index extends Component
         // Create a Timeline
         $timeline = $request->timeline()->firstOrCreate([
             'name' => 'Check-in',
-            'description' => "Checked in successfully at {{$checkpoint->name}}"
+            'description' => "Checked in successfully at {{$checkpoint->name}}",
         ]);
 
-        session()->flash('status', "Checked in successfully.");
+        session()->flash('status', 'Checked in successfully.');
 
         $this->emitSelf('$refresh');
     }
@@ -53,7 +53,8 @@ class Index extends Component
 
         // Pending checkout
         if ($log = $request->access_logs()->latest()->first() and $log->checked_out_at !== null) {
-            session()->flash('status', "Not Checked-In yet, please Check-in before Checking-out.");
+            session()->flash('status', 'Not Checked-In yet, please Check-in before Checking-out.');
+
             return;
         }
 
@@ -68,10 +69,10 @@ class Index extends Component
         // Create a Timeline
         $timeline = $request->timeline()->firstOrCreate([
             'name' => 'Checkout',
-            'description' => "Checked out successfully at {{$checkpoint->name}}"
+            'description' => "Checked out successfully at {{$checkpoint->name}}",
         ]);
 
-        session()->flash('status', "Checked out successfully.");
+        session()->flash('status', 'Checked out successfully.');
 
         $this->emitSelf('$refresh');
     }

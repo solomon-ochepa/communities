@@ -12,8 +12,10 @@ class Index extends Component
 
     public $selected = [];
 
-    public $search = "";
+    public $search = '';
+
     public $limit = 25;
+
     public $page = 1;
 
     protected $queryString = [
@@ -24,9 +26,9 @@ class Index extends Component
     public function render()
     {
         if ($this->search) {
-            $data['menus'] = Menu::where('name', 'like', '%' . $this->search . '%')
-                ->orWhere('url', 'like', '%' . $this->search . '%')
-                ->orWhere('icon', 'like', '%' . $this->search . '%')
+            $data['menus'] = Menu::where('name', 'like', '%'.$this->search.'%')
+                ->orWhere('url', 'like', '%'.$this->search.'%')
+                ->orWhere('icon', 'like', '%'.$this->search.'%')
                 ->paginate($this->limit);
         } else {
             $data['menus'] = Menu::paginate($this->limit);

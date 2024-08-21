@@ -16,7 +16,6 @@ class Categorizable extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'category_id', 'categorizable_type', 'categorizable_id'
+        'category_id', 'categorizable_type', 'categorizable_id',
     ];
-
 }

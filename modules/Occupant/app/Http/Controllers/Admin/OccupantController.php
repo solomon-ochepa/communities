@@ -23,7 +23,7 @@ class OccupantController extends Controller
      */
     public function index()
     {
-        $data['head']['title']    = __('Tenants Management');
+        $data['head']['title'] = __('Occupants Management');
 
         return view('occupant::admin.index', $data);
     }
@@ -33,7 +33,7 @@ class OccupantController extends Controller
      */
     public function create()
     {
-        $data['head']['title']    = __('Create Occupant');
+        $data['head']['title'] = __('Create Occupant');
 
         return view('occupant::admin.create', $data);
     }
@@ -56,7 +56,7 @@ class OccupantController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param Occupant $occupant
+     *
      * @return Renderable
      */
     public function edit(Occupant $occupant)
@@ -66,8 +66,7 @@ class OccupantController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
-     * @param Occupant $occupant
+     *
      * @return Renderable
      */
     public function update(Request $request, Occupant $occupant)
@@ -77,24 +76,25 @@ class OccupantController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Occupant $occupant
+     *
      * @return Renderable
      */
     public function destroy(Occupant $occupant)
     {
         // Room: change status to pending if occupant is the only occupant.
-        if ($occupant->room and !$occupant->room->occupants->except([$occupant->id])->count()) {
+        if ($occupant->room and ! $occupant->room->occupants->except([$occupant->id])->count()) {
             $occupant->room->update(['status_code' => 1]);
         }
 
         // Apartment: change status to pending if occupant is the only occupant.
-        if (!$occupant->apartment->occupants->except([$occupant->id])->count()) {
+        if (! $occupant->apartment->occupants->except([$occupant->id])->count()) {
             $occupant->apartment->update(['status_code' => 1]);
         }
 
         $occupant->delete();
 
         session()->flash('status', 'Occupant deleted successfully.');
+
         return back();
     }
 }

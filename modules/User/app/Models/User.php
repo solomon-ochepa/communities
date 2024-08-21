@@ -12,13 +12,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Gatepass\app\Models\Gatepass;
-use Modules\Tenant\app\Models\Tenant;
+use Modules\Occupant\App\Models\Occupant;
 use Plank\Mediable\Mediable;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, Mediable, HasRoles, SoftDeletes, HasUuids;
+    use HasApiTokens, HasFactory, HasRoles, HasUuids, Mediable, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -72,7 +72,7 @@ class User extends Authenticatable
     public function name(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => $attributes['first_name'] . ' ' . $attributes['last_name'],
+            get: fn ($value, $attributes) => $attributes['first_name'].' '.$attributes['last_name'],
             // set: fn ($value, $attributes) => ''
         );
     }
@@ -85,6 +85,6 @@ class User extends Authenticatable
     // Tenancies
     public function tenancies()
     {
-        return $this->hasMany(Tenant::class);
+        return $this->hasMany(Occupant::class);
     }
 }

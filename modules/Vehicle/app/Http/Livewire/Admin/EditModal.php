@@ -11,6 +11,7 @@ class EditModal extends Component
     use WithFileUploads;
 
     public $vehicle;
+
     public $image;
 
     public function mount()
@@ -20,7 +21,7 @@ class EditModal extends Component
 
     public function init()
     {
-        $this->vehicle = new Vehicle();
+        $this->vehicle = new Vehicle;
     }
 
     public function render()

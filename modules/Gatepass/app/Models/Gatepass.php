@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\AccessLog\app\Models\AccessLog;
 use Modules\Category\app\Models\Categorizable;
 use Modules\Category\app\Models\Category;
-use Modules\Gatepass\app\Models\GatepassRequest;
 use Modules\Status\app\Models\Status;
 use Plank\Mediable\Mediable;
 
@@ -21,7 +20,6 @@ class Gatepass extends Model
      *
      * @var array
      */
-
     protected $fillable = ['active', 'code', 'model_type', 'model_id', 'status_code'];
 
     public function status()

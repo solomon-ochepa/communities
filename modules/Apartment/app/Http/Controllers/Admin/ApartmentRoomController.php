@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Apartment\app\Models\Apartment;
-use Modules\Room\app\Models\Room;
+use Modules\Room\App\Models\Room;
 
 class ApartmentRoomController extends Controller
 {
@@ -23,6 +23,7 @@ class ApartmentRoomController extends Controller
 
     /**
      * Display a listing of the resource.
+     *
      * @return Renderable
      */
     public function index(Apartment $apartment)
@@ -34,6 +35,7 @@ class ApartmentRoomController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
      * @return Renderable
      */
     public function create(Apartment $apartment)
@@ -46,7 +48,7 @@ class ApartmentRoomController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
+     *
      * @return Renderable
      */
     public function store(Request $request, Apartment $apartment)
@@ -56,7 +58,7 @@ class ApartmentRoomController extends Controller
 
     /**
      * Show the specified resource.
-     * @param Apartment $apartment
+     *
      * @return Renderable
      */
     public function show(Apartment $apartment, Room $room)
@@ -69,12 +71,12 @@ class ApartmentRoomController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param Apartment $apartment
+     *
      * @return Renderable
      */
     public function edit(Apartment $apartment, Room $room)
     {
-        $this->data['head']['title'] = __('Edit') . ": {$room->name} &middot; {$apartment->name}";
+        $this->data['head']['title'] = __('Edit').": {$room->name} &middot; {$apartment->name}";
         $this->data['apartment'] = $apartment;
         $this->data['room'] = $room;
 
@@ -83,8 +85,7 @@ class ApartmentRoomController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
-     * @param Apartment $apartment
+     *
      * @return Renderable
      */
     public function update(Request $request, Apartment $apartment, Room $room)
@@ -94,20 +95,22 @@ class ApartmentRoomController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Apartment $apartment
+     *
      * @return Renderable
      */
     public function destroy(Apartment $apartment, Room $room)
     {
-        // Can't delete a room with active tenants!
-        if ($room->tenants->count()) {
-            session()->flash('error', 'Room with tenants can\'t be deleted. Please, transfer or remove tenants and try again.');
+        // Can't delete a room with active occupants!
+        if ($room->occupants->count()) {
+            session()->flash('error', 'Room with occupants can\'t be deleted. Please, transfer or remove occupants and try again.');
+
             return back()->withInput();
         }
 
         $room->delete();
 
         session()->flash('status', 'Apartment room deleted successfully.');
+
         return redirect(route('admin.apartment.room.index', ['apartment' => $apartment->id]));
     }
 }

@@ -12,22 +12,24 @@ class Index extends Component
 
     public $selected = [];
 
-    public $search = "";
+    public $search = '';
+
     public $limit = 25;
+
     public $page = 1;
 
     protected $queryString = [
-        'search'    => ['except' => ''],
-        'page'      => ['except' => 1],
+        'search' => ['except' => ''],
+        'page' => ['except' => 1],
     ];
 
     public function render()
     {
         $data = [];
         if ($this->search) {
-            $data['categories'] = Category::where('name', 'like', '%' . $this->search . '%')
-                ->orWhere('slug', 'like', '%' . $this->search . '%')
-                ->orWhere('description', 'like', '%' . $this->search . '%')
+            $data['categories'] = Category::where('name', 'like', '%'.$this->search.'%')
+                ->orWhere('slug', 'like', '%'.$this->search.'%')
+                ->orWhere('description', 'like', '%'.$this->search.'%')
                 ->orderBy('name')
                 ->paginate($this->limit);
         } else {

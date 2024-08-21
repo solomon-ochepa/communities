@@ -29,7 +29,7 @@
                             </a>
                         </td>
                         <td>
-                            {{ $room->tenants->count() }}
+                            {{ $room->occupants->count() }}
                         </td>
                         <td>
                             {{-- {{ $room->visitors->count() }} --}}

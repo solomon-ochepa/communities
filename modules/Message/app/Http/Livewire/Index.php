@@ -9,6 +9,7 @@ use Modules\User\app\Models\User;
 class Index extends Component
 {
     public $conversations;
+
     public User $user;
 
     public function render()

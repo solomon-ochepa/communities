@@ -3,7 +3,6 @@
 namespace Modules\Menu\database\seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
 class MenuDatabaseSeeder extends Seeder
 {
@@ -15,7 +14,7 @@ class MenuDatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            MenuSeeder::class
+            MenuSeeder::class,
         ]);
     }
 }

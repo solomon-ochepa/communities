@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\AccessLog\app\Models\AccessLog;
-use Modules\Gatepass\app\Models\Gatepass;
 use Modules\Status\app\Models\Status;
 use Modules\Timeline\app\Models\Timeline;
 

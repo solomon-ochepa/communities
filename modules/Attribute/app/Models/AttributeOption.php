@@ -16,7 +16,7 @@ class AttributeOption extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'attribute_id', 'active', 'value', 'code', 'data_type', 'order', 'description'
+        'attribute_id', 'active', 'value', 'code', 'data_type', 'order', 'description',
     ];
 
     public function attribute()

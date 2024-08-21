@@ -9,15 +9,17 @@ use Modules\Menu\app\Models\Menu;
 class Create extends Component
 {
     public $menu;
+
     public $parents;
+
     public $edit = true;
 
     protected $listeners = ['refresh' => '$refresh'];
 
     public function mount()
     {
-        if (!$this->menu) {
-            $this->menu = new Menu();
+        if (! $this->menu) {
+            $this->menu = new Menu;
             $this->edit = false;
         }
     }
@@ -31,7 +33,8 @@ class Create extends Component
 
     protected function rules()
     {
-        $request = new StoreMenuRequest();
+        $request = new StoreMenuRequest;
+
         return $request->rules();
     }
 
@@ -39,7 +42,7 @@ class Create extends Component
     {
         $this->validate();
 
-        if (!$this->menu->priority) {
+        if (! $this->menu->priority) {
             $this->menu->priority = 1;
         }
 
@@ -47,10 +50,10 @@ class Create extends Component
         cache()->forget('menu.admin.sidebar');
 
         if ($this->edit) {
-            session()->flash('status', "Menu updated successfully.");
+            session()->flash('status', 'Menu updated successfully.');
             $this->emit('refresh_sidebar');
         } else {
-            session()->flash('status', "Menu created successfully.");
+            session()->flash('status', 'Menu created successfully.');
             $this->emit('refresh_sidebar');
             $this->reset('menu');
 

@@ -10,13 +10,15 @@ class Index extends Component
 {
     use WithPagination;
 
-    public $search = "";
+    public $search = '';
+
     public $limit = 25;
+
     public $page = 1;
 
     protected $queryString = [
-        'search'    => ['except' => ''],
-        'page'      => ['except' => 1],
+        'search' => ['except' => ''],
+        'page' => ['except' => 1],
     ];
 
     public function render()
@@ -24,8 +26,8 @@ class Index extends Component
         $data = [];
         if ($this->search) {
             $data['vehicles'] = Vehicle::with(['trim'])
-                ->where('vin', 'like', '%' . $this->search . '%')
-                ->orWhere('vrn', 'like', '%' . $this->search . '%')
+                ->where('vin', 'like', '%'.$this->search.'%')
+                ->orWhere('vrn', 'like', '%'.$this->search.'%')
                 ->paginate($this->limit);
         } else {
             $data['vehicles'] = Vehicle::paginate($this->limit);

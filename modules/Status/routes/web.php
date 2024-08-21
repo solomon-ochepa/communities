@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('status')->group(function() {
+Route::prefix('status')->group(function () {
     Route::get('/', 'StatusController@index');
 });

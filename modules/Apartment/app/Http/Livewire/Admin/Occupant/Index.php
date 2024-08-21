@@ -1,17 +1,18 @@
 <?php
 
-namespace Modules\Occupant\app\Http\Livewire\Admin;
+namespace Modules\Apartment\app\Http\Livewire\Admin\Occupant;
 
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Modules\Apartment\app\Models\Apartment;
-use Modules\Occupant\App\Models\Occupant;
 use Modules\Room\App\Models\Room;
 
 class Index extends Component
 {
     use WithPagination;
+
+    public $apartment;
 
     public $search = '';
 
@@ -24,13 +25,11 @@ class Index extends Component
         'page' => ['except' => 1],
     ];
 
-    protected $listeners = ['refresh' => '$refresh'];
-
     public function render()
     {
         $data = [];
-        if ($this->search) {
-            $data['occupants'] = Occupant::whereHas(User::class, function ($user) {
+        if ($this->search__ ?? []) {
+            $data['occupants'] = $this->apartment->occupants()->whereHas(User::class, function ($user) {
                 $cols = ['users.first_name', 'users.last_name', 'users.username', 'users.phone', 'users.email'];
 
                 foreach ($cols as $key => $col) {
@@ -54,26 +53,23 @@ class Index extends Component
                 }
 
                 return $apartment;
-            })
-                ->orWhereHas(Room::class, function ($room) {
-                    $cols = ['rooms.name', 'rooms.slug'];
+            })->orWhereHas(Room::class, function ($room) {
+                $cols = ['rooms.name', 'rooms.slug'];
 
-                    foreach ($cols as $key => $col) {
-                        if ($key == 0) {
-                            $room->where($col, 'like', '%'.$this->search.'%');
-                        } else {
-                            $room->orWhere($col, 'like', '%'.$this->search.'%');
-                        }
+                foreach ($cols as $key => $col) {
+                    if ($key == 0) {
+                        $room->where($col, 'like', '%'.$this->search.'%');
+                    } else {
+                        $room->orWhere($col, 'like', '%'.$this->search.'%');
                     }
+                }
 
-                    return $room;
-                })
-                ->whereActive(1)
-                ->paginate($this->limit);
+                return $room;
+            })->paginate($this->limit);
         } else {
-            $data['occupants'] = Occupant::whereActive(1)->paginate($this->limit);
+            $data['occupants'] = $this->apartment->occupants()->paginate($this->limit);
         }
 
-        return view('occupant::livewire.admin.index', $data);
+        return view('apartment::livewire.admin.occupant.index', $data);
     }
 }

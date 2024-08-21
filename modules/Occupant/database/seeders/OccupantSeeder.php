@@ -3,7 +3,6 @@
 namespace Modules\Occupant\database\seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Models\Permission;
 
 class OccupantSeeder extends Seeder
@@ -15,7 +14,7 @@ class OccupantSeeder extends Seeder
     {
         // Permissions
         $permissions = collect([
-            'occupants.admin' => collect(['list', 'show', 'create', 'edit', 'delete'])
+            'occupants.admin' => collect(['list', 'show', 'create', 'edit', 'delete']),
         ]);
 
         foreach ($permissions as $namespace => $permission) {

@@ -17,7 +17,6 @@ class Message extends Model
      *
      * @var array
      */
-
     protected $fillable = ['conversation_id', 'sender_id', 'type', 'body'];
 
     public function sender()

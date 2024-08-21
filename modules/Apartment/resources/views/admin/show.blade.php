@@ -82,7 +82,7 @@
             </div>
         @endisset
 
-        {{-- Tenants --}}
+        {{-- Occupants --}}
         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
             <div class="widget widget-card-four">
                 <div class="widget-content">
@@ -90,8 +90,8 @@
                         {{-- Title --}}
                         <div class="w-info">
                             <h6 class="value">
-                                <a href="{{ route('admin.apartment.tenant.index', ['apartment' => $apartment]) }}">
-                                    {{ __('Tenants') }}
+                                <a href="{{ route('admin.apartment.occupant.index', ['apartment' => $apartment]) }}">
+                                    {{ __('Occupants') }}
                                     <x-link-icon />
                                 </a>
                             </h6>
@@ -100,7 +100,7 @@
                         {{-- Actions dropdown --}}
                         <div class="task-action d-flex">
                             <div class="dropdown">
-                                <a class="dropdown-toggle" href="#" role="button" id="tenants"
+                                <a class="dropdown-toggle" href="#" role="button" id="occupants"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -112,15 +112,17 @@
                                     </svg>
                                 </a>
 
-                                <div class="dropdown-menu left" aria-labelledby="tenants"
+                                <div class="dropdown-menu left" aria-labelledby="occupants"
                                     style="will-change: transform;">
                                     <a class="dropdown-item" href="javascript:void(0);">
                                         This Week
                                     </a>
-                                    <a class="dropdown-item" href="javascript:void(0);">Last
-                                        Week</a>
-                                    <a class="dropdown-item" href="javascript:void(0);">Last
-                                        Month</a>
+                                    <a class="dropdown-item" href="javascript:void(0);">
+                                        Last Week
+                                    </a>
+                                    <a class="dropdown-item" href="javascript:void(0);">
+                                        Last Month
+                                    </a>
                                 </div>
                             </div>
 
@@ -132,7 +134,7 @@
                         <div class="w-info">
                             <p class="value">
                                 {{-- Count --}}
-                                {{ $apartment->tenants->count() }}
+                                {{ $apartment->occupants->count() }}
                                 {{-- Period --}}
                                 {{-- <span>this week</span> --}}
                                 {{-- Chart --}}
@@ -166,7 +168,7 @@
 
                     @push('modals')
                         <!-- Modal -->
-                        <livewire:tenant::admin.create-modal />
+                        <livewire:occupant::admin.modals.create />
                     @endpush
                 </div>
             </div>

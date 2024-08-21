@@ -2,10 +2,9 @@
 
 namespace Modules\Setting\database\Seeders;
 
-use Modules\Setting\app\Models\Setting;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Modules\Setting\app\Models\Setting;
 use Spatie\Permission\Models\Permission;
 
 class SettingSeeder extends Seeder
@@ -17,7 +16,7 @@ class SettingSeeder extends Seeder
     {
         // Permissions
         $permissions = collect([
-            'admin.setting' => collect(['index', 'show', 'create', 'edit', 'delete'])
+            'admin.setting' => collect(['index', 'show', 'create', 'edit', 'delete']),
         ]);
         foreach ($permissions as $namespace => $permission) {
             $permission->each(fn ($item) => Permission::firstOrCreate(['name' => "{$namespace}.{$item}"]));
@@ -26,9 +25,9 @@ class SettingSeeder extends Seeder
         foreach (config()->all() as $key => $config) {
             foreach ($config as $name => $value) {
                 Setting::firstOrCreate([
-                    'name'      => Str::title("$key $name"),
-                    'value'     => config(Str::slug("$key $name")),
-                    'config'    => 'app.name'
+                    'name' => Str::title("$key $name"),
+                    'value' => config(Str::slug("$key $name")),
+                    'config' => 'app.name',
                 ]);
             }
         }

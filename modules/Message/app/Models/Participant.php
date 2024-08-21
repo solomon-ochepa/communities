@@ -17,7 +17,6 @@ class Participant extends Model
      *
      * @var array
      */
-
     protected $fillable = ['conversation_id', 'user_id', 'type'];
 
     public function conversations()

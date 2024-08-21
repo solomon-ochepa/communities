@@ -2,8 +2,8 @@
 
 namespace Modules\View\database\seeders;
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 
 class ViewDatabaseSeeder extends Seeder
 {

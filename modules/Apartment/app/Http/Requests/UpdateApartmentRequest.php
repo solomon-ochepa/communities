@@ -14,7 +14,7 @@ class UpdateApartmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'apartment.name' => ['required', 'string', 'max:32', 'unique:apartments,name,' . $this->id],
+            'apartment.name' => ['required', 'string', 'max:32', 'unique:apartments,name,'.$this->id],
             'apartment.active' => ['nullable', 'boolean'],
         ];
     }

@@ -19,42 +19,47 @@ Route::middleware(['can:artisan.http'])->name('artisan.')->prefix('artisan')->gr
     Route::get('/', fn () => redirect(route('artisan.optimize.clear')));
 
     Route::get('/optimize:clear', function (Request $request) {
-        $query = "optimize:clear";
+        $query = 'optimize:clear';
         Artisan::call($query);
 
-        session()->flash('status', 'Artisan command successful!\n' . $query);
+        session()->flash('status', 'Artisan command successful!\n'.$query);
+
         return redirect(route('dashboard'));
     })->name('optimize.clear');
 
     Route::get('/storage:link', function (Request $request) {
-        $query = "storage:link";
+        $query = 'storage:link';
         Artisan::call($query);
 
-        session()->flash('status', 'Artisan command successful!\n' . $query);
+        session()->flash('status', 'Artisan command successful!\n'.$query);
+
         return redirect(route('dashboard'));
     })->name('storage.link');
 
     Route::get('/migrate:refresh', function (Request $request) {
-        $query = "migrate:refresh -n";
+        $query = 'migrate:refresh -n';
         Artisan::call($query);
 
-        session()->flash('status', 'Artisan command successful!\n' . $query);
+        session()->flash('status', 'Artisan command successful!\n'.$query);
+
         return redirect(route('dashboard'));
     })->name('migrate.refresh');
 
     Route::get('/migrate:fresh', function (Request $request) {
-        $query = "migrate:fresh -n";
+        $query = 'migrate:fresh -n';
         Artisan::call($query);
 
-        session()->flash('status', 'Artisan command successful!\n' . $query);
+        session()->flash('status', 'Artisan command successful!\n'.$query);
+
         return redirect(route('dashboard'));
     })->name('migrate.refresh');
 
     Route::get('/migrate', function (Request $request) {
-        $query = "migrate -n";
+        $query = 'migrate -n';
         Artisan::call($query);
 
-        session()->flash('status', 'Artisan command successful!\n' . $query);
+        session()->flash('status', 'Artisan command successful!\n'.$query);
+
         return redirect(route('dashboard'));
     })->name('migrate.refresh');
 });

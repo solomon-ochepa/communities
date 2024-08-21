@@ -2,12 +2,12 @@
 
 namespace Modules\User\app\Http\Livewire\Admin;
 
-use Modules\User\app\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Modules\User\app\Http\Requests\StoreUserRequest;
+use Modules\User\app\Models\User;
 use Plank\Mediable\Facades\MediaUploader;
 use Spatie\Permission\Models\Role;
 
@@ -16,9 +16,13 @@ class EditModal extends Component
     use WithFileUploads;
 
     public $user;
+
     public $role;
+
     public $image;
+
     public $password;
+
     public $password_confirmation;
 
     public function mount()
@@ -42,7 +46,8 @@ class EditModal extends Component
 
     protected function rules()
     {
-        $request = new StoreUserRequest();
+        $request = new StoreUserRequest;
+
         return $request->rules();
     }
 
@@ -61,8 +66,9 @@ class EditModal extends Component
         $this->user->save();
         $this->user->refresh();
 
-        if ($this->role)
+        if ($this->role) {
             $this->user->syncRoles(2);
+        }
 
         if ($this->image) {
             $media = MediaUploader::fromSource($this->image)
@@ -70,8 +76,9 @@ class EditModal extends Component
                 ->toDirectory('image')
                 ->upload();
 
-            if ($media)
+            if ($media) {
                 $this->user->attachMedia($media, ['profile', 'image']);
+            }
         }
 
         event(new Registered($this->user));

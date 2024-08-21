@@ -17,20 +17,18 @@ class Attribute extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'slug', 'active', 'icon', 'order', 'description'
+        'name', 'slug', 'active', 'icon', 'order', 'description',
     ];
 
     /**
      * Return the sluggable configuration array for this model.
-     *
-     * @return array
      */
     public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'name'
-            ]
+                'source' => 'name',
+            ],
         ];
     }
 

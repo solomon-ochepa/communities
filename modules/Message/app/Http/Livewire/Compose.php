@@ -16,7 +16,8 @@ class Compose extends Component
 
     protected function rules()
     {
-        $request = new StoreMessageRequest();
+        $request = new StoreMessageRequest;
+
         return $request->rules();
     }
 

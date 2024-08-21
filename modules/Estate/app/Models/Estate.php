@@ -6,6 +6,7 @@ namespace Modules\Estate\app\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 // use Illuminate\Database\Eloquent\SoftDeletes;
 // use Plank\Mediable\Mediable;
 
@@ -21,20 +22,17 @@ class Estate extends Model
      *
      * @var array
      */
-
     protected $fillable = [];
 
     /**
      * Return the sluggable configuration array for this model.
-     *
-     * @return array
      */
     public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'name'
-            ]
+                'source' => 'name',
+            ],
         ];
     }
 

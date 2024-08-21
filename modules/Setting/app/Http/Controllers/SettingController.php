@@ -11,6 +11,7 @@ class SettingController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
      * @return Renderable
      */
     public function index()
@@ -20,6 +21,7 @@ class SettingController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
      * @return Renderable
      */
     public function create()
@@ -29,7 +31,7 @@ class SettingController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
+     *
      * @return Renderable
      */
     public function store(Request $request)
@@ -39,7 +41,8 @@ class SettingController extends Controller
 
     /**
      * Show the specified resource.
-     * @param int $setting
+     *
+     * @param  int  $setting
      * @return Renderable
      */
     public function show(Setting $setting)
@@ -49,7 +52,8 @@ class SettingController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param int $setting
+     *
+     * @param  int  $setting
      * @return Renderable
      */
     public function edit(Setting $setting)
@@ -59,8 +63,8 @@ class SettingController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $setting
+     *
+     * @param  int  $setting
      * @return Renderable
      */
     public function update(Request $request, Setting $setting)
@@ -70,7 +74,8 @@ class SettingController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param int $setting
+     *
+     * @param  int  $setting
      * @return Renderable
      */
     public function destroy(Setting $setting)

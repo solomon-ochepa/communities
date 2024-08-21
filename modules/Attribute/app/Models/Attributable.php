@@ -16,7 +16,7 @@ class Attributable extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'attribute_option_id', 'active', 'attributable', 'order', 'description'
+        'attribute_option_id', 'active', 'attributable', 'order', 'description',
     ];
 
     public function getAttributeAttribute()

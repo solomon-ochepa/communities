@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Apartment\app\Http\Controllers\Admin\ApartmentController;
+use Modules\Apartment\app\Http\Controllers\Admin\ApartmentOccupantController;
 use Modules\Apartment\app\Http\Controllers\Admin\ApartmentRoomController;
-use Modules\Apartment\app\Http\Controllers\Admin\ApartmentTenantController;
 
 /*
     |--------------------------------------------------------------------------
@@ -27,10 +27,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('apartment/{apartment}/rooms', [ApartmentRoomController::class, 'index'])->name('apartment.room.index');
     Route::get('apartment/{apartment}/room', fn () => redirect()->route('admin.apartment.room.index'));
 
-    // Apartment->Tenants
-    Route::resource('apartment/{apartment}/tenant', ApartmentTenantController::class)->except(['index'])->names('apartment.tenant');
-    Route::get('apartment/{apartment}/tenants', [ApartmentTenantController::class, 'index'])->name('apartment.tenant.index');
-    Route::get('apartment/{apartment}/tenant', function () {
-        return redirect()->route('admin.apartment.tenant.index');
+    // Apartment->Occupants
+    Route::resource('apartment/{apartment}/occupant', ApartmentOccupantController::class)->except(['index'])->names('apartment.occupant');
+    Route::get('apartment/{apartment}/occupants', [ApartmentOccupantController::class, 'index'])->name('apartment.occupant.index');
+    Route::get('apartment/{apartment}/occupant', function () {
+        return redirect()->route('admin.apartment.occupant.index');
     });
 });

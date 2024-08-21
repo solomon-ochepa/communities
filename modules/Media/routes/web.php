@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('media')->group(function() {
+Route::prefix('media')->group(function () {
     Route::get('/', 'MediaController@index');
 });

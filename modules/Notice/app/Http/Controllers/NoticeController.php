@@ -13,6 +13,7 @@ class NoticeController extends Controller
 
     /**
      * Display a listing of the resource.
+     *
      * @return Renderable
      */
     public function index()
@@ -24,6 +25,7 @@ class NoticeController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
      * @return Renderable
      */
     public function create()
@@ -35,7 +37,7 @@ class NoticeController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
+     *
      * @return Renderable
      */
     public function store(Request $request)
@@ -45,7 +47,7 @@ class NoticeController extends Controller
 
     /**
      * Show the specified resource.
-     * @param Notice $notice
+     *
      * @return Renderable
      */
     public function show(Notice $notice)
@@ -57,7 +59,7 @@ class NoticeController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param Notice $notice
+     *
      * @return Renderable
      */
     public function edit(Notice $notice)
@@ -69,8 +71,7 @@ class NoticeController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
-     * @param Notice $notice
+     *
      * @return Renderable
      */
     public function update(Request $request, Notice $notice)
@@ -80,7 +81,7 @@ class NoticeController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Notice $notice
+     *
      * @return Renderable
      */
     public function destroy(Notice $notice)

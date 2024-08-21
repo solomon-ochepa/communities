@@ -14,13 +14,13 @@ class StoreMenuRequest extends FormRequest
     public function rules()
     {
         return [
-            'menu.active'       => ['nullable', 'boolean'],
-            'menu.name'         => ['required', 'string', 'max:16'],
-            'menu.parent_id'    => ['nullable', 'string', 'uuid'],
-            'menu.icon'         => ['nullable', 'string'],
-            'menu.url'          => ['required', 'string'],
-            'menu.priority'     => ['nullable', 'integer'],
-            'menu.permissions'  => ['nullable', 'json'],
+            'menu.active' => ['nullable', 'boolean'],
+            'menu.name' => ['required', 'string', 'max:16'],
+            'menu.parent_id' => ['nullable', 'string', 'uuid'],
+            'menu.icon' => ['nullable', 'string'],
+            'menu.url' => ['required', 'string'],
+            'menu.priority' => ['nullable', 'integer'],
+            'menu.permissions' => ['nullable', 'json'],
         ];
     }
 

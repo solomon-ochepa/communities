@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'name' => 'Gatepass'
+    'name' => 'Gatepass',
 ];

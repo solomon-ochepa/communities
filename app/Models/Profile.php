@@ -18,7 +18,7 @@ class Profile extends Model
     protected $fillable = [
         'user_id',
         'name',
-        'value'
+        'value',
     ];
 
     public function settings()

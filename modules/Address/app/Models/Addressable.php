@@ -10,6 +10,6 @@ class Addressable extends Model
     use HasUuids;
 
     protected $fillable = [
-        'address_id', 'addressable_type', 'addressable_id'
+        'address_id', 'addressable_type', 'addressable_id',
     ];
 }

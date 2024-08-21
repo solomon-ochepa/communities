@@ -19,14 +19,13 @@ class Visit extends Model
      *
      * @var array
      */
-
     protected $fillable = ['active', 'visitor_id', 'reason', 'note', 'requested_by', 'approved_by', 'arrived_at', 'expired_at', 'checked_in_at', 'checked_out_at', 'visitable_type', 'visitable_id', 'status_code'];
 
     protected $casts = [
-        'arrived_at'    => 'datetime',
-        'expired_at'    => 'datetime',
+        'arrived_at' => 'datetime',
+        'expired_at' => 'datetime',
         'checked_in_at' => 'datetime',
-        'checked_out_at'    => 'datetime'
+        'checked_out_at' => 'datetime',
     ];
 
     public function visitable()

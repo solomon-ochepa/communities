@@ -21,20 +21,17 @@ class Checkpoint extends Model
      *
      * @var array
      */
-
     protected $fillable = ['active', 'name', 'slug', 'default'];
 
     /**
      * Return the sluggable configuration array for this model.
-     *
-     * @return array
      */
     public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'name'
-            ]
+                'source' => 'name',
+            ],
         ];
     }
 

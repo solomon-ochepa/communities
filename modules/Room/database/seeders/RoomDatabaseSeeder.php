@@ -3,7 +3,6 @@
 namespace Modules\Room\database\seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
 class RoomDatabaseSeeder extends Seeder
 {
