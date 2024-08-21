@@ -14,7 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('menus', function (Blueprint $table) {
-            $table->json('permissions')->after('priority')->nullable();
+            if (Schema::hasColumn($table->getTable(), 'permissions') === false) {
+                $table->json('permissions')->after('priority')->nullable();
+            }
         });
     }
 
@@ -26,7 +28,9 @@ return new class extends Migration
     public function down()
     {
         Schema::table('menus', function (Blueprint $table) {
-            $table->dropColumn(['permissions']);
+            if (Schema::hasColumn($table->getTable(), 'permissions')) {
+                $table->dropColumn(['permissions']);
+            }
         });
     }
 };

@@ -14,7 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('tenants', function (Blueprint $table) {
-            $table->softDeletes();
+            if (Schema::hasColumn($table->getTable(), 'deleted_at') === false) {
+                $table->softDeletes();
+            }
         });
     }
 
@@ -26,7 +28,9 @@ return new class extends Migration
     public function down()
     {
         Schema::table('tenants', function (Blueprint $table) {
-            $table->dropSoftDeletes();
+            if (Schema::hasColumn($table->getTable(), 'deleted_at')) {
+                $table->dropSoftDeletes();
+            }
         });
     }
 };
