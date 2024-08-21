@@ -27,5 +27,6 @@
     "AccessLog": true,
     "Gatepass": true,
     "Checkpoint": true,
-    "Estate": true
+    "Estate": true,
+    "Occupant": true
 }

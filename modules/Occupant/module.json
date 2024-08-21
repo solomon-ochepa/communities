@@ -1,0 +1,11 @@
+{
+    "name": "Occupant",
+    "alias": "occupant",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Occupant\\App\\Providers\\OccupantServiceProvider"
+    ],
+    "files": []
+}
